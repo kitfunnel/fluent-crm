@@ -3,6 +3,7 @@
 namespace FluentCrm\App\Http\Controllers;
 
 use FluentCrm\App\Models\Company;
+use FluentCrm\App\Services\Helper;
 use FluentCrm\App\Services\Libs\FileSystem;
 use FluentCrm\App\Services\Sanitize;
 use FluentCrm\Framework\Support\Arr;
@@ -173,6 +174,7 @@ class CsvController extends Controller
             ]);
         }
 
+
         $page = $this->request->get('importing_page', 1);
         $processPerRequest = 500;
         $offset = ($page - 1) * $processPerRequest;
@@ -182,6 +184,9 @@ class CsvController extends Controller
         $customFieldKeys = $this->customFieldKeys();
         $subscribers = [];
         $skipped = [];
+
+        $isCompanyEnabled = Helper::isCompanyEnabled();
+
         foreach ($records as $record) {
             if (!array_filter($record)) {
                 continue;
@@ -210,6 +215,29 @@ class CsvController extends Controller
             $subscriber['email'] = trim($subscriber['email']);
 
             if ($subscriber['email'] && is_email($subscriber['email'])) {
+
+                if (isset($subscriber['company_id']) && $subscriber['company_id'] && $isCompanyEnabled) {
+                    $companyNameOrId = $subscriber['company_id'];
+                    if (is_string($companyNameOrId)) {
+                        $company = Company::query()->firstOrCreate([
+                            'name' => $subscriber['company_id']
+                        ], [
+                            'name' => $subscriber['company_id']
+                        ]);
+
+                        if ($company) {
+                            $subscriber['company_id'] = $company->id;
+                        } else {
+                            unset($subscriber['company_id']);
+                        }
+                    } else {
+                        $company = Company::find($subscriber['company_id']);
+                        if (!$company) {
+                            unset($subscriber['company_id']);
+                        }
+                    }
+                }
+
                 $subscribers[] = Sanitize::contact($subscriber);
             } else {
                 $skipped[] = $subscriber;

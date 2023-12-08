@@ -501,13 +501,13 @@ class AdminMenu
 
     public function loadCssJs()
     {
+        wp_enqueue_script('fluentcrm_global_admin.js', fluentCrmMix('admin/js/global_admin.js'), array('jquery', 'lodash'), $this->version);
+
         $app = FluentCrm();
 
         $this->emailBuilderBlockInit();
 
-        wp_enqueue_script('fluentcrm_admin_app_boot', fluentCrmMix('admin/js/boot.js'), array('jquery', 'moment'), $this->version);
-
-        wp_enqueue_script('fluentcrm_global_admin.js', fluentCrmMix('admin/js/global_admin.js'), array('jquery'), $this->version);
+        wp_enqueue_script('fluentcrm_admin_app_boot', fluentCrmMix('admin/js/boot.js'), array('moment'), $this->version);
 
         /**
          * Action Hook when global admin scripts are loaded
@@ -518,8 +518,19 @@ class AdminMenu
             wp_enqueue_script('fluentcrm-contact_navigations', fluentCrmMix('admin/js/contact-navigations.js'), [], FLUENTCRM_PLUGIN_VERSION, true);
             add_action('admin_footer', function () {
                 echo '<div ref="fluent_contact_nav" id="fluent_contact_nav"><fluent-contact-nav v-if="appReady" @prev="goPrev()" @next="goNext()" :subscriber="subscriber"></fluent-contact-nav></div>';
-            });
+            }, 99999);
         }
+
+        add_action('admin_footer', function () {
+            ?>
+            <script>
+                if (_ && _.noConflict) {
+                    _.noConflict();
+                    console.log('noConflict lodash');
+                }
+            </script>
+            <?php
+        }, 99999);
 
         $this->loadCss();
 
@@ -877,8 +888,8 @@ class AdminMenu
                     ],
                     'text'             => true
                 ],
-                'spacing' => $coreExperimentalSpacing,
-                'typography' => $wordpressCoreTypography,
+                'spacing'         => $coreExperimentalSpacing,
+                'typography'      => $wordpressCoreTypography,
                 'blocks'          => [
                     'core/button' => [
                         'border'     => [

@@ -1015,9 +1015,11 @@ class ExternalPages
             FLUENTCRM_PLUGIN_VERSION
         );
 
+        $complianceSettings = Helper::getComplianceSettings();
+
         wp_localize_script('fluentcrm_public_pref', 'fluentcrm_public_pref', [
             'ajaxurl'          => admin_url('admin-ajax.php'),
-            'auto_unsubscribe' => apply_filters('fluent_crm/will_auto_unsubscribe', 'no')
+            'auto_unsubscribe' => apply_filters('fluent_crm/will_auto_unsubscribe', Arr::get($complianceSettings, 'one_click_unsubscribe', 'no'))
         ]);
     }
 

@@ -880,6 +880,11 @@ class Subscriber extends Model
                     }
                 }
 
+
+                if (!empty($insertable['company_id']) && Helper::isCompanyEnabled()) {
+                    $insertedModel->attachCompanies([$insertable['company_id']]);
+                }
+
                 /*
                  * @deprecated since 2.8.0. Use fluent_crm/contact_created instead
                  */
@@ -901,6 +906,10 @@ class Subscriber extends Model
 
                 if ($updateData) {
                     $existingModel->save();
+
+                    if (!empty($updateable['company_id']) && Helper::isCompanyEnabled()) {
+                        $existingModel->attachCompanies([$updateable['company_id']]);
+                    }
 
                     if (!empty($updateable['status']) && $updateable['status'] != $oldStatus) {
                         $newStatus = $updateable['status'];

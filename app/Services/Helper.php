@@ -1430,7 +1430,8 @@ class Helper
         $defaults = [
             'anonymize_ip'           => 'no',
             'delete_contact_on_user' => 'no',
-            'personal_data_export'   => 'yes'
+            'personal_data_export'   => 'yes',
+            'one_click_unsubscribe' => 'no'
         ];
 
         $settings = get_option('_fluentcrm_compliance_settings', []);
