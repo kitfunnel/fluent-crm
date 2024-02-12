@@ -19,7 +19,7 @@ defined('ABSPATH') || exit;
  */
 final class Extender
 {
-    public function addProfileSection($key, $sectionTitle, $callback)
+    public function addProfileSection($key, $sectionTitle, $callback, $saveCallback = null)
     {
         add_filter('fluentcrm_profile_sections', function ($sections) use ($key, $sectionTitle) {
             $sections[$key] = [
@@ -39,6 +39,15 @@ final class Extender
             }
             return $content;
         }, 10, 2);
+
+        if ($saveCallback) {
+            add_filter('fluencrm_profile_section_save_' . $key, function ($response, $data, $subscriber) use ($saveCallback) {
+                if (is_callable($saveCallback)) {
+                    return $saveCallback($response, $data, $subscriber);
+                }
+                return $response;
+            }, 10, 3);
+        }
     }
 
     public function addSmartCode($key, $title, $shortcodes, $callback)

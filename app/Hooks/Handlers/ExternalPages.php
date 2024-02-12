@@ -2,8 +2,10 @@
 
 namespace FluentCrm\App\Hooks\Handlers;
 
+use FluentCrm\App\Models\Campaign;
 use FluentCrm\App\Models\CampaignUrlMetric;
 use FluentCrm\App\Models\CampaignEmail;
+use FluentCrm\App\Models\Meta;
 use FluentCrm\App\Models\Subscriber;
 use FluentCrm\App\Models\SubscriberNote;
 use FluentCrm\App\Models\Webhook;
@@ -58,8 +60,8 @@ class ExternalPages
         if (!isset($_GET['fluentcrm'])) {
             return false;
         }
-
         if ($route = $this->getRoute()) {
+            do_action('litespeed_control_set_nocache', 'nocache due to fluentcrm dynamic data');
             $this->{$route}();
         }
     }
@@ -69,7 +71,7 @@ class ExternalPages
         $provider = sanitize_text_field($this->request->get('provider'));
 
         if ($provider == 'ses') {
-            $this->bounceHandlerSES();;
+            $this->bounceHandlerSES();
         }
     }
 
@@ -81,9 +83,9 @@ class ExternalPages
 
         if ($verifyKey != $sesBounceKey) {
             wp_send_json([
-                'status'  => 423,
+                'status'  => 422,
                 'message' => __('verify_key verification failed', 'fluent-crm')
-            ], 423);
+            ], 422);
         }
 
         $postdata = \file_get_contents('php://input');
@@ -93,7 +95,7 @@ class ExternalPages
             wp_send_json([
                 'status'  => 423,
                 'message' => __('failed', 'fluent-crm')
-            ], 423);
+            ], 422);
         }
 
         $postdata = \json_decode($postdata, true);
@@ -247,21 +249,43 @@ class ExternalPages
         nocache_headers();
 
         $campaignEmailId = $this->request->get('ce_id');
+        $managedSecureHash = $this->request->get('secure_hash');
+        $subscriber = null;
 
-        $secureHash = $this->request->get('secure_hash');
-
-        if ($secureHash) {
-            $subscriber = fluentCrmApi('contacts')->getContactBySecureHash($secureHash);
-        } else {
-            $subscriber = null;
+        if ($managedSecureHash) {
+            $subscriber = fluentCrmApi('contacts')->getContactByManagedSecureHash($managedSecureHash);
         }
 
+        /*
+         * @todo: Remove this at march 2024
+         */
         if (!$subscriber) {
-            $subscriber = FluentCrmApi('contacts')->getCurrentContact();
-            if ($subscriber) {
-                $campaignEmailId = null;
-                $secureHash = $subscriber->getSecureHash();
+            $subscriber = fluentCrmApi('contacts')->getContactBySecureHash($this->request->get('secure_hash'));
+        }
+
+        // check if this is a POST request
+        if ($this->request->method() == 'POST') {
+            // This is List-Unsubscribe request
+            if ($subscriber && $subscriber->status != 'unsubscribed') {
+                $oldStatus = $subscriber->status;
+                $subscriber->status = 'unsubscribed';
+                $subscriber->save();
+                do_action('fluentcrm_subscriber_status_to_unsubscribed', $subscriber, $oldStatus);
+                fluentcrm_update_subscriber_meta($subscriber->id, 'unsubscribe_reason', 'Unsubscribe From List Header');
+                $campaignEmail = CampaignEmail::find($campaignEmailId);
+                if ($campaignEmail) {
+                    CampaignUrlMetric::maybeInsert([
+                        'campaign_id'   => $campaignEmail->campaign_id,
+                        'subscriber_id' => $campaignEmail->subscriber_id,
+                        'type'          => 'unsubscribe'
+                    ]);
+                }
             }
+
+            wp_send_json_success([
+                'message' => __('You are successfully unsubscribed from the email list', 'fluent-crm')
+            ], 200);
+            return;
         }
 
         if (!$subscriber) {
@@ -269,16 +293,14 @@ class ExternalPages
             return;
         }
 
-        if ($secureHash) {
-            setcookie("fc_hash_secure", $secureHash, time() + 7776000, COOKIEPATH, COOKIE_DOMAIN);  /* expire in 90 days */
-        }
+        setcookie("fc_hash_secure", $subscriber->getSecureHash(), time() + 7776000, COOKIEPATH, COOKIE_DOMAIN);  /* expire in 90 days */
 
         if ($campaignEmailId) {
             $campaignEmailId = (int)$campaignEmailId;
             $campaignEmail = CampaignEmail::where('id', $campaignEmailId)->first();
             if (!$campaignEmail || !$subscriber || $campaignEmail->subscriber_id != $subscriber->id) {
-                echo __('Sorry! This is not a valid unsubscribe url', 'fluent-crm');
-                wp_die();
+                $this->unsubscribeRequestForm();
+                return;
             }
         } else {
             $campaignEmail = (object)[
@@ -309,7 +331,7 @@ class ExternalPages
             'abs_hash'       => $absEmailHash,
             'combined_hash'  => md5($subscriber->email . $absEmail),
             'reasons'        => $this->unsubscribeReasons(),
-            'secure_hash'    => $secureHash,
+            'secure_hash'    => fluentCrmGetContactManagedHash($subscriber->id),
             'texts'          => $texts
         ];
 
@@ -335,9 +357,24 @@ class ExternalPages
         }, 1);
     }
 
+    public function manageSubscriptionRequestForm()
+    {
+        do_action('fluent_crm/doing_unsubscribe_request_form');
+
+        $businessSettings = fluentcrmGetGlobalSettings('business_settings', []);
+        $this->loadAssets();
+        $data = [
+            'business' => $businessSettings,
+        ];
+
+        add_action('wp_loaded', function () use ($data) {
+            fluentCrm('view')->render('external.manage_subscription_request_form', $data);
+            exit();
+        }, 1);
+    }
+
     public function handleUnsubscribeRequestAjax()
     {
-
         $email = Arr::get($_REQUEST, 'email');
 
         if (!$email || !is_email($email)) {
@@ -366,7 +403,7 @@ class ExternalPages
             'unsubscribe_url' => add_query_arg(array_filter([
                 'fluentcrm'   => 1,
                 'route'       => 'unsubscribe',
-                'secure_hash' => fluentCrmGetContactSecureHash($subscriber->id)
+                'secure_hash' => fluentCrmGetContactManagedHash($subscriber->id)
             ]), site_url('/')),
             'subscriber'      => $subscriber
         ];
@@ -386,6 +423,55 @@ class ExternalPages
 
         wp_send_json_success([
             'message' => __("We've sent an email to your inbox that contains a link to unsubscribe from our mailing list. Please check your email address and unsubscribe.", 'fluent-crm')
+        ]);
+    }
+
+    public function handleManageSubRequestAjax()
+    {
+
+        $email = Arr::get($_REQUEST, 'email');
+
+        if (!$email || !is_email($email)) {
+            wp_send_json_error([
+                'message' => __('Please provide a valid email address', 'fluent-crm')
+            ], 422);
+        }
+
+        $subscriber = Subscriber::where('email', $email)->first();
+
+        if (!$subscriber) {
+            wp_send_json_error([
+                'message' => __('Sorry! We could not verify your email address', 'fluent-crm')
+            ], 422);
+        }
+
+        // Let's send unsubscribe email with link
+        $data = [
+            'business'                => fluentcrmGetGlobalSettings('business_settings', []),
+            'manage_subscription_url' => add_query_arg(array_filter([
+                'fluentcrm'   => 1,
+                'route'       => 'manage_subscription',
+                'ce_id'       => $subscriber->id,
+                'secure_hash' => fluentCrmGetContactManagedHash($subscriber->id)
+            ]), site_url('/')),
+            'subscriber'              => $subscriber
+        ];
+
+        $emailBody = (string)fluentCrm('view')->make('external.manage_sub_request_email', $data);
+        $emailSubject = __('Your Email preferences URL', 'fluent-crm');
+
+        do_action('fluent_crm/before_manage_sub_request_email', $subscriber, $data);
+
+        Mailer::send([
+            'to'      => [
+                'email' => $subscriber->email,
+            ],
+            'subject' => $emailSubject,
+            'body'    => $emailBody
+        ]);
+
+        wp_send_json_success([
+            'message' => __("We've sent an email to your inbox that contains a link to email management from. Please check your email address to get the link.", 'fluent-crm')
         ]);
     }
 
@@ -409,16 +495,16 @@ class ExternalPages
         $request = FluentCrm('request');
         $data = $request->all();
 
+        $subscriber = null;
+
         if ($secureHash = $request->get('secure_hash')) {
-            $subscriber = fluentCrmApi('contacts')->getContactBySecureHash($secureHash);
-        } else {
-            $subscriber = Subscriber::where('hash', $data['sub_hash'])->first();
+            $subscriber = fluentCrmApi('contacts')->getContactByManagedSecureHash($secureHash);
         }
 
         if (!$subscriber) {
             wp_send_json_error([
                 'message' => __('Sorry, No email found based on your data', 'fluent-crm')
-            ], 423);
+            ], 422);
         }
 
         $oldStatus = $subscriber->status;
@@ -498,7 +584,7 @@ class ExternalPages
     {
         $mailHash = sanitize_text_field($this->request->get('_e_hash'));
 
-        $emailId = (int) $this->request->get('_e_id');
+        $emailId = (int)$this->request->get('_e_id');
 
         if ($emailId) {
             $email = CampaignEmail::where('id', $emailId)->first();
@@ -531,10 +617,10 @@ class ExternalPages
 
         //turn off gzip compression
         if (function_exists('apache_setenv')) {
-            apache_setenv('no-gzip', 1);
+            @apache_setenv('no-gzip', 1);
         }
 
-        ini_set('zlib.output_compression', '0');
+        @ini_set('zlib.output_compression', 'Off');
 
         // we are sending 1x1 pixel transparent gif image
         header('Content-Encoding: none');
@@ -656,7 +742,7 @@ class ExternalPages
             wp_send_json_error([
                 'message' => __('Webhook must need to be as POST Method', 'fluent-crm'),
                 'type'    => 'invalid_request_method'
-            ], 200);;
+            ], 200);
         }
 
         $postData = $this->request->get();
@@ -814,32 +900,39 @@ class ExternalPages
 
     public function manageSubscription()
     {
-
         $contactId = (int)$_GET['ce_id'];
-
         $subscriber = false;
 
-        $secureHash = sanitize_text_field(Arr::get($_REQUEST, 'secure_hash'));
+        $managedSecureHash = sanitize_text_field(Arr::get($_REQUEST, 'secure_hash'));
 
-        if ($secureHash) {
-            $subscriber = fluentCrmApi('contacts')->getContactBySecureHash($secureHash);
+        if ($managedSecureHash) {
+            $subscriber = fluentCrmApi('contacts')->getContactByManagedSecureHash($managedSecureHash);
+
+            /*
+             * remove this at march 2024
+             */
+            if (!$subscriber) {
+                $subscriber = fluentCrmApi('contacts')->getContactBySecureHash($managedSecureHash);
+            }
+
             if ($subscriber && $subscriber->id != $contactId) {
                 return;
             }
         }
 
         if (!$subscriber) {
+            $this->manageSubscriptionRequestForm();
             return;
         }
 
         $this->loadAssets();
 
-        add_action('wp_loaded', function () use ($subscriber, $secureHash) {
-            echo $this->getManageSubscriptionHtml($subscriber, $secureHash); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        $managedSecureHash = fluentCrmGetContactManagedHash($subscriber->id);
+        add_action('wp_loaded', function () use ($subscriber, $managedSecureHash) {
+            echo $this->getManageSubscriptionHtml($subscriber, $managedSecureHash); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
             exit();
         }, 1);
     }
-
 
     public function getManageSubscriptionHtml($subscriber, $secureHash = '')
     {
@@ -881,22 +974,16 @@ class ExternalPages
         $email = Arr::get($_REQUEST, 'email');
         $originalHash = Arr::get($_REQUEST, '_original_hash');
 
+        $subscriber = null;
         if ($secureHash) {
-            $secureContact = fluentCrmApi('contacts')->getContactBySecureHash($secureHash);
-            if (!$secureContact) {
-                wp_send_json_error([
-                    'message' => __('Sorry! No subscriber found in the database', 'fluent-crm')
-                ], 423);
-            }
-            $subscriber = Subscriber::with('lists')->where('id', $secureContact->id)->first();
-        } else {
-            $subscriber = Subscriber::with('lists')->where('hash', $originalHash)->first();
+            $subscriber = fluentCrmApi('contacts')->getContactByManagedSecureHash($secureHash);
         }
 
         if (!$subscriber) {
             wp_send_json_error([
                 'message' => __('Sorry! No subscriber found in the database', 'fluent-crm')
-            ], 423);
+            ], 422);
+            return;
         }
 
         $addedLists = [];
@@ -920,7 +1007,7 @@ class ExternalPages
             if (!is_email($email)) {
                 wp_send_json_error([
                     'message' => __('Email is not valid. Please provide a valid email', 'fluent-crm')
-                ], 423);
+                ], 422);
             }
 
             // Check if unique
@@ -928,7 +1015,7 @@ class ExternalPages
             if ($exist) {
                 wp_send_json_error([
                     'message' => __('The new email has been used to another account. Please use a new email address', 'fluent-crm')
-                ], 423);
+                ], 422);
             }
 
             $subscriber->status = 'pending';
@@ -948,6 +1035,7 @@ class ExternalPages
             wp_send_json_success([
                 'message' => sprintf(__('A confirmation email has been sent to %s. Please confirm your email address to resubscribe with changed email address', 'fluent-crm'), $email)
             ], 200);
+            return;
         }
 
         // Just update the info
@@ -1067,10 +1155,22 @@ class ExternalPages
 
     public function handlePreviewEmail()
     {
+
+        nocache_headers();
+
         $emailHash = sanitize_text_field(Arr::get($_REQUEST, '_e_hash'));
 
-        $email = CampaignEmail::where('email_hash', $emailHash)->with(['campaign', 'subscriber'])->first();
+        if (!$emailHash) {
+            // Maybe it's the Campaign Share Email
+            $newsLetterShareId = sanitize_text_field(Arr::get($_REQUEST, 'fc_newsletter'));
 
+            if ($newsLetterShareId) {
+                $this->showNewesLetterView($newsLetterShareId);
+                return;
+            }
+        }
+
+        $email = CampaignEmail::where('email_hash', $emailHash)->with(['campaign', 'subscriber'])->first();
 
         $businessSettings = fluentcrmGetGlobalSettings('business_settings', []);
 
@@ -1078,6 +1178,7 @@ class ExternalPages
             fluentCrm('view')->render('external.view_on_browser', [
                 'business'      => $businessSettings,
                 'email_heading' => '',
+                'email'         => null,
                 'email_body'    => '<h2 style=\'text-align: center; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif\'>Sorry, web preview could not be loaded</h2>',
                 'cssAssets'     => [
                     FLUENTCRM_PLUGIN_URL . 'assets/public/public_pref.css?version=' . FLUENTCRM_PLUGIN_VERSION
@@ -1093,7 +1194,6 @@ class ExternalPages
             $templateConfig = Helper::getTemplateConfig('', false);
         }
 
-
         $rawTemplates = [
             'raw_html',
             'visual_builder'
@@ -1105,13 +1205,13 @@ class ExternalPages
             $emailBody = (new BlockParser($email->subscriber))->parse($email->campaign->email_body);
         }
 
-
         /**
          * Email Footer Text For WebUI
          * @param string $footerText
          * @param CampaignEmail $email
          */
         $footerText = Helper::getEmailFooterContent($email->campaign);
+
         $footerText = apply_filters('fluent_crm/web_email_footer_text', $footerText, $email);
 
         $emailSubject = $email->email_subject;
@@ -1128,13 +1228,12 @@ class ExternalPages
         $templateData = [
             'preHeader'   => $preHeader,
             'email_body'  => $emailBody,
-            'footer_text' => '',
+            'footer_text' => $footerText,
             'config'      => $templateConfig
         ];
 
         if ($email->campaign->design_template == 'visual_builder' || $email->campaign->design_template == 'raw_html') {
             $content = $emailBody;
-
             if ($email->campaign->design_template == 'visual_builder') {
                 $content = apply_filters('fluent_crm/email-design-template-visual_builder',
                     $content,
@@ -1142,8 +1241,6 @@ class ExternalPages
                     $email->campaign,
                     $email->subscriber
                 );
-
-                $content = str_replace('https://fonts.googleapis.com/css2', 'https://fonts.bunny.net/css', $content);
             }
 
             $footerText = '';
@@ -1156,7 +1253,6 @@ class ExternalPages
             );
         }
 
-
         if (strpos($content, '{{crm') || strpos($content, '##crm')) {
             $content = str_replace(['{{crm_global_email_footer}}', '{{crm_preheader_text}}'], ['', $preHeader], $content);
             if (strpos($content, '##crm.') || strpos($content, '{{crm.')) {
@@ -1165,16 +1261,34 @@ class ExternalPages
             }
         }
 
+        $content = str_replace('https://fonts.googleapis.com/css2', 'https://fonts.bunny.net/css', $content);
+
+        $content = apply_filters(
+            'fluent_crm/email-design-template-' . $email->campaign->design_template,
+            $content,
+            $templateData,
+            $email->campaign,
+            $subscriber
+        );
+
+        $preViewUrl = site_url('?fluentcrm=1&route=email_preview&_e_hash=' . $email->email_hash);
+        $content = str_replace(['##web_preview_url##', '{{crm_global_email_footer}}', '{{crm_preheader_text}}'], [$preViewUrl, $footerText, $preHeader], $content);
+
+        if (strpos($content, '##crm.') || strpos($content, '{{crm.')) {
+            // we have CRM specific smartcodes
+            $content = apply_filters('fluent_crm/parse_extended_crm_text', $content, $subscriber);
+        }
 
         $data = [
             'business'      => $businessSettings,
             'email_heading' => $emailSubject,
             'email'         => $email,
-            'email_body'    => $content,
+            'email_body'    => [
+                'rendered' => $content
+            ],
             'cssAssets'     => [
                 FLUENTCRM_PLUGIN_URL . 'assets/public/public_pref.css?version=' . FLUENTCRM_PLUGIN_VERSION
-            ],
-            'footer_text'   => $footerText
+            ]
         ];
 
         $data = apply_filters('fluent_crm/email_view_on_browser_data', $data, $email);
@@ -1182,4 +1296,109 @@ class ExternalPages
         fluentCrm('view')->render('external.view_on_browser', $data);
         exit();
     }
+
+    public function showNewesLetterView($nsHash)
+    {
+        nocache_headers();
+        $meta = Meta::where('object_type', 'FluentCrm\App\Models\Campaign')
+            ->where('key', '_campaign_share_id')
+            ->where('value', $nsHash)
+            ->first();
+
+
+        $businessSettings = fluentcrmGetGlobalSettings('business_settings', []);
+
+        $campaign = null;
+
+        if ($meta) {
+            $campaign = Campaign::withoutGlobalScope('type')->find($meta->object_id);
+        }
+
+        if (!$campaign) {
+            fluentCrm('view')->render('external.view_on_browser', [
+                'business'      => $businessSettings,
+                'email_heading' => '',
+                'email'         => null,
+                'email_body'    => '<h2 style=\'text-align: center; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif\'>Sorry, web preview could not be loaded</h2>',
+                'cssAssets'     => [
+                    FLUENTCRM_PLUGIN_URL . 'assets/public/public_pref.css?version=' . FLUENTCRM_PLUGIN_VERSION
+                ],
+                'footer_text'   => ''
+            ]);
+            exit();
+        }
+
+        $emailBody = fluentcrm_get_campaign_meta($campaign->id, '_cached_email_body', true);
+
+        if (!$emailBody) {
+            // Let's generate the email body
+            $rawTemplates = [
+                'raw_html',
+                'visual_builder'
+            ];
+
+            if (in_array($campaign->design_template, $rawTemplates)) {
+                $emailBody = $campaign->email_body;
+            } else {
+                $emailBody = (new BlockParser(fluentcrm_get_current_contact()))->parse($campaign->email_body);
+            }
+        }
+
+        $emailSubject = $campaign->subject;
+
+
+        $subscriber = fluentcrm_get_current_contact();
+
+        $emailSubject = apply_filters('fluent_crm/parse_campaign_email_text', $emailSubject, $subscriber);
+        $emailBody = apply_filters('fluent_crm/parse_campaign_email_text', $emailBody, $subscriber);
+
+        $templateConfig = wp_parse_args($campaign->settings['template_config'], Helper::getTemplateConfig($campaign->design_template, false));
+
+        $templateData = [
+            'preHeader'   => '',
+            'email_body'  => $emailBody,
+            'footer_text' => '',
+            'config'      => $templateConfig
+        ];
+
+
+        if ($campaign->design_template == 'visual_builder' || $campaign->design_template == 'raw_html') {
+            $content = $emailBody;
+            if ($campaign->design_template == 'visual_builder') {
+                $content = apply_filters('fluent_crm/email-design-template-visual_builder',
+                    $content,
+                    $templateData,
+                    $campaign,
+                    $subscriber
+                );
+            }
+        } else {
+            $content = apply_filters('fluent_crm/email-design-template-' . $campaign->design_template,
+                $emailBody,
+                $templateData,
+                $campaign,
+                $subscriber
+            );
+        }
+
+        $content = str_replace('https://fonts.googleapis.com/css2', 'https://fonts.bunny.net/css', $content);
+
+        $data = [
+            'business'      => $businessSettings,
+            'email_heading' => $emailSubject,
+            'email'         => null,
+            'email_body'    => [
+                'rendered' => $content
+            ],
+            'cssAssets'     => [
+                FLUENTCRM_PLUGIN_URL . 'assets/public/public_pref.css?version=' . FLUENTCRM_PLUGIN_VERSION
+            ]
+        ];
+
+        $data = apply_filters('fluent_crm/email_newsletter_data', $data);
+
+        fluentCrm('view')->render('external.view_on_browser', $data);
+        exit();
+    }
+
 }

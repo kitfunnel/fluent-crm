@@ -37,6 +37,8 @@ class Funnel extends Model
 
     public static function boot()
     {
+        parent::boot();
+
         static::creating(function ($model) {
             $model->type = self::$type;
         });

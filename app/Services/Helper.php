@@ -4,6 +4,7 @@ namespace FluentCrm\App\Services;
 
 use FluentCrm\App\Models\Lists;
 use FluentCrm\App\Models\Subscriber;
+use FluentCrm\App\Models\SystemLog;
 use FluentCrm\App\Models\UrlStores;
 use FluentCrm\App\Models\Webhook;
 use FluentCrm\Framework\Support\Arr;
@@ -40,10 +41,16 @@ class Helper
 
     public static function attachUrls($html, $campaignUrls, $insertId, $hash = false)
     {
+        $hasSmartUrl = strpos($html, 'smart_url') !== false;
+
         foreach ($campaignUrls as $src => $url) {
             $url .= '&mid=' . $insertId;
             if ($hash) {
                 $url .= '&fch=' . substr($hash, 0, 8);
+            }
+
+            if ($hasSmartUrl && strpos($src, 'smart_url') !== false) {
+                $url .= '&signed_hash=' . rawurlencode(wp_hash_password($hash));
             }
 
             $campaignUrls[$src] = 'href="' . $url . '"';
@@ -70,7 +77,7 @@ class Helper
             'fluentcrm' => 1,
             'route'     => 'open',
             '_e_hash'   => $hash,
-            '_e_id' => $emailId
+            '_e_id'     => $emailId
         ], self::getSiteUrl());
         $trackPixelHtml = '<img src="' . esc_url($trackImageUrl) . '" alt="" />';
 
@@ -248,6 +255,7 @@ class Helper
     {
         $defaultDesignConfig = [
             'content_width'         => 700,
+            'content_padding'       => 20,
             'headings_font_family'  => "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
             'text_color'            => '#202020',
             'link_color'            => '',
@@ -353,6 +361,7 @@ class Helper
         return [
             'fluentcampaign'       => defined('FLUENTCAMPAIGN_FRAMEWORK_VERSION'),
             'company_module'       => self::isCompanyEnabled(),
+            'event_tracking'       => self::isExperimentalEnabled('event_tracking'),
             'email_open_tracking'  => !apply_filters('fluentcrm_disable_email_open_tracking', false),
             'email_click_tracking' => apply_filters('fluent_crm/track_click', true),
         ];
@@ -803,13 +812,15 @@ class Helper
         /*
          * @deprecated fluencrm_disable_check_compliance_string since 2.8.33
          * please use fluent_crm/disable_check_compliance_string instead
+         * this snippet checks if the email has any compliance text
+         * the filter can be used to disable the check such as if filter returns true then it will not check the compliance text
          */
 
-        $result  = apply_filters_deprecated('fluencrm_disable_check_compliance_string', [false, $text], '2.8.33', 'fluent_crm/disable_check_compliance_string');
+        $result = apply_filters_deprecated('fluencrm_disable_check_compliance_string', [false, $text], '2.8.33', 'fluent_crm/disable_check_compliance_string');
         $result = apply_filters('fluent_crm/disable_check_compliance_string', $result, $text);
 
         if ($result) {
-            return false;
+            return true; // directly return true if the filter returns true, would be better if we could return the $result of the filter
         }
 
         $lookUpTexts = [
@@ -1078,7 +1089,7 @@ class Helper
             ]
         ];
 
-        if (Helper::isCompanyEnabled()) {
+        if (self::isCompanyEnabled()) {
             $groups['segment']['children'][] = [
                 'label'              => __('Company', 'fluent-crm'),
                 'value'              => 'companies',
@@ -1416,9 +1427,7 @@ class Helper
                     ],
                 ];
             }
-
         }
-
 
         $groups = apply_filters('fluentcrm_advanced_filter_options', $groups);
 
@@ -1431,7 +1440,7 @@ class Helper
             'anonymize_ip'           => 'no',
             'delete_contact_on_user' => 'no',
             'personal_data_export'   => 'yes',
-            'one_click_unsubscribe' => 'no'
+            'one_click_unsubscribe'  => 'no'
         ];
 
         $settings = get_option('_fluentcrm_compliance_settings', []);
@@ -1458,7 +1467,7 @@ class Helper
         }
 
         $defaults = [
-            'quick_contact_navigation' => 'no',
+            'quick_contact_navigation' => 'yes',
             'campaign_archive'         => 'no',
             'campaign_group_by_month'  => 'no',
             'campaign_search'          => '',
@@ -1467,7 +1476,10 @@ class Helper
             'full_navigation'          => 'no',
             'company_module'           => 'no',
             'company_auto_logo'        => 'no',
-            'disable_visual_ai'         => 'no'
+            'disable_visual_ai'        => 'no',
+            'multi_threading_emails'   => 'no',
+            'system_logs'              => 'no',
+            'event_tracking'           => 'no'
         ];
 
         $settings = get_option('_fluentcrm_experimental_settings', []);
@@ -1480,6 +1492,23 @@ class Helper
         $settings = wp_parse_args($settings, $defaults);
 
         return $settings;
+    }
+
+    public static function willMultiThreadEmail($minPendingLimit = 300)
+    {
+        if (!self::isExperimentalEnabled('multi_threading_emails')) {
+            return false;
+        }
+
+        $rowcount = self::getUpcomingEmailCount();
+
+        return $rowcount >= $minPendingLimit;
+    }
+
+    public static function getUpcomingEmailCount()
+    {
+        global $wpdb;
+        return $wpdb->get_var("SELECT count(*) as aggregate FROM `{$wpdb->prefix}fc_campaign_emails` WHERE `status` IN ('pending', 'scheduled') AND `scheduled_at` <= '" . current_time('mysql') . "'");
     }
 
     public static function sanitizeHtml($html)
@@ -1774,4 +1803,79 @@ class Helper
         return $data;
     }
 
+    public static function getNoteSyncFields()
+    {
+        $fields = array(
+            'type'        => array(
+                'type'    => 'input-option',
+                'label'   => __('Type', 'fluent-crm'),
+                'id'      => 'fc_note_type',
+                'name'    => 'type',
+                'options' => fluentcrm_activity_types()
+            ),
+            'created_at'  => array(
+                'type'         => 'input-date',
+                'data_type'    => 'datetime',
+                'name'         => 'created_at',
+                'label'        => __('Date Time', 'fluent-crm'),
+                'id'           => 'fc_note_title',
+                'value_format' => 'yyyy-MM-dd HH:mm:ss',
+                'help'         => __('keep blank for current time', 'fluent-crm')
+            ),
+            'title'       => array(
+                'type'        => 'input-text',
+                'name'        => 'title',
+                'label'       => __('Title', 'fluent-crm'),
+                'id'          => 'fc_note_title',
+                'placeholder' => __('Your Note Title', 'fluent-crm')
+            ),
+            'description' => array(
+                'type'  => 'wp-editor',
+                'name'  => 'description',
+                'label' => __('Description', 'fluent-crm'),
+                'id'    => 'fc_note_desc'
+            ),
+        );
+
+        return apply_filters('fluent_crm/contact_note_fields', $fields);
+    }
+
+    public static function debugLog($title, $description = '', $type = 'info')
+    {
+        static $isEnabled = null;
+
+        if ($isEnabled === null) {
+            $isEnabled = (defined('FLUENT_CRM_DEBUG_LOG') && FLUENT_CRM_DEBUG_LOG) || self::isExperimentalEnabled('system_logs');
+        }
+
+        if (!$isEnabled) {
+            return null;
+        }
+
+        if (!is_string($description)) {
+            $description = json_encode($description);
+        }
+
+        return SystemLog::create([
+            'title'       => sanitize_text_field($title),
+            'description' => wp_kses_post($description)
+        ]);
+    }
+
+    public static function getNextMinuteTaskTimeStamp()
+    {
+        $lastRunAt = fluentCrmGetOptionCache('_fcrm_last_scheduler');
+
+        if ($lastRunAt) {
+            $nextRun = $lastRunAt + 60;
+        } else {
+            $nextRun = as_next_scheduled_action('fluentcrm_scheduled_every_minute_tasks');
+        }
+
+        if ($nextRun === true || !$nextRun) {
+            $nextRun = time() + 60;
+        }
+
+        return $nextRun;
+    }
 }

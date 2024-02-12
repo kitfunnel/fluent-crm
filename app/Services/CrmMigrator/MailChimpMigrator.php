@@ -80,7 +80,7 @@ class MailChimpMigrator extends BaseMigrator
         $settings = Arr::get($postedData, 'map_settings', []);
 
         if (!empty($settings['list_id'])) {
-            $tags = $api->get('lists/' . $settings['list_id'] . '/tag-search');
+            $tags = $api->get('lists/' . $settings['list_id'] . '/tag-search?count=9999');
             $formattedTags = [];
 
             foreach ($tags['tags'] as $tag) {

@@ -50,18 +50,27 @@ class TemplateController extends Controller
             $footerSettings = get_post_meta($template->ID, '_footer_settings', true);
         }
 
-        if(!$footerSettings) {
+        if(!$footerSettings || !is_array($footerSettings)) {
             $footerSettings = [
                 'custom_footer' => 'no',
                 'footer_content' => ''
             ];
         }
 
-
         if ($template) {
             $editType = get_post_meta($template->ID, '_edit_type', true);
             if (!$editType) {
                 $editType = 'html';
+            }
+
+            $templateConfig = get_post_meta($template->ID, '_template_config', true);
+
+            if(!$templateConfig || !is_array($templateConfig)) {
+                $templateConfig = [];
+            }
+
+            if (!isset($templateConfig['content_padding'])) {
+                $templateConfig['content_padding'] = 20;
             }
 
             $templateData = [
@@ -72,7 +81,7 @@ class TemplateController extends Controller
                 'edit_type'       => $editType,
                 'design_template' => get_post_meta($template->ID, '_design_template', true),
                 'settings'        => [
-                    'template_config' => get_post_meta($template->ID, '_template_config', true),
+                    'template_config' => $templateConfig,
                     'footer_settings' => $footerSettings
                 ]
             ];
@@ -142,8 +151,8 @@ class TemplateController extends Controller
 
         update_post_meta($templateId, '_email_subject', Arr::get($templateData, 'email_subject'));
         update_post_meta($templateId, '_edit_type', Arr::get($templateData, 'edit_type'));
-        update_post_meta($templateId, '_template_config', Arr::get($templateData, 'settings.template_config'));
-        update_post_meta($templateId, '_footer_settings', Arr::get($templateData, 'settings.footer_settings'));
+        update_post_meta($templateId, '_template_config', Arr::get($templateData, 'settings.template_config', []));
+        update_post_meta($templateId, '_footer_settings', Arr::get($templateData, 'settings.footer_settings', []));
         update_post_meta($templateId, '_design_template', $designTemplate);
 
         do_action('fluent_crm/email_template_created', $templateId, $templateData);
@@ -224,8 +233,8 @@ class TemplateController extends Controller
         update_post_meta($id, '_email_subject', Arr::get($templateData, 'email_subject'));
         update_post_meta($id, '_edit_type', Arr::get($templateData, 'edit_type'));
         update_post_meta($id, '_design_template', Arr::get($templateData, 'design_template'));
-        update_post_meta($id, '_template_config', Arr::get($templateData, 'settings.template_config'));
-        update_post_meta($id, '_footer_settings', Arr::get($templateData, 'settings.footer_settings'));
+        update_post_meta($id, '_template_config', Arr::get($templateData, 'settings.template_config', []));
+        update_post_meta($id, '_footer_settings', Arr::get($templateData, 'settings.footer_settings', []));
 
         $template = Template::findOrFail($id);
 

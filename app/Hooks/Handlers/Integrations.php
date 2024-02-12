@@ -27,6 +27,9 @@ class Integrations
             require_once FLUENTCRM_PLUGIN_PATH . 'app/Services/ExternalIntegrations/Oxygen/oxy_init.php';
         }
 
+        (new EventTrackingHandler())->register();
+
+
         $this->registerBlockEditorBlocks();
     }
 

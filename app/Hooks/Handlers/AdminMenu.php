@@ -258,7 +258,12 @@ class AdminMenu
     {
         add_filter('admin_footer_text', function ($content) {
             $url = 'https://fluentcrm.com';
-            return sprintf(wp_kses(__('Thank you for using <a href="%s">FluentCRM</a>.', 'fluent-crm'), array('a' => array('href' => array()))), esc_url($url)) . '<span title="based on your WP timezone settings" style="margin-left: 10px;" data-timestamp="' . current_time('timestamp') . '" id="fc_server_timestamp"></span>';
+            $extraHtml = '';
+            if (!defined('DISABLE_WP_CRON')) {
+                $extraHtml = ' ' . sprintf(__('Server-Side Cron Job is not enabled %1sView Documentation%2s.', 'fluent-crm'), '<a style="font-weight: 500;" target="_blank" rel="noopener" href="https://fluentcrm.com/docs/fluentcrm-cron-job-basics-and-checklist/">', '</a>');
+            }
+
+            return sprintf(wp_kses(__('Thank you for using <a href="%s">FluentCRM</a>.', 'fluent-crm'), array('a' => array('href' => array()))), esc_url($url)) . '<span title="based on your WP timezone settings" style="margin-left: 10px;" data-timestamp="' . current_time('timestamp') . '" id="fc_server_timestamp"></span>. ' . $extraHtml;
         });
 
         add_filter('update_footer', function ($text) {
@@ -526,7 +531,6 @@ class AdminMenu
             <script>
                 if (_ && _.noConflict) {
                     _.noConflict();
-                    console.log('noConflict lodash');
                 }
             </script>
             <?php
@@ -579,6 +583,19 @@ class AdminMenu
         $currentUser = wp_get_current_user();
 
         $activatedFeatures = Helper::getActivatedFeatures();
+
+        $postTypes = get_post_types(['public' => true], 'objects');
+        unset($postTypes['attachment']);
+
+        $formattedPostTypes = [];
+
+        foreach ($postTypes as $postTypeName => $postType) {
+            $formattedPostTypes[] = [
+                'id'    => $postTypeName,
+                'title' => $postType->label
+            ];
+        }
+
 
         $data = array(
             'images_url'                          => fluentCrmMix('images'),
@@ -636,6 +653,7 @@ class AdminMenu
             'commerce_provider'                   => apply_filters('fluentcrm_commerce_provider', ''),
             'commerce_currency_sign'              => apply_filters('fluentcrm_currency_sign', ''),
             'disable_time_diff'                   => Helper::isExperimentalEnabled('classic_date_time'),
+            'wp_date_time_format'                 => $this->getDefaultDateTimeFormatForMoment(),
             'disable_ai'                          => Helper::isExperimentalEnabled('disable_visual_ai'),
             'app_version'                         => FLUENTCRM_PLUGIN_VERSION,
             'available_tags'                      => $formattedTags,
@@ -645,7 +663,9 @@ class AdminMenu
             'available_contact_types'             => fluentcrm_contact_types(true),
             'available_custom_fields'             => fluentcrm_get_option('contact_custom_fields', []),
             'contact_sample_csv'                  => fluentCrmMix('sample.csv'),
-            'global_email_footer'                 => Helper::getEmailFooterContent()
+            'global_email_footer'                 => Helper::getEmailFooterContent(),
+            'experimentals'                       => Helper::getExperimentalSettings(),
+            'publicPostTypes'                     => $formattedPostTypes
         );
 
         if (Arr::get($activatedFeatures, 'company_module')) {
@@ -654,7 +674,7 @@ class AdminMenu
             $data['company_profile_sections'] = Helper::getCompanyProfileSections();
         }
 
-        return $data;
+        return apply_filters('fluent_crm/admin_vars', $data);
     }
 
     public function loadCss()
@@ -939,6 +959,7 @@ class AdminMenu
                 $verifiedSenders = array_keys($smtpSettings['mappings']);
             }
         }
+
         /**
          * Filter the verified email senders
          * @param array $verifiedSenders
@@ -1295,8 +1316,10 @@ class AdminMenu
                 ]
             ];
 
+
             $app['view']->render('admin.experimental_menu', [
-                'menu_items' => apply_filters('fluent_crm/full_sidebar_menu_items', $sideBarMenus)
+                'menu_items' => apply_filters('fluent_crm/full_sidebar_menu_items', $sideBarMenus),
+                'logo'       => Arr::get(fluentcrmGetGlobalSettings('business_settings', []), 'logo')
             ]);
 
         });
@@ -1348,5 +1371,61 @@ class AdminMenu
             </script>
             <?php
         }, 100);
+    }
+
+    private function getDefaultDateTimeFormatForMoment()
+    {
+
+        $phpFormat = get_option('date_format') . ' ' . get_option('time_format');
+
+        $replacements = [
+            'A' => 'A',      // for the sake of escaping below
+            'a' => 'a',      // for the sake of escaping below
+            'B' => '',       // Swatch internet time (.beats), no equivalent
+            'c' => 'YYYY-MM-DD[T]HH:mm:ssZ', // ISO 8601
+            'D' => 'ddd',
+            'd' => 'DD',
+            'e' => 'zz',     // deprecated since version 1.6.0 of moment.js
+            'F' => 'MMMM',
+            'G' => 'H',
+            'g' => 'h',
+            'H' => 'HH',
+            'h' => 'hh',
+            'I' => '',       // Daylight Saving Time? => moment().isDST();
+            'i' => 'mm',
+            'j' => 'D',
+            'L' => '',       // Leap year? => moment().isLeapYear();
+            'l' => 'dddd',
+            'M' => 'MMM',
+            'm' => 'MM',
+            'N' => 'E',
+            'n' => 'M',
+            'O' => 'ZZ',
+            'o' => 'YYYY',
+            'P' => 'Z',
+            'r' => 'ddd, DD MMM YYYY HH:mm:ss ZZ', // RFC 2822
+            'S' => 'o',
+            's' => 'ss',
+            'T' => 'z',      // deprecated since version 1.6.0 of moment.js
+            't' => '',       // days in the month => moment().daysInMonth();
+            'U' => 'X',
+            'u' => 'SSSSSS', // microseconds
+            'v' => 'SSS',    // milliseconds (from PHP 7.0.0)
+            'W' => 'W',      // for the sake of escaping below
+            'w' => 'e',
+            'Y' => 'YYYY',
+            'y' => 'YY',
+            'Z' => '',       // time zone offset in minutes => moment().zone();
+            'z' => 'DDD',
+        ];
+
+        // Converts escaped characters.
+        foreach ($replacements as $from => $to) {
+            $replacements['\\' . $from] = '[' . $from . ']';
+        }
+
+        $format = strtr($phpFormat, $replacements);
+
+        return apply_filters('fluent_crm/moment_date_time_format', $format);
     }
 }

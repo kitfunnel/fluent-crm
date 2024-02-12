@@ -7,6 +7,7 @@ use FluentCrm\App\Models\Company;
 use FluentCrm\App\Models\CompanyNote;
 use FluentCrm\App\Models\Subscriber;
 use FluentCrm\App\Models\SubscriberNote;
+use FluentCrm\App\Services\AutoSubscribe;
 use FluentCrm\App\Services\Helper;
 use FluentCrm\App\Services\Libs\FileSystem;
 use FluentCrm\App\Services\Sanitize;
@@ -118,7 +119,7 @@ class CompanyController extends Controller
         $result = FluentCrmApi('companies')->attachContactsByIds($subscriberIds, $companyIds);
 
         if(!$result) {
-            return $this->sendError('Invalid data', 423);
+            return $this->sendError('Invalid data', 422);
         }
 
         return [
@@ -135,7 +136,7 @@ class CompanyController extends Controller
         $result = FluentCrmApi('companies')->detachContactsByIds($subscriberIds, $companyIds);
 
         if(!$result) {
-            return $this->sendError('Invalid data', 423);
+            return $this->sendError('Invalid data', 422);
         }
         $result['message'] =  __('Company has been successfully detached', 'fluent-crm');
 
@@ -157,7 +158,7 @@ class CompanyController extends Controller
         if (in_array($findBy, $customFindBys)) {
             $company = Company::where($findBy, $findByValue)->find();
             if (!$company) {
-                return $this->sendError('Company not found', 423);
+                return $this->sendError('Company not found', 422);
             }
         } else {
             $company = Company::findOrFail($id);
@@ -230,7 +231,7 @@ class CompanyController extends Controller
         if (Company::where('id', '!=', $id)->where('name', $name)->first()) {
             return $this->sendError([
                 'message' => 'Company name already exists. Please use a different company name'
-            ], 423);
+            ], 422);
         }
 
         $data = $this->getSanitizedData($allData);
@@ -545,6 +546,7 @@ class CompanyController extends Controller
 
     public function getNotes()
     {
+
         $companyId = $this->request->get('id');
         $search = $this->request->get('search');
 
@@ -560,9 +562,11 @@ class CompanyController extends Controller
         foreach ($notes as $note) {
             $note->added_by = $note->createdBy();
         }
+        $fields['fields'] = Helper::getNoteSyncFields();
 
         return $this->sendSuccess([
-            'notes' => $notes
+            'notes'       => $notes,
+            'fields'      => $fields
         ]);
     }
 

@@ -62,7 +62,7 @@ class CampaignUrlMetric extends Model
             ->orderBy('total', 'DESC')
             ->get()->toArray();
 
-        if($stats && apply_filters('fluent_crm/check_single_click_validity', true)) {
+        if ($stats && apply_filters('fluent_crm/check_single_click_validity', true)) {
             $campaign = fluentCrmGetFromCache('campaign_' . $campaignId, function () use ($campaignId) {
                 return Campaign::withoutGlobalScopes()->find($campaignId);
             });
@@ -72,13 +72,14 @@ class CampaignUrlMetric extends Model
                 $campaignLinks = Helper::getLinksFromString($campaign->email_body);
             }
 
-            if($campaignLinks) {
+            if ($campaignLinks) {
                 foreach ($stats as $statIndex => $stat) {
-                    if($stat['total'] < 2 && !in_array($stat['url'], $campaignLinks)) {
+                    if ($stat['total'] < 2 && !in_array($stat['url'], $campaignLinks)) {
                         unset($stats[$statIndex]);
                         continue;
                     }
-                    $stats[$statIndex]['url'] = str_replace(['&amp;', '+'], ['&', '%2B'], $stat['url']);
+                    $stats[$statIndex]['url'] = str_replace(['&amp;'], ['&'], $stat['url']);
+                    $stats[$statIndex]['url'] = esc_url_raw($stats[$statIndex]['url']);
                 }
             }
         }
@@ -88,32 +89,46 @@ class CampaignUrlMetric extends Model
 
     public function getCampaignAnalytics($campaignId)
     {
-        $stats = static::select('type', fluentCrmDb()->raw('count(*) as total'))
-            ->where('campaign_id', $campaignId)
-            ->groupBy('type')
-            ->get();
-
-        $clickCount = 0;
-        $openCount = 0;
+        $unsubscribeCount = CampaignUrlMetric::where('campaign_id', $campaignId)
+            ->where('type', 'unsubscribe')
+            ->distinct()
+            ->count('subscriber_id');
 
         $formattedStatus = [];
 
-        foreach ($stats as $stat) {
-            if ($stat->type == 'open') {
-                $openCount = $stat->total;
-                $stat->icon_class = 'dashicons dashicons-buddicons-pm';
-            } else if ($stat->type == 'click') {
-                $clickCount = $stat->total;
-                $stat->icon_class = 'el-icon el-icon-position';
-            } else if ($stat->type == 'unsubscribe') {
-                $stat->icon_class = 'el-icon el-icon-warning-outline';
-            }
-            $stat->is_percent = true;
-            $stat->label = ucfirst($stat->type) . ' Rate' . ' (' . $stat->total . ')';
+        $openCount = fluentCrmDb()->table('fc_campaign_emails')
+            ->where('campaign_id', $campaignId)
+            ->where(function ($q) {
+                $q->where('is_open', 1)
+                    ->orWhereNotNull('click_counter');
+            })
+            ->count();
 
-            $formattedStatus[$stat->type] = $stat;
+        $clickCount = fluentCrmDb()->table('fc_campaign_emails')
+            ->where('campaign_id', $campaignId)
+            ->whereNotNull('click_counter')
+            ->count();
 
+        if ($openCount) {
+            $formattedStatus['open'] = [
+                'total'      => $openCount,
+                'label'      => sprintf(__('Open Rate (%d)', 'fluent-crm'), $openCount),
+                'type'       => 'open',
+                'is_percent' => true,
+                'icon_class' => 'dashicons dashicons-buddicons-pm'
+            ];
         }
+
+        if ($clickCount) {
+            $formattedStatus['click'] = [
+                'total'      => $clickCount,
+                'label'      => sprintf(__('Click Rate (%d)', 'fluent-crm'), $clickCount),
+                'type'       => 'click',
+                'is_percent' => true,
+                'icon_class' => 'el-icon el-icon-position'
+            ];
+        }
+
 
         if ($openCount && $clickCount) {
             $formattedStatus['ctor'] = [
@@ -121,6 +136,16 @@ class CampaignUrlMetric extends Model
                 'label'      => __('Click To Open Rate', 'fluent-crm'),
                 'type'       => 'ctor',
                 'icon_class' => 'el-icon el-icon-chat-dot-square'
+            ];
+        }
+
+        if ($unsubscribeCount) {
+            $formattedStatus['unsubscribe'] = [
+                'total'      => $unsubscribeCount,
+                'label'      => sprintf(__('Unsubscribe (%d)', 'fluent-crm'), $unsubscribeCount),
+                'type'       => 'unsubscribe',
+                'is_percent' => true,
+                'icon_class' => 'el-icon el-icon-warning-outline'
             ];
         }
 

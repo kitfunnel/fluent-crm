@@ -48,7 +48,7 @@ class MigratorController extends Controller
         if (is_wp_error($result)) {
             return $this->sendError([
                 'message' => $result->get_error_message(),
-            ], 423);
+            ], 422);
         }
 
         return [
@@ -74,7 +74,7 @@ class MigratorController extends Controller
         if (is_wp_error($result)) {
             return $this->sendError([
                 'message' => $result->get_error_message(),
-            ], 423);
+            ], 422);
         }
 
         return [
@@ -103,7 +103,7 @@ class MigratorController extends Controller
         if (is_wp_error($summary)) {
             return $this->sendError([
                 'message' => $summary->get_error_message(),
-            ], 423);
+            ], 422);
         }
 
         return [
@@ -131,7 +131,7 @@ class MigratorController extends Controller
         if (is_wp_error($summary)) {
             return $this->sendError([
                 'message' => $summary->get_error_message(),
-            ], 423);
+            ], 422);
         }
 
         return [

@@ -26,6 +26,7 @@ class Campaign extends Model
 
     public static function boot()
     {
+        parent::boot();
         static::creating(function ($model) {
             $defaultTemplate = $model->design_template ? $model->design_template : Helper::getDefaultEmailTemplate();
             $model->email_body = $model->email_body ?: '';
@@ -507,7 +508,7 @@ class Campaign extends Model
                 $email['email_subject_id'] = $subjectItem->id;
             }
 
-            $email['email_subject'] = apply_filters('fluent_crm/parse_campaign_email_text', $emailSubject, $subscriber);;
+            $email['email_subject'] = apply_filters('fluent_crm/parse_campaign_email_text', $emailSubject, $subscriber);
 
             $email['email_body'] = $this->email_body;
 
@@ -626,12 +627,12 @@ class Campaign extends Model
             ->where('status', 'sent')
             ->count();
 
-        $clicks = CampaignUrlMetric::where('campaign_id', $this->id)
-            ->where('type', 'click')
+        $clicks = CampaignEmail::where('campaign_id', $this->id)
+            ->whereNotNull('click_counter')
             ->count();
 
-        $views = CampaignUrlMetric::where('campaign_id', $this->id)
-            ->where('type', 'open')
+        $views = CampaignEmail::where('campaign_id', $this->id)
+            ->where('is_open', 1)
             ->count();
 
         $unSubscribed = CampaignUrlMetric::where('campaign_id', $this->id)
@@ -672,7 +673,6 @@ class Campaign extends Model
             ->where('campaign_id', $this->id)
             ->count();
     }
-
 
     public function maybeDeleteDuplicates()
     {
@@ -716,7 +716,8 @@ class Campaign extends Model
         if ($hash) {
             return $hash;
         }
-        $hash = md5(mt_rand(100, 10000) . '_' . $this->id . '_' . $this->title . '_' . time());
+
+        $hash = md5(mt_rand(100, 10000) . '_' . $this->id . '_' . $this->title . '_' . time() . '_' . wp_generate_uuid4());
         $hash = str_replace('e', 'd', $hash);
         fluentcrm_update_campaign_meta($this->id, '_campaign_hash', $hash);
 
@@ -744,10 +745,9 @@ class Campaign extends Model
         }
 
 
-
         $ranges = Arr::get($settings, 'schedule_range', ['', '']);
 
-        if(!$ranges) {
+        if (!$ranges) {
             return null;
         }
 
@@ -781,5 +781,20 @@ class Campaign extends Model
         }
 
         return date('Y-m-d H:i:s', $timeStamp);
+    }
+
+    public function getShareableUrl()
+    {
+        $shareId = fluentcrm_get_campaign_meta($this->id, '_campaign_share_id', true);
+        if (!$shareId) {
+            $shareId = md5($this->getHash() . '_' . $this->id . '_' . time());
+            fluentcrm_update_campaign_meta($this->id, '_campaign_share_id', $shareId);
+        }
+
+        return add_query_arg([
+            'fluentcrm'     => 1,
+            'route'         => 'email_preview',
+            'fc_newsletter' => $shareId
+        ], site_url());
     }
 }

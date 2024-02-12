@@ -48,6 +48,12 @@ class WaitTimeAction extends BaseAction
             $sequence['settings']['to_day_time'] = '';
         }
 
+        if (!empty($sequence['settings']['to_day'])) {
+            $sequence['settings']['to_day'] = array_map(function ($day) {
+                return substr($day, 0, 3);
+            }, $sequence['settings']['to_day']);
+        }
+
         return $sequence;
     }
 
@@ -121,17 +127,17 @@ class WaitTimeAction extends BaseAction
                     ]
                 ],
                 'to_day'           => [
-                    'type'     => 'checkboxes',
-                    'label'    => 'Wait until next day(s) of the week',
+                    'type'          => 'checkboxes',
+                    'label'         => 'Wait until next day(s) of the week',
                     'wrapper_class' => 'fc_2col_inline pad-r-20',
-                    'options'  => [
+                    'options'       => [
                         [
                             'id'    => 'Mon',
                             'title' => 'Mon'
                         ],
                         [
-                            'id'    => 'Tues',
-                            'title' => 'Tues'
+                            'id'    => 'Tue',
+                            'title' => 'Tue'
                         ],
                         [
                             'id'    => 'Wed',
@@ -154,7 +160,7 @@ class WaitTimeAction extends BaseAction
                             'title' => 'Sun'
                         ]
                     ],
-                    'dependency'  => [
+                    'dependency'    => [
                         'depends_on' => 'wait_type',
                         'value'      => 'to_day',
                         'operator'   => '=',
@@ -164,13 +170,13 @@ class WaitTimeAction extends BaseAction
                     'label'          => 'Time of the day',
                     'type'           => 'time_selector',
                     'placeholder'    => 'Select Time',
-                    'wrapper_class' => 'fc_2col_inline',
+                    'wrapper_class'  => 'fc_2col_inline',
                     'picker_options' => [
                         'start' => '00:00',
                         'step'  => '00:10',
                         'end'   => '23:59'
                     ],
-                    'dependency'  => [
+                    'dependency'     => [
                         'depends_on' => 'wait_type',
                         'value'      => 'to_day',
                         'operator'   => '=',

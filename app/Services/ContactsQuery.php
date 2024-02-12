@@ -3,6 +3,7 @@
 namespace FluentCrm\App\Services;
 
 use FluentCrm\App\Models\Subscriber;
+use FluentCrm\Framework\Support\Arr;
 
 class ContactsQuery
 {
@@ -172,7 +173,8 @@ class ContactsQuery
                 $group[$provider][] = [
                     'property' => $property,
                     'operator' => $filterItem['operator'],
-                    'value'    => $filterItem['value']
+                    'value'    => $filterItem['value'],
+                    'extra_value' => Arr::get($filterItem, 'extra_value')
                 ];
             }
 

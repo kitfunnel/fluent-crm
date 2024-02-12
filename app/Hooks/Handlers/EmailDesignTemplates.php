@@ -96,6 +96,7 @@ class EmailDesignTemplates
 
         $configDefault = [
             'content_width'         => '',
+            'content_padding'       => '',
             'headings_font_family'  => '',
             'text_color'            => '',
             'link_color'            => '',
@@ -127,6 +128,7 @@ class EmailDesignTemplates
 
         $configDefault = [
             'content_width'         => '',
+            'content_padding'       => '',
             'headings_font_family'  => '',
             'text_color'            => '',
             'link_color'            => '',

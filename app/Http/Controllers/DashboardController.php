@@ -2,6 +2,7 @@
 
 namespace FluentCrm\App\Http\Controllers;
 
+use FluentCrm\App\Services\Helper;
 use FluentCrm\App\Services\Stats;
 
 /**
@@ -19,7 +20,16 @@ class DashboardController extends Controller
     {
         $overallStats = $stats->getCounts();
 
-        $notices = apply_filters('fluent_crm/dashboard_notices', []);
+        $nextMinuteTask = Helper::getNextMinuteTaskTimeStamp();
+
+        $notices = [];
+
+        if((time() - $nextMinuteTask) > 120) {
+            $notices[] = '<div style="padding: 15px 10px;" class="error"><b>Attension: </b> Looks like the scheduled cron jobs are not running timely. Please consider setup server side cron. <a href="' . admin_url('admin.php?page=fluentcrm-admin#/settings/settings_tools') . '">Click here to check the status</a></div>';
+        }
+
+
+        $notices = apply_filters('fluent_crm/dashboard_notices', $notices);
 
         return [
             'stats'             => $overallStats,

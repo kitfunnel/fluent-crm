@@ -175,11 +175,16 @@ class AutoSubscribeHandler
         return true;
     }
 
-    public function syncUserUpdate($userId, $oldData)
+    public function syncUserUpdate($userId, $oldData, $newData = [])
     {
 
         if (is_multisite() && is_network_admin()) {
             return false;
+        }
+
+        if(!empty($newData['user_pass'])) {
+            $user = get_user_by('ID', $userId);
+            (new Cleanup())->handleUserPasswordChanged($user);
         }
 
         if (!Helper::isUserSyncEnabled()) {

@@ -239,7 +239,6 @@ class SendEmailAction extends BaseAction
         ];
 
         if (Arr::get($settings, 'send_email_to_type') == 'contact') {
-
             $campaign->processAndSubscribe($subscriber, [
                 'funnel_subscriber_id' => $funnelSubscriberId
             ], $args);

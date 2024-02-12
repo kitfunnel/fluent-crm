@@ -20,7 +20,7 @@ class UrlStores
         if ($wpdb->get_var("SHOW TABLES LIKE '$table'") != $table) {
             $sql = "CREATE TABLE $table (
                 `id` BIGINT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-                `url` TINYTEXT NOT NULL,
+                `url` TEXT NOT NULL,
                 `short` VARCHAR(50) NOT NULL,
                 `created_at` TIMESTAMP NULL,
                 `updated_at` TIMESTAMP NULL,
@@ -36,6 +36,14 @@ class UrlStores
 
             if(!in_array('short', $indexedColumns)) {
                 $sql = "ALTER TABLE {$table} ADD INDEX `short` (`short`);";
+                $wpdb->query($sql);
+            }
+
+            // change column type from tinytext to text - for already installed sites
+            $column_name = 'url';
+            $dataType = $wpdb->get_row("describe {$table} {$column_name}");
+            if($dataType->Type == 'tinytext') {
+                $sql = "ALTER TABLE {$table} MODIFY {$column_name} TEXT NOT NULL;";
                 $wpdb->query($sql);
             }
         }

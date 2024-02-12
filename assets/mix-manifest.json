@@ -154,6 +154,7 @@
     "/block_editor/index.asset.php": "/block_editor/index.asset.php",
     "/block_editor/index.css": "/block_editor/index.css",
     "/block_editor/index.js": "/block_editor/index.js",
+    "/block_editor/index.php": "/block_editor/index.php",
     "/block_editor/latest-post-index.asset.php": "/block_editor/latest-post-index.asset.php",
     "/block_editor/latest-post-index.js": "/block_editor/latest-post-index.js",
     "/block_editor/product-index.asset.php": "/block_editor/product-index.asset.php",

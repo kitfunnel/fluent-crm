@@ -6,10 +6,12 @@ use FluentCrm\App\Hooks\Handlers\PurchaseHistory;
 use FluentCrm\App\Models\CampaignEmail;
 use FluentCrm\App\Models\Company;
 use FluentCrm\App\Models\CustomEmailCampaign;
+use FluentCrm\App\Models\EventTracker;
 use FluentCrm\App\Models\Funnel;
 use FluentCrm\App\Models\Subscriber;
 use FluentCrm\App\Models\SubscriberNote;
 use FluentCrm\App\Models\SubscriberPivot;
+use FluentCrm\App\Services\AutoSubscribe;
 use FluentCrm\App\Services\ContactsQuery;
 use FluentCrm\App\Services\Funnel\FunnelProcessor;
 use FluentCrm\App\Services\Helper;
@@ -348,7 +350,7 @@ class SubscriberController extends Controller
 
         return $this->sendError([
             'message' => __('Sorry contact already exist', 'fluent-crm')
-        ], 423);
+        ], 422);
     }
 
     public function updateSubscriber(Request $request, $id)
@@ -531,6 +533,7 @@ class SubscriberController extends Controller
 
     public function getNotes()
     {
+
         $subscriberId = $this->request->get('id');
         $search = $this->request->get('search');
 
@@ -546,9 +549,12 @@ class SubscriberController extends Controller
         foreach ($notes as $note) {
             $note->added_by = $note->createdBy();
         }
+        $fields['fields'] = Helper::getNoteSyncFields();
+
 
         return $this->sendSuccess([
-            'notes' => $notes
+            'notes'  => $notes,
+            'fields' => $fields
         ]);
     }
 
@@ -565,6 +571,8 @@ class SubscriberController extends Controller
         if (empty($note['created_at'])) {
             $note['created_at'] = current_time('mysql');
         }
+
+        $note['description'] = apply_filters('fluent_crm/parse_campaign_email_text', $note['description'], $subscriber);
 
         $note['subscriber_id'] = $id;
 
@@ -604,6 +612,8 @@ class SubscriberController extends Controller
         if (empty($note['created_at'])) {
             unset($note['created_at']);
         }
+
+        $note['description'] = apply_filters('fluent_crm/parse_campaign_email_text', $note['description'], $subscriber);
 
         $note = Sanitize::contactNote($note);
 
@@ -768,6 +778,23 @@ class SubscriberController extends Controller
         ], $subscriber);
     }
 
+
+    public function saveExternalViewData(Request $request, $subscriberId)
+    {
+        $subscriber = Subscriber::findOrFail($subscriberId);
+        $sectionId = $request->get('section_provider');
+
+        $response = apply_filters('fluencrm_profile_section_save_' . $sectionId, '', $request->get('data', []), $subscriber);
+
+        if (!$response) {
+            return $this->sendError([
+                'message' => __('Handled could not be found.', 'fluent-crm')
+            ]);
+        }
+
+        return $response;
+    }
+
     public function handleBulkActions(Request $request)
     {
         $actionName = sanitize_text_field($request->get('action_name', ''));
@@ -851,7 +878,7 @@ class SubscriberController extends Controller
             }
 
             foreach ($validSubscribers as $contact) {
-                if($contact) {
+                if ($contact) {
                     $contact->attachCompanies([$company->id]);
                     if (!$contact->company_id) {
                         $contact->company_id = $company->id;
@@ -887,7 +914,7 @@ class SubscriberController extends Controller
             }
 
             foreach ($validSubscribers as $contact) {
-                if($contact) {
+                if ($contact) {
                     $contact->detachCompanies([$company->id]);
                     if ($contact->company_id == $company->id) {
                         $contact->company_id = null;
@@ -1144,10 +1171,28 @@ class SubscriberController extends Controller
         ];
     }
 
-    public function getInfoWidgets($subscriber)
+    public function getInfoWidgets(Request $request, $subscriber)
     {
         if (is_numeric($subscriber)) {
             $subscriber = Subscriber::findOrFail($subscriber);
+        }
+
+
+        if ($byWidget = $request->get('by_widget')) {
+            $widgets = apply_filters('fluent_crm/subscriber_info_widget_' . $byWidget, [], $subscriber);
+            $widgets = array_values($widgets);
+
+            if (isset($widgets[0])) {
+                $widget = $widgets[0];
+            } else {
+                $widget = [
+                    'content' => 'No content found'
+                ];
+            }
+
+            return [
+                'widget' => $widget
+            ];
         }
 
         $commerce = (new PurchaseHistory())->getCommerceStatWidget($subscriber);
@@ -1163,5 +1208,49 @@ class SubscriberController extends Controller
                 'widgets_count' => count($topWidgets) + count($otherWidgets)
             ]
         ];
+    }
+
+    public function getTrackingEvents(Request $request, $subscriberId)
+    {
+        if (!Helper::isExperimentalEnabled('event_tracker')) {
+            return $this->sendError([
+                'message'    => __('Event Tracker is not enabled', 'fluent-crm'),
+                'error_code' => 'not_enabled'
+            ]);
+        }
+
+        $subscriber = Subscriber::findOrFail($subscriberId);
+        $events = EventTracker::where('subscriber_id', $subscriber->id)
+            ->orderBy('id', 'DESC')
+            ->paginate();
+
+        return [
+            'events' => $events
+        ];
+    }
+
+    public function trackEvent(Request $request)
+    {
+        $data = $request->all();
+
+        $this->validate($data, [
+            'event_key' => 'required',
+            'title'     => 'required'
+        ]);
+
+        $isUnique = $request->get('repeatable', true);
+        $result = FluentCrmApi('event_tracker')->track($data, $isUnique);
+
+        if (is_wp_error($result)) {
+            return $this->sendError([
+                'message'    => $result->get_error_message(),
+                'error_code' => $result->get_error_code()
+            ]);
+        }
+
+        return $this->sendSuccess([
+            'message' => __('Event has been tracked', 'fluent-crm'),
+            'id'      => $result->id
+        ]);
     }
 }

@@ -25,7 +25,7 @@ $app->addFilter('fluentcrm_get_form_submissions_fluentform', 'FormSubmissions@ge
 
 add_filter('fluent_crm/parse_campaign_email_text', function ($text, $subscriber) {
     if (!$subscriber) {
-        return $text;
+      //  return $text;
     }
     return \FluentCrm\App\Services\Libs\Parser\Parser::parse($text, $subscriber);
 }, 10, 2);

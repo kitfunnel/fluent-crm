@@ -9,6 +9,8 @@ $contentBg   = $config['content_bg_color'];
 $footerColor = $config['footer_text_color'];
 $mainFont    = $config['content_font_family'];
 
+$contentPadding = $config['content_padding'];
+
 $pColor      = $config['paragraph_color'];
 $pSize       = $config['paragraph_font_size'];
 $pFontFamily = $config['paragraph_font_family'];
@@ -48,6 +50,8 @@ if(fluentcrm_is_rtl()) {
         <?php if($mainFont): ?>
             font-family: <?php echo sanitize_text_field($mainFont); ?>;
         <?php endif; ?>
+        padding-left: <?php echo esc_attr($contentPadding); ?>px !important;
+        padding-right: <?php echo esc_attr($contentPadding); ?>px !important;
     }
 
     #templateFooter .fcTextContent, #templateFooter .fcTextContent p {
@@ -514,9 +518,11 @@ if(fluentcrm_is_rtl()) {
         }
         .mcnTextBlockOuter .fc_email_body {
             padding-top: 10px !important;
-            padding-right: 10px !important;
+            /*padding-right: 10px !important;*/
             padding-bottom: 10px !important;
-            padding-left: 10px !important;
+            /*padding-left: 10px !important;*/
+            padding-left: <?php echo esc_attr($contentPadding); ?>px !important;
+            padding-right: <?php echo esc_attr($contentPadding); ?>px !important;
         }
         .fc_column_content {
             padding: 0;
@@ -552,6 +558,12 @@ if(fluentcrm_is_rtl()) {
     .fc_latest_post_item {
         border:1px solid #edeef4;
     }
+    .fc_latest_post_item tbody tr td img {
+        width: 100%;
+        max-height: 400px;
+        display: block;
+        object-fit: cover;
+    }
     .fc_latest_post_item.layout-6,
     .fc_latest_post_item.layout-4 {
         border: none;
@@ -568,6 +580,9 @@ if(fluentcrm_is_rtl()) {
     }
     .fc_latest_post_item.layout-6 .fc_latest_post_content .meta {
         margin: 0;
+    }
+    .fc_latest_post_item .fc_latest_post_content a {
+        text-decoration: none;
     }
     .fc_latest_post_item .fc_latest_post_content .title {
         font-size: 22px;
@@ -735,6 +750,24 @@ if(fluentcrm_is_rtl()) {
     }
 
     @media screen and (max-width: 600px) {
+        .fc_latest_post_item.layout-4 > tbody .fc_latest_post_item_tr .fc_latest_post_img img,
+        .fc_latest_post_item.layout-3 > tbody .fc_latest_post_item_tr .fc_latest_post_img img {
+            height: 100% !important;
+            width: 100% !important;
+        }
+        .fc_latest_post_item.layout-4 > tbody .fc_latest_post_item_tr .fc_latest_post_img {
+            padding: 0 !important;
+            box-sizing: border-box;
+        }
+        .fc_latest_post_item.layout-3 > tbody .fc_latest_post_item_tr .fc_latest_post_img {
+            padding: 10px !important;
+            box-sizing: border-box;
+        }
+        .fc_latest_post_item.layout-4 > tbody .fc_latest_post_item_tr .fc_latest_post_img,
+        .fc_latest_post_item.layout-3 > tbody .fc_latest_post_item_tr .fc_latest_post_img,
+        .fc_latest_post_item.layout-2 > tbody .fc_latest_post_item_tr .fc_latest_post_img {
+            width: 100% !important;
+        }
         .fc_latest_post_item.layout-2 > tbody .fc_latest_post_item_tr td,
         .fc_latest_post_item.layout-2 > tbody .fc_latest_post_item_tr,
         .fc_latest_post_item.layout-3 > tbody .fc_latest_post_item_tr td,

@@ -62,6 +62,8 @@ class Subscriber extends Model
 
     public static function boot()
     {
+        parent::boot();
+
         static::saving(function ($model) {
             $model->hash = md5($model->email);
         });
@@ -549,6 +551,16 @@ class Subscriber extends Model
     }
 
     /**
+     * A subscriber has many tracking events.
+     *
+     * @return \FluentCrm\Framework\Database\Orm\Relations\HasMany
+     */
+    public function trackingEvents()
+    {
+        return $this->hasMany(EventTracker::class, 'subscriber_id', 'id');
+    }
+
+    /**
      * One2Many: Subscriber has to many custom fields value
      * @return array
      */
@@ -727,6 +739,10 @@ class Subscriber extends Model
     {
         if (!empty($this->attributes['avatar'])) {
             return $this->attributes['avatar'];
+        }
+
+        if(empty($this->attributes['email'])) {
+            return '';
         }
 
         $fallBack = '';
@@ -2109,6 +2125,13 @@ class Subscriber extends Model
         if ($user) {
             $this->user_id = $user->ID;
             $this->save();
+
+            // remove the same user_id for other subscribers
+            self::where('user_id', $user->ID)
+                ->where('id', '!=', $this->id)
+                ->update([
+                    'user_id' => NULL
+                ]);
         }
 
         return $user;
@@ -2167,5 +2190,11 @@ class Subscriber extends Model
         $this->updateMeta('_secure_hash', $hash, 'internal');
 
         return $hash;
+    }
+
+    public function trackEvent($eventData, $isUnique = false)
+    {
+        $eventData['subscriber'] = $this;
+        return FluentCrmApi('event_tracker')->track($eventData, $isUnique);
     }
 }

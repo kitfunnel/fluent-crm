@@ -15,6 +15,10 @@ class DeactivationHandler
 {
     public function handle()
     {
+        if (function_exists('\as_unschedule_all_actions')) {
+            as_unschedule_all_actions('fluentcrm_scheduled_every_minute_tasks');
+        }
+
         wp_clear_scheduled_hook('fluentcrm_scheduled_minute_tasks');
         wp_clear_scheduled_hook('fluentcrm_scheduled_hourly_tasks');
         wp_clear_scheduled_hook('fluentcrm_scheduled_weekly_tasks');

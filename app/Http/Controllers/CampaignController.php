@@ -2,6 +2,7 @@
 
 namespace FluentCrm\App\Http\Controllers;
 
+use FluentCrm\App\Hooks\Handlers\Scheduler;
 use FluentCrm\App\Models\Campaign;
 use FluentCrm\App\Models\CampaignEmail;
 use FluentCrm\App\Models\CampaignUrlMetric;
@@ -440,7 +441,7 @@ class CampaignController extends Controller
         if ($campaign->status != 'draft') {
             return $this->sendError([
                 'message' => __('Campaign status is not in draft status. Please reload the page', 'fluent-crm')
-            ], 423);
+            ], 422);
         }
 
         do_action('fluentcrm_campaign_status_active', $campaign);
@@ -459,7 +460,7 @@ class CampaignController extends Controller
                 if (is_array($scheduleAt) && count($scheduleAt) == 2) {
                     $scheduleStartAt = sanitize_text_field($scheduleAt[0]);
 
-                    if($scheduleStartAt && strtotime($scheduleStartAt) < current_time('timestamp')) {
+                    if ($scheduleStartAt && strtotime($scheduleStartAt) < current_time('timestamp')) {
                         $scheduleStartAt = current_time('mysql');
                     }
 
@@ -475,7 +476,7 @@ class CampaignController extends Controller
                 if ($isInvalid) {
                     return $this->sendError([
                         'message' => 'Invalid schedule date range'
-                    ], 423);
+                    ], 422);
                 }
 
                 $settings = $campaign->settings;
@@ -495,7 +496,7 @@ class CampaignController extends Controller
                 if (!$scheduleAt) {
                     return $this->sendError([
                         'message' => __('Invalid schedule date', 'fluent-crm')
-                    ], 423);
+                    ], 422);
                 }
 
                 $settings = $campaign->settings;
@@ -506,7 +507,7 @@ class CampaignController extends Controller
                     'updated_at'       => fluentCrmTimestamp(),
                     'scheduled_at'     => $scheduleAt,
                     'recipients_count' => 0,
-                    'settings'         =>  maybe_serialize($settings)
+                    'settings'         => maybe_serialize($settings)
                 ];
             }
 
@@ -514,6 +515,7 @@ class CampaignController extends Controller
             Campaign::where('id', $campaignId)->update($data);
 
         } else {
+
             $message = __('Email Sending will be started soon', 'fluent-crm');
 
             $settings = $campaign->settings;
@@ -524,7 +526,7 @@ class CampaignController extends Controller
                 'updated_at'       => fluentCrmTimestamp(),
                 'scheduled_at'     => fluentCrmTimestamp(),
                 'recipients_count' => 0,
-                'settings'         =>  maybe_serialize($settings)
+                'settings'         => maybe_serialize($settings)
             ];
 
             Campaign::where('id', $campaignId)->update($data);
@@ -571,9 +573,8 @@ class CampaignController extends Controller
         }
 
         if ($campaign->status != 'processing') {
-
             if ($campaign->status == 'scheduled' && current_time('timestamp') - strtotime($campaign->scheduled_at) > 300) {
-                if ((new Handler())->finishProcessing()) {
+                if (Scheduler::markArchiveCampaigns()) {
                     $campaign = Campaign::withoutGlobalScope('type')
                         ->findOrFail($campaignId);
                 }
@@ -586,9 +587,8 @@ class CampaignController extends Controller
         }
 
         // This is the processing status
-
         $processor = (new CampaignProcessor($campaign->id));
-        $processedCampaign = $processor->processEmails(1, 1);
+        $processedCampaign = $processor->processEmails(30, 10);
 
         $didRun = false;
         if ($processedCampaign) {
@@ -938,22 +938,25 @@ class CampaignController extends Controller
         $ranged = null;
 
         if ($campaign->status == 'working') {
-
             $ranged = $campaign->rangedScheduleDates();
-
-            if(!$ranged) {
+            if (!$ranged) {
                 if (($requestCounter % 4) === 0) {
-                    CampaignEmail::where('status', 'processing')
-                        ->where('updated_at', '<', date('Y-m-d H:i:s', (current_time('timestamp') - 70)))
-                        ->update([
-                            'status' => 'pending'
-                        ]);
+                    $lastChecked = fluentCrmGetOptionCache('_fcrm_last_email_process_cleanup', 600);
+                    if (!$lastChecked || time() - $lastChecked > 140) {
+                        $dateStamp = date('Y-m-d H:i:s', (current_time('timestamp') - 150));
+                        CampaignEmail::where('status', 'processing')
+                            ->where('updated_at', '<', $dateStamp)
+                            ->update([
+                                'status' => 'pending'
+                            ]);
+                        fluentCrmSetOptionCache('_fcrm_last_email_process_cleanup', time(), 600);
+                    }
                 }
 
-                $lastEmailTimestamp = get_option(FLUENTCRM . '_is_sending_emails');
-                if (!$lastEmailTimestamp || (time() - $lastEmailTimestamp) > 63) {
+                $lastEmailTimestamp = get_option('fluentcrm_is_sending_emails');
+                if ( $lastEmailTimestamp && (time() - $lastEmailTimestamp) > 140 ) {
                     // Looks like it's in stuck so we are resetting this
-                    update_option(FLUENTCRM . '_is_sending_emails', null);
+                    update_option('fluentcrm_is_sending_emails', null);
                     wp_remote_post(admin_url('admin-ajax.php'), [
                         'sslverify' => false,
                         'blocking'  => false,
@@ -967,7 +970,6 @@ class CampaignController extends Controller
                     ]);
                 }
             }
-
         }
 
         $analytics = [];
@@ -979,7 +981,7 @@ class CampaignController extends Controller
             ->count();
 
         if ($campaign->status == 'archived') {
-            $analytics = $campaignUrlMetric->getCampaignAnalytics($campaignId, $sentCount);
+            $analytics = $campaignUrlMetric->getCampaignAnalytics($campaignId);
 
             if (isset($analytics['open']) && $analytics['open']['total'] > $sentCount) {
                 $analytics['open']['total'] = $sentCount;
@@ -1021,6 +1023,9 @@ class CampaignController extends Controller
                         'updated_at' => current_time('mysql')
                     ]);
                     $campaign = Campaign::withoutGlobalScope('type')->findOrFail($campaignId);
+
+                    do_action('fluent_crm/campaign_archived', $campaign);
+
                 }
             }
         }
@@ -1052,7 +1057,7 @@ class CampaignController extends Controller
             ->count();
 
 
-        $analytics = $campaignUrlMetric->getCampaignAnalytics($campaignId, $sentCount);
+        $analytics = $campaignUrlMetric->getCampaignAnalytics($campaignId);
 
         if (isset($analytics['open']) && $analytics['open']['total'] > $sentCount) {
             $analytics['open']['total'] = $sentCount;
@@ -1069,8 +1074,8 @@ class CampaignController extends Controller
 
         return [
             'sent_count' => $sentCount,
-            'stat' => $stat,
-            'analytics' => $analytics
+            'stat'       => $stat,
+            'analytics'  => $analytics
         ];
     }
 
@@ -1088,14 +1093,16 @@ class CampaignController extends Controller
         $campaign->save();
 
         CampaignEmail::where('campaign_id', $campaign->id)
-            ->whereNotIn('status', ['sent', 'failed', 'bounced'])
+            ->whereIn('status', ['scheduled', 'pending', 'scheduling'])
             ->update([
                 'status' => 'paused'
             ]);
 
+        $campaign = Campaign::findOrFail($id);
+
         return [
             'message'  => __('Campaign has been successfully marked as paused', 'fluent-crm'),
-            'campaign' => Campaign::findOrFail($id)
+            'campaign' => $campaign
         ];
     }
 
@@ -1223,6 +1230,17 @@ class CampaignController extends Controller
 
         return [
             'message' => __('Campaign has been successfully un-scheduled', 'fluent-crm')
+        ];
+    }
+
+
+    public function getShareUrl($id)
+    {
+        $campaign = Campaign::withoutGlobalScope('type')
+            ->findOrFail($id);
+
+        return [
+            'sharable_url' => $campaign->getShareableUrl()
         ];
     }
 }

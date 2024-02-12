@@ -16,7 +16,7 @@ use FluentCrm\Framework\Request\Request;
  */
 class WebhookBounceController extends Controller
 {
-    private $validServices = ['mailgun', 'pepipost', 'postmark', 'sendgrid', 'sparkpost', 'elasticemail'];
+    private $validServices = ['mailgun', 'pepipost', 'postmark', 'sendgrid', 'sparkpost', 'elasticemail', 'postalserver'];
 
     public function handleBounce(Request $request, $serviceName, $securityCode)
     {

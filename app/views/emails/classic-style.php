@@ -201,6 +201,12 @@ $content_font_family = $config['content_font_family'];
     .fc_latest_post_item {
         border:1px solid #edeef4;
     }
+    .fc_latest_post_item tbody tr td img {
+        width: 100%;
+        max-height: 400px;
+        display: block;
+        object-fit: cover;
+    }
     .fc_latest_post_item.layout-6,
     .fc_latest_post_item.layout-4 {
         border: none;
@@ -217,6 +223,9 @@ $content_font_family = $config['content_font_family'];
     }
     .fc_latest_post_item.layout-6 .fc_latest_post_content .meta {
         margin: 0;
+    }
+    .fc_latest_post_item .fc_latest_post_content a {
+        text-decoration: none;
     }
     .fc_latest_post_item .fc_latest_post_content .title {
         font-size: 22px;
@@ -299,6 +308,24 @@ $content_font_family = $config['content_font_family'];
     }
 
     @media screen and (max-width: 600px) {
+        .fc_latest_post_item.layout-4 > tbody .fc_latest_post_item_tr .fc_latest_post_img img,
+        .fc_latest_post_item.layout-3 > tbody .fc_latest_post_item_tr .fc_latest_post_img img {
+            height: 100% !important;
+            width: 100% !important;
+        }
+        .fc_latest_post_item.layout-4 > tbody .fc_latest_post_item_tr .fc_latest_post_img {
+            padding: 0 !important;
+            box-sizing: border-box;
+        }
+        .fc_latest_post_item.layout-3 > tbody .fc_latest_post_item_tr .fc_latest_post_img {
+            padding: 10px !important;
+            box-sizing: border-box;
+        }
+        .fc_latest_post_item.layout-4 > tbody .fc_latest_post_item_tr .fc_latest_post_img,
+        .fc_latest_post_item.layout-3 > tbody .fc_latest_post_item_tr .fc_latest_post_img,
+        .fc_latest_post_item.layout-2 > tbody .fc_latest_post_item_tr .fc_latest_post_img {
+            width: 100% !important;
+        }
         .fc_latest_post_item.layout-2 > tbody .fc_latest_post_item_tr td,
         .fc_latest_post_item.layout-2 > tbody .fc_latest_post_item_tr,
         .fc_latest_post_item.layout-3 > tbody .fc_latest_post_item_tr td,

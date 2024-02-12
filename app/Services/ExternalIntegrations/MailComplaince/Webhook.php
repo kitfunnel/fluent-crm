@@ -15,6 +15,7 @@ class Webhook
     public function handle($serviceName, $request)
     {
         $method = 'handle' . ucfirst(strtolower($serviceName));
+
         if (method_exists($this, $method)) {
             return $this->{$method}($request);
         }
@@ -262,21 +263,21 @@ class Webhook
 
         $category = $request->get('category', 'unknown');
 
-        if($status == 'error' && in_array($category, $bounceCategories)) {
+        if ($status == 'error' && in_array($category, $bounceCategories)) {
             $status = 'bounced';
         }
 
-        if(!in_array($status, $processStatuses)) {
+        if (!in_array($status, $processStatuses)) {
             return false;
         }
 
         $email = $request->get('to');
 
-        if(!is_email($email)) {
+        if (!is_email($email)) {
             return false;
         }
 
-        if($status == 'unsubscribed') {
+        if ($status == 'unsubscribed') {
 
             $unsubscribeData = [
                 'email'  => $email,
@@ -291,6 +292,55 @@ class Webhook
         $unsubscribeData = [
             'email'  => $email,
             'reason' => sprintf('Unsubscribed from ElasticEmail Webhook with Category %s', $category),
+            'status' => 'bounced'
+        ];
+
+        return (new ExternalPages())->recordUnsubscribe($unsubscribeData);
+    }
+
+    private function handlePostalserver($request)
+    {
+        $event = strtolower($request->get('event'));
+
+        $processStatuses = [
+            'messagebounced',
+            'messagedeliveryfailed'
+        ];
+
+        if (!in_array($event, $processStatuses)) {
+            return false;
+        }
+
+        $payload = $request->get('payload');
+
+
+        if (!$payload || !is_array($payload)) {
+            return false;
+        }
+
+        $reason = Arr::get($payload, 'details', 'Unknown Reason');
+
+        if ($event == 'messagedeliveryfailed') {
+            $payloadStatus = Arr::get($payload, 'status');
+            if ($payloadStatus != 'HardFail') {
+                return false;
+            }
+            $toEmail = Arr::get($payload, 'message.to');
+        } else {
+            $toEmail = Arr::get($payload, 'bounce.to');
+
+            if (!$toEmail) {
+                $toEmail = Arr::get($payload, 'message.to');
+            }
+        }
+
+        if (!$toEmail || !is_email($toEmail)) {
+            return false;
+        }
+
+        $unsubscribeData = [
+            'email'  => $toEmail,
+            'reason' => $reason,
             'status' => 'bounced'
         ];
 

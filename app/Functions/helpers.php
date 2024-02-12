@@ -250,6 +250,7 @@ function fluentcrm_get_option($optionName, $default = '')
     if (!$option) {
         return $default;
     }
+
     return ($option->value) ? $option->value : $default;
 }
 
@@ -277,7 +278,6 @@ function fluentcrm_update_option($optionName, $value)
     ]);
 
     return $model->id;
-
 }
 
 
@@ -605,7 +605,7 @@ function fluentcrm_activity_types()
      *
      * @param: array $activityTypes array of contact's Activity Types
      */
-    return apply_filters('fluent_crm/contact_activity_types', [
+    $types = apply_filters('fluent_crm/contact_activity_types', [
         'note'              => __('Note', 'fluent-crm'),
         'call'              => __('Call', 'fluent-crm'),
         'email'             => __('Email', 'fluent-crm'),
@@ -622,6 +622,17 @@ function fluentcrm_activity_types()
         'tweet'             => __('Tweet', 'fluent-crm'),
         'facebook_post'     => __('Facebook Post', 'fluent-crm')
     ]);
+
+    $formattedTypes = [];
+
+    foreach ($types as $key => $label) {
+        $formattedTypes[] = [
+            'id'    => $key,
+            'label' => $label
+        ];
+    }
+
+    return $formattedTypes;
 }
 
 /**
@@ -723,6 +734,7 @@ function fluentcrmGravatar($email, $name = '')
 function fluentcrmGetGlobalSettings($key, $default = false)
 {
     $settings = get_option('fluentcrm-global-settings');
+
     if ($settings && isset($settings[$key])) {
 
         if ($key == 'business_settings' && !isset($settings[$key]['admin_email'])) {
@@ -787,7 +799,9 @@ function fluentcrm_contact_added_to_tags($attachedTagIds, Subscriber $subscriber
         return;
     }
 
-    /**
+    \FluentCrm\App\Services\Helper::debugLog('Tags Added - Contact ID: ' . $subscriber->id, $attachedTagIds);
+
+    /**¬
      * Fires when tags have been added to a subscriber
      *
      * @param array $attachedTagIds IDs of the tags that will be added to the subscriber
@@ -830,6 +844,9 @@ function fluentcrm_contact_added_to_lists($attachedListIds, Subscriber $subscrib
     if (defined('FLUENTCRM_DISABLE_TAG_LIST_EVENTS')) {
         return;
     }
+
+    \FluentCrm\App\Services\Helper::debugLog('Lists Added - Contact ID: ' . $subscriber->id, $attachedListIds);
+
     /**
      * Fires when lists have been added to a subscriber
      *
@@ -855,6 +872,8 @@ function fluentcrm_contact_removed_from_tags($detachedTagIds, Subscriber $subscr
         return;
     }
 
+    \FluentCrm\App\Services\Helper::debugLog('Tags Removed - Contact ID: ' . $subscriber->id, $detachedTagIds);
+
     /**
      * Fires when tags have been removed from a subscriber
      *
@@ -879,6 +898,8 @@ function fluentcrm_contact_removed_from_lists($detachedListIds, Subscriber $subs
     if (defined('FLUENTCRM_DISABLE_TAG_LIST_EVENTS')) {
         return;
     }
+
+    \FluentCrm\App\Services\Helper::debugLog('Lists Removed - Contact ID: ' . $subscriber->id, $detachedListIds);
 
     /**
      * Fires when lists have been removed from a subscriber
@@ -972,6 +993,12 @@ function fluentcrm_get_crm_profile_html($userIdOrEmail, $checkPermission = true,
 
     $stats = $profile->stats();
 
+    $lifeTimeValue = apply_filters('fluent_crm/contact_lifetime_value', 0, $profile);
+
+    if($lifeTimeValue) {
+        $lifeTimeValue = apply_filters('fluentcrm_currency_sign', '').' '.number_format_i18n($lifeTimeValue, 2);
+    }
+
     ob_start();
     ?>
     <div class="fc_profile_external">
@@ -990,6 +1017,11 @@ function fluentcrm_get_crm_profile_html($userIdOrEmail, $checkPermission = true,
                     </a>
                 </h3>
                 <p><?php echo esc_html($profile->status); ?></p>
+                <?php if($lifeTimeValue): ?>
+                    <div style="margin-bottom: 10px;" class="fc_stats">
+                        <span style="color: #56960b; border-color: #d9e7c9; border-radius: 3px;"><?php _e('Lifetime Value', 'fluent-crm'); ?>: <?php echo esc_html($lifeTimeValue); ?></span>
+                    </div>
+                <?php endif; ?>
             </div>
             <div class="fc_tag_lists">
                 <div class="fc_stats" style="text-align: center">
@@ -1204,7 +1236,9 @@ function fluentCrmGetMemoryUsagePercentage()
 
 function fluentCrmGetMemoryLimit()
 {
-    if (function_exists('ini_get')) {
+    if (defined('WP_MAX_MEMORY_LIMIT')) {
+        $memory_limit = WP_MAX_MEMORY_LIMIT;
+    } else if (function_exists('ini_get')) {
         $memory_limit = ini_get('memory_limit');
     } else {
         $memory_limit = '128M'; // Sensible default, and minimum required by WooCommerce
@@ -1214,7 +1248,6 @@ function fluentCrmGetMemoryLimit()
         // Unlimited, set to 12GB.
         $memory_limit = '12G';
     }
-
 
     if (function_exists('wp_convert_hr_to_bytes')) {
         return wp_convert_hr_to_bytes($memory_limit);
@@ -1265,7 +1298,7 @@ function fluentCrmGetContactSecureHash($contactId)
         return $exist->value;
     }
 
-    $hash = md5(mt_rand(100, 10000) . '_' . $contactId . '_' . '_' . time());
+    $hash = md5(mt_rand(100, 10000) . '_' . wp_generate_uuid4() . '_' . $contactId . '_' . '_' . time());
 
     $hash = str_replace('e', 'd', $hash);
 
@@ -1273,6 +1306,38 @@ function fluentCrmGetContactSecureHash($contactId)
         'subscriber_id' => $contactId,
         'created_by'    => 0,
         'key'           => '_secure_hash',
+        'object_type'   => 'option',
+        'value'         => $hash
+    ]);
+
+    return $hash;
+}
+
+function fluentCrmGetContactManagedHash($contactId)
+{
+    $exist = SubscriberMeta::where('subscriber_id', $contactId)
+        ->where('key', '_secure_managed_hash')
+        ->first();
+
+    if ($exist) {
+        $cutOutTime = time() - 60 * 60 * 24 * 30;
+        if (time() - strtotime($exist->updated_at) > $cutOutTime) {
+            $hash = md5(wp_generate_uuid4() . '_' . $contactId . '_' . '_' . time()) . '__' . $contactId;
+            $exist->value = $hash;
+            $exist->updated_at = date('Y-m-d H:i:s');
+            $exist->save();
+            return $hash;
+        }
+
+        return $exist->value;
+    }
+
+    $hash = md5(wp_generate_uuid4() . '_' . $contactId . '_' . '_' . time()) . '__' . $contactId;
+
+    SubscriberMeta::create([
+        'subscriber_id' => $contactId,
+        'created_by'    => 0,
+        'key'           => '_secure_managed_hash',
         'object_type'   => 'option',
         'value'         => $hash
     ]);
@@ -1294,6 +1359,24 @@ function fluentCrmGetFromCache($key, $callback = false, $expire = 600)
     }
 
     return $value;
+}
+
+function fluentCrmSetCache($key, $value, $expire = 600)
+{
+    return wp_cache_set($key, $value, 'fluent_crm', $expire);
+}
+
+function fluentCrmGetOptionCache($key, $expire = 60)
+{
+    return fluentCrmGetFromCache($key, function () use ($key) {
+        return get_option($key);
+    }, $expire);
+}
+
+function fluentCrmSetOptionCache($key, $value, $expire = 60)
+{
+    update_option($key, $value, 'no');
+    return fluentCrmSetCache($key, $value, $expire);
 }
 
 function fluentCrmAutoProcessCampaignTypes()
@@ -1318,19 +1401,24 @@ if (!function_exists('fluentCrmMaxRunTime')) {
     function fluentCrmMaxRunTime()
     {
         if (function_exists('ini_get')) {
-            $maxRunTime = (int) ini_get('max_execution_time');
+            $maxRunTime = (int)ini_get('max_execution_time');
+            if ($maxRunTime === 0) {
+                $maxRunTime = 60;
+            }
         } else {
-            return 27;
+            $maxRunTime = 30;
         }
 
         if (!$maxRunTime || $maxRunTime < 0) {
             $maxRunTime = 30;
         }
 
-        if ($maxRunTime > 50) {
-            $maxRunTime = 50;
+        if ($maxRunTime > 58) {
+            $maxRunTime = 58;
         }
 
-        return $maxRunTime - 3;
+        $maxRunTime = $maxRunTime - 3;
+
+        return apply_filters('fluent_crm/max_run_time', $maxRunTime);
     }
 }

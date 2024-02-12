@@ -12,6 +12,7 @@ use FluentCrm\App\Models\Subscriber;
 use FluentCrm\App\Models\SubscriberMeta;
 use FluentCrm\App\Models\SubscriberNote;
 use FluentCrm\App\Models\SubscriberPivot;
+use FluentCrm\App\Services\BlockParser;
 use FluentCrm\App\Services\Helper;
 
 /**
@@ -44,7 +45,7 @@ class Cleanup
             \FluentCampaign\App\Models\SequenceTracker::whereIn('subscriber_id', $subscriberIds)->delete();
         }
 
-        if(Helper::isExperimentalEnabled('company_module')) {
+        if (Helper::isExperimentalEnabled('company_module')) {
             Company::whereIn('owner_id', $subscriberIds)
                 ->update([
                     'owner_id' => NULL
@@ -231,5 +232,52 @@ class Cleanup
 
         // Delete company notes
         CompanyNote::where('subscriber_id', $id)->delete();
+    }
+
+    public function handleUserPasswordChanged($user)
+    {
+        $contact = Subscriber::where('email', $user->user_email)
+            ->first();
+
+        if (!$contact) {
+            return false;
+        }
+
+        $exist = SubscriberMeta::where('subscriber_id', $contact->id)
+            ->where('key', '_secure_managed_hash')
+            ->first();
+
+        if (!$exist) {
+            return false;
+        }
+
+        $hash = md5(wp_generate_uuid4() . '_' . $contact->id . '_' . '_' . time() . '__' . $contact->id);
+        $exist->value = $hash;
+        $exist->updated_at = date('Y-m-d H:i:s');
+        $exist->save();
+
+        return true;
+    }
+
+    public function archiveCampaignAssets($campaign)
+    {
+        if ($campaign->type != 'campaign' || fluentcrm_get_campaign_meta($campaign->id, '_cached_email_body', true)) {
+            return;
+        }
+
+        // We will create email body and then cache it for future use
+        $rawTemplates = [
+            'raw_html',
+            'visual_builder'
+        ];
+
+        if (in_array($campaign->design_template, $rawTemplates)) {
+            $emailBody = $campaign->email_body;
+        } else {
+            $emailBody = (new BlockParser())->parse($campaign->email_body);
+        }
+
+        fluentcrm_update_campaign_meta($campaign->id, '_cached_email_body', $emailBody);
+        return true;
     }
 }

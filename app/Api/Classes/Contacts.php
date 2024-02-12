@@ -184,11 +184,27 @@ class Contacts
 
     public function getContactBySecureHash($hash)
     {
-        if(!$hash) {
+        if (!$hash) {
             return null;
         }
 
         $secureMeta = SubscriberMeta::where('value', $hash)->where('key', '_secure_hash')
+            ->first();
+
+        if ($secureMeta) {
+            return $this->instance->where('id', $secureMeta->subscriber_id)->first();
+        }
+
+        return null;
+    }
+
+    public function getContactByManagedSecureHash($hash)
+    {
+        if (!$hash) {
+            return null;
+        }
+
+        $secureMeta = SubscriberMeta::where('value', $hash)->where('key', '_secure_managed_hash')
             ->first();
 
         if ($secureMeta) {

@@ -216,7 +216,7 @@ class FunnelHandler
         if (!$hasPermission) {
             wp_send_json([
                 'message' => __('Sorry, You do not have permission to do this action', 'fluent-crm')
-            ], 423);
+            ], 422);
         }
 
         $request = FluentCrm('request');
@@ -261,7 +261,7 @@ class FunnelHandler
         if (!$hasPermission) {
             wp_send_json([
                 'message' => __('Sorry, You do not have permission to do this action', 'fluent-crm')
-            ], 423);
+            ], 422);
         }
 
         $request = FluentCrm('request');
@@ -319,7 +319,7 @@ class FunnelHandler
         if (!$hasPermission) {
             wp_send_json([
                 'message' => __('Sorry, You do not have permission to do this action', 'fluent-crm')
-            ], 423);
+            ], 422);
         }
 
         $request = FluentCrm('request');
@@ -330,7 +330,7 @@ class FunnelHandler
         if (empty($data)) {
             wp_send_json([
                 'message' => __('Invalid Data', 'fluent-crm')
-            ], 423);
+            ], 422);
         }
 
         $updateData = Arr::only($data, [

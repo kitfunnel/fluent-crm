@@ -10,7 +10,6 @@ namespace FluentCrm\App\Hooks\Handlers;
  *
  * @version 1.0.0
  */
-
 class ActivationHandler
 {
     public function handle($network_wide = false)
@@ -30,7 +29,7 @@ class ActivationHandler
         add_filter('cron_schedules', function ($schedules) {
 
             $schedules['fluentcrm_every_minute'] = array(
-                'interval' => 60,
+                'interval' => 300,
                 'display'  => esc_html__('Every Minute (FluentCRM)', 'fluentform'),
             );
 
@@ -42,16 +41,16 @@ class ActivationHandler
             return $schedules;
         }, 10, 1);
 
-        $hookName = 'fluentcrm_scheduled_minute_tasks';
-        if (!wp_next_scheduled($hookName)) {
-            wp_schedule_event(time(), 'fluentcrm_every_minute', $hookName);
+        if (function_exists('\as_has_scheduled_action')) {
+            if (!as_has_scheduled_action('fluentcrm_scheduled_every_minute_tasks')) {
+                as_schedule_recurring_action(time(), 60, 'fluentcrm_scheduled_every_minute_tasks', [], 'fluent-crm');
+            }
         }
 
         $hookName = 'fluentcrm_scheduled_five_minute_tasks';
         if (!wp_next_scheduled($hookName)) {
             wp_schedule_event(time(), 'fluentcrm_scheduled_five_minute_tasks', $hookName);
         }
-
 
         $dailyHook = 'fluentcrm_scheduled_hourly_tasks';
         if (!wp_next_scheduled($dailyHook)) {
@@ -72,11 +71,11 @@ class ActivationHandler
         $defaults = [
             'campaign' => [
                 'from' => [
-                    'name' => '',
+                    'name'  => '',
                     'email' => ''
                 ]
             ],
-            'email' => [
+            'email'    => [
                 'emails_per_second' => 4
             ]
         ];

@@ -27,11 +27,19 @@ class FunnelProcessor
         return $this->subscribersCache[$id];
     }
 
+    public function setSubscriber($id)
+    {
+        $subscriber = Subscriber::find($id);
+        $this->subscribersCache[$id] = $subscriber;
+        return $this->subscribersCache[$id];
+    }
+
     public function getSequence($id)
     {
         if (isset($this->sequenceFunnelCache[$id])) {
             return $this->sequenceFunnelCache[$id];
         }
+
         $funnelAction = FunnelSequence::find($id);
         $this->sequenceFunnelCache[$id] = $funnelAction;
         return $this->sequenceFunnelCache[$id];
@@ -42,6 +50,13 @@ class FunnelProcessor
         if (isset($this->funnelCache[$id])) {
             return $this->funnelCache[$id];
         }
+        $funnel = Funnel::find($id);
+        $this->funnelCache[$id] = $funnel;
+        return $this->funnelCache[$id];
+    }
+
+    public function setFunnel($id)
+    {
         $funnel = Funnel::find($id);
         $this->funnelCache[$id] = $funnel;
         return $this->funnelCache[$id];
@@ -111,13 +126,14 @@ class FunnelProcessor
             $this->completeFunnelSequence($funnelSubscriber);
             return;
         }
-        
+
         $hasEnd = $sequencePoints->hasEndSequence;
 
-        if($hasEnd) {
+        if ($hasEnd) {
             foreach ($sequencePoints->getCurrentSequences() as $sequence) {
                 $this->processSequence($subscriber, $sequence, $funnelSubscriber->id);
                 if ($sequence->action_name == 'end_this_funnel') {
+                    $this->setFunnel($funnelSubscriber->funnel_id);
                     return;
                 }
             }
@@ -212,6 +228,8 @@ class FunnelProcessor
                 'status' => 'completed'
             ]);
 
+        $this->setFunnel($funnelSubscriber->funnel_id);
+
         do_action('fluent_crm/automation_funnel_completed', $funnelSubscriber->funnel, $funnelSubscriber->subscriber);
     }
 
@@ -262,6 +280,11 @@ class FunnelProcessor
             if (Arr::get($startSequence->settings, 'can_enter') == 'no') {
                 return false;
             }
+
+            if ($funnelSubscriber->status == 'completed' || $funnelSubscriber->status == 'cancelled') {
+                return false; // It's already completed or cancelled. We don't need to start again
+            }
+
         }
 
         $this->recordFunnelMetric($subscriber, $startSequence, $metricArgs);
@@ -385,11 +408,12 @@ class FunnelProcessor
             foreach ($immediateSequences as $immediateSequence) {
                 $this->processSequence($subscriber, $immediateSequence, $funnelSubscriberId);
                 if ($immediateSequence->action_name == 'end_this_funnel') {
+                    $this->setFunnel($immediateSequence->funnel_id);
                     return;
                 }
 
                 if ($immediateSequence->action_name == 'fluentcrm_wait_times') {
-                    $waitTimes = FunnelHelper::getCurrentDelayInSeconds($immediateSequence->settings);
+                    $waitTimes = FunnelHelper::getCurrentDelayInSeconds($immediateSequence->settings, $sequence, $funnelSubscriberId);
                 }
             }
 

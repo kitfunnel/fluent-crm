@@ -170,7 +170,7 @@ class PrefFormHandler
         if (!isset($_POST['_fc_nonce']) || !wp_verify_nonce($_POST['_fc_nonce'], 'fluent_crm_account_form_fields')) {
             wp_send_json_error([
                 'message' => 'Sorry, your nonce did not verify.'
-            ], 423);
+            ], 422);
         }
 
         $settings = Helper::getGlobalEmailSettings();
@@ -178,7 +178,7 @@ class PrefFormHandler
         if (Arr::get($settings, 'pref_form') != 'yes' || empty(Arr::get($settings, 'pref_general'))) {
             wp_send_json_error([
                 'message' => 'Sorry! you can not update your profile'
-            ], 423);
+            ], 422);
         }
 
         if (isset($_REQUEST['_fc_hash_secure']) && !is_user_logged_in()) {
@@ -193,7 +193,7 @@ class PrefFormHandler
         if (!$subscriber) {
             wp_send_json_error([
                 'message' => 'Sorry! you can not update your profile'
-            ], 423);
+            ], 422);
         }
 
         $validInputs = $this->getFormFields($settings, $subscriber, [], true);
@@ -218,7 +218,7 @@ class PrefFormHandler
                 'message' => __('Please fill up all required fields', 'fluent-crm'),
                 'errors'  => $errors,
                 'inputs'  => $validData
-            ], 423);
+            ], 422);
         }
 
         $subscriber->fill($validData);

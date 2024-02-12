@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Email Marketing Automation, Newsletter and CRM Plugin for WordPress by FluentCRM - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-11-03 12:37+0000\n"
+"PO-Revision-Date: 2024-02-06 14:09+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -29,11 +29,11 @@ msgstr " - A la espera de la confirmación de la doble optina"
 msgid " - Waiting for next action"
 msgstr " - A la espera de la siguiente acción"
 
-#: app/Services/ExternalIntegrations/MailComplaince/Webhook.php:55
+#: app/Services/ExternalIntegrations/MailComplaince/Webhook.php:56
 msgid " at "
 msgstr " en"
 
-#: app/Services/CrmMigrator/ActiveCampaignMigrator.php:308
+#: app/Services/CrmMigrator/ActiveCampaignMigrator.php:311
 msgid " contacts has been imported so far."
 msgstr " contactos se ha importado hasta ahora."
 
@@ -50,16 +50,16 @@ msgstr " los grupos y los contactos asociados se importarán desde MailerLite"
 msgid " lists and associate contacts  will be imported"
 msgstr " se importarán las listas y los contactos asociados"
 
-#: app/Services/ExternalIntegrations/MailComplaince/Webhook.php:224
+#: app/Services/ExternalIntegrations/MailComplaince/Webhook.php:225
 msgid " status was set from PostMark Webhook API. Reason: "
 msgstr " el estado fue establecido desde la API de PostMark Webhook. Razón"
 
-#: app/Services/ExternalIntegrations/MailComplaince/Webhook.php:89
-#: app/Services/ExternalIntegrations/MailComplaince/Webhook.php:125
+#: app/Services/ExternalIntegrations/MailComplaince/Webhook.php:90
+#: app/Services/ExternalIntegrations/MailComplaince/Webhook.php:126
 msgid " status was set from SendGrid Webhook API. Reason: "
 msgstr " el estado se estableció desde la API de SendGrid Webhook. Razón"
 
-#: app/Services/ExternalIntegrations/MailComplaince/Webhook.php:178
+#: app/Services/ExternalIntegrations/MailComplaince/Webhook.php:179
 msgid " status was set from Sparkpost Webhook API. Reason: "
 msgstr " el estado se estableció desde la API de Sparkpost Webhook. Razón"
 
@@ -73,13 +73,13 @@ msgstr ""
 msgid " tags have been imported so far"
 msgstr " etiquetas se han importado hasta ahora"
 
-#: app/Services/ExternalIntegrations/MailComplaince/Webhook.php:55
+#: app/Services/ExternalIntegrations/MailComplaince/Webhook.php:56
 msgid " was set by mailgun webhook api with event name: "
 msgstr ""
 " fue establecido por la api de mailgun webhook con el nombre del evento"
 
-#: app/Http/Controllers/SettingsController.php:67
-#: app/Http/Controllers/TemplateController.php:199
+#: app/Http/Controllers/SettingsController.php:68
+#: app/Http/Controllers/TemplateController.php:208
 msgid ""
 "##crm.manage_subscription_url## or ##crm.unsubscribe_url## string is "
 "required for compliance. Please include unsubscription or manage "
@@ -89,29 +89,29 @@ msgstr ""
 "necesaria para el cumplimiento. Por favor, incluya el enlace de "
 "desuscripción o de gestión de la suscripción"
 
-#: app/Hooks/Handlers/PurchaseHistory.php:129
+#: app/Hooks/Handlers/PurchaseHistory.php:114
 #, php-format
 msgid "%1$s for %2$s item"
 msgid_plural "%1$s for %2$s items"
 msgstr[0] "%1$s por %2$s producto"
 msgstr[1] "%1$s por %2$s productos"
 
-#: app/Http/Controllers/SubscriberController.php:960
+#: app/Http/Controllers/SubscriberController.php:987
 msgid "%d subscribers has been attached to the selected automation funnel"
 msgstr ""
 "se han adjuntado %d suscriptores al embudo de automatización seleccionado"
 
-#: app/Http/Controllers/SubscriberController.php:863
+#: app/Http/Controllers/SubscriberController.php:890
 msgid "%d subscribers has been attached to the selected company"
 msgstr ""
 
-#: app/Http/Controllers/SubscriberController.php:827
+#: app/Http/Controllers/SubscriberController.php:854
 msgid "%d subscribers has been attached to the selected email sequence"
 msgstr ""
 "se han adjuntado %d suscriptores a la secuencia de correo electrónico "
 "seleccionada"
 
-#: app/Http/Controllers/SubscriberController.php:899
+#: app/Http/Controllers/SubscriberController.php:926
 msgid "%d subscribers has been detached from the selected company"
 msgstr ""
 
@@ -161,10 +161,10 @@ msgstr ""
 "las etiquetas dinámicas no pueden ser reemplazadas en el correo electrónico "
 "de prueba"
 
-#: app/Services/ExternalIntegrations/MailComplaince/Webhook.php:89
-#: app/Services/ExternalIntegrations/MailComplaince/Webhook.php:125
-#: app/Services/ExternalIntegrations/MailComplaince/Webhook.php:178
-#: app/Services/ExternalIntegrations/MailComplaince/Webhook.php:224
+#: app/Services/ExternalIntegrations/MailComplaince/Webhook.php:90
+#: app/Services/ExternalIntegrations/MailComplaince/Webhook.php:126
+#: app/Services/ExternalIntegrations/MailComplaince/Webhook.php:179
+#: app/Services/ExternalIntegrations/MailComplaince/Webhook.php:225
 msgid ". Recorded at: "
 msgstr ". Grabado en"
 
@@ -172,8 +172,8 @@ msgstr ". Grabado en"
 msgid "[Copy] "
 msgstr "[Copia]"
 
-#: app/Http/Controllers/CampaignController.php:1158
-#: app/Http/Controllers/TemplateController.php:171
+#: app/Http/Controllers/CampaignController.php:1165
+#: app/Http/Controllers/TemplateController.php:180
 msgid "[Duplicate] "
 msgstr "[Duplicado]"
 
@@ -193,7 +193,7 @@ msgstr "[Punto opcional] Este es un punto de activación opcional"
 msgid "A"
 msgstr ""
 
-#: app/Hooks/Handlers/ExternalPages.php:969
+#: app/Hooks/Handlers/ExternalPages.php:1057
 #, php-format
 #| msgid ""
 #| "A conformation email has been sent to %s. Please confirm your email "
@@ -205,7 +205,7 @@ msgstr ""
 "Se ha enviado un correo electrónico de confirmación a %s. Confirma tu "
 "dirección de correo electrónico para volver a suscribirte"
 
-#: app/Hooks/Handlers/ExternalPages.php:949
+#: app/Hooks/Handlers/ExternalPages.php:1036
 #, php-format
 #| msgid ""
 #| "A conformation email has been sent to %s. Please confirm your email "
@@ -264,8 +264,8 @@ msgstr "Bloques de acción"
 msgid "Action Type"
 msgstr "Tipo de acción"
 
-#: app/Services/TransStrings.php:18 app/Hooks/Handlers/PurchaseHistory.php:206
-#: app/Hooks/Handlers/PurchaseHistory.php:423
+#: app/Services/TransStrings.php:18 app/Hooks/Handlers/PurchaseHistory.php:143
+#: app/Hooks/Handlers/PurchaseHistory.php:359
 msgid "Actions"
 msgstr "Acciones"
 
@@ -285,7 +285,7 @@ msgstr ""
 msgid "Activate Fluent Forms Integration"
 msgstr "Activar la integración de Fluent Forms"
 
-#: app/Services/TransStrings.php:1649 app/Services/Helper.php:1273
+#: app/Services/TransStrings.php:1650 app/Services/Helper.php:1284
 msgid "Active"
 msgstr "Activo"
 
@@ -316,6 +316,10 @@ msgstr "Token API de ActiveCampaign"
 #: app/Services/TransStrings.php:401
 msgid "Activities of this contact will be shown here"
 msgstr "Las actividades de este contacto se mostrarán aquí"
+
+#: app/Http/Controllers/SettingsController.php:572
+msgid "Activity Logs"
+msgstr ""
 
 #: app/Services/TransStrings.php:19
 msgid "Add"
@@ -457,7 +461,7 @@ msgstr "Añadir un nuevo contacto"
 msgid "Add New Custom Field"
 msgstr "Añadir nuevo campo personalizado"
 
-#: app/Services/TransStrings.php:729 app/Services/TransStrings.php:1650
+#: app/Services/TransStrings.php:729 app/Services/TransStrings.php:1651
 msgid ""
 "Add new filter to narrow down your contacts based on different properties"
 msgstr ""
@@ -504,7 +508,7 @@ msgstr "Añadir o eliminar"
 msgid "Add Sequence"
 msgstr "Añadir secuencia"
 
-#: app/Services/TransStrings.php:1605
+#: app/Services/TransStrings.php:1606
 msgid "Add SmartCodes"
 msgstr ""
 
@@ -603,7 +607,7 @@ msgid "Additional Info"
 msgstr ""
 
 #: app/Hooks/Handlers/AdminMenu.php:197 app/Hooks/Handlers/AdminMenu.php:198
-#: app/Hooks/Handlers/AdminMenu.php:1273 app/Hooks/Handlers/AdminMenu.php:1274
+#: app/Hooks/Handlers/AdminMenu.php:1305 app/Hooks/Handlers/AdminMenu.php:1306
 msgid "Addons"
 msgstr "Complementos"
 
@@ -611,7 +615,7 @@ msgstr "Complementos"
 msgid "Address"
 msgstr ""
 
-#: app/Services/TransStrings.php:1651
+#: app/Services/TransStrings.php:1652
 msgid "Address Fields"
 msgstr ""
 
@@ -619,18 +623,18 @@ msgstr ""
 msgid "Address Information"
 msgstr "Información sobre la dirección"
 
-#: app/Models/Company.php:59 app/Models/Subscriber.php:703
-#: app/Services/TransStrings.php:41 app/Services/Helper.php:154
-#: app/Services/Helper.php:893 app/Hooks/Handlers/PrefFormHandler.php:48
+#: app/Models/Company.php:59 app/Models/Subscriber.php:715
+#: app/Services/TransStrings.php:41 app/Services/Helper.php:161
+#: app/Services/Helper.php:904 app/Hooks/Handlers/PrefFormHandler.php:48
 #: app/Hooks/Handlers/PrefFormHandler.php:433
 #: app/Services/CrmMigrator/BaseMigrator.php:36
 #: app/Services/Funnel/FunnelHelper.php:152
 msgid "Address Line 1"
 msgstr "Dirección, línea 1"
 
-#: app/Models/Company.php:60 app/Models/Subscriber.php:704
-#: app/Services/TransStrings.php:42 app/Services/Helper.php:155
-#: app/Services/Helper.php:898 app/Hooks/Handlers/PrefFormHandler.php:49
+#: app/Models/Company.php:60 app/Models/Subscriber.php:716
+#: app/Services/TransStrings.php:42 app/Services/Helper.php:162
+#: app/Services/Helper.php:909 app/Hooks/Handlers/PrefFormHandler.php:49
 #: app/Hooks/Handlers/PrefFormHandler.php:444
 #: app/Services/CrmMigrator/BaseMigrator.php:37
 #: app/Services/Funnel/FunnelHelper.php:156
@@ -641,7 +645,7 @@ msgstr "Dirección, línea 2"
 msgid "Adds the new FluentCRM navigation experience to the dashboard"
 msgstr ""
 
-#: app/Services/Helper.php:186
+#: app/Services/Helper.php:193
 msgid "Admin Email"
 msgstr "Correo electrónico del administrador"
 
@@ -675,7 +679,7 @@ msgid ""
 "of integrations, advanced automation, sequence emails and more"
 msgstr ""
 
-#: app/Services/Helper.php:1258
+#: app/Services/Helper.php:1269
 msgid "Affiliate ID (Pro Required)"
 msgstr "ID de afiliado (Pro requerido)"
 
@@ -699,20 +703,20 @@ msgstr "Después de 1 semana"
 msgid "After 2 Days"
 msgstr "Después de 2 días"
 
-#: app/Http/Controllers/SettingsController.php:132
+#: app/Http/Controllers/SettingsController.php:133
 msgid "After Confirmation Actions"
 msgstr "Acciones después de la confirmación"
 
-#: app/Http/Controllers/SettingsController.php:152
 #: app/Http/Controllers/SettingsController.php:153
+#: app/Http/Controllers/SettingsController.php:154
 msgid "After Confirmation Message"
 msgstr "Después del mensaje de confirmación"
 
-#: app/Http/Controllers/SettingsController.php:218
+#: app/Http/Controllers/SettingsController.php:219
 msgid "After Confirmation Message is required"
 msgstr "Tras el mensaje de confirmación es necesario"
 
-#: app/Http/Controllers/SettingsController.php:137
+#: app/Http/Controllers/SettingsController.php:138
 msgid "After Confirmation Type"
 msgstr "Después de la confirmación Tipo"
 
@@ -742,11 +746,11 @@ msgstr "Todos los contactos disponibles"
 msgid "All available subscribers"
 msgstr "Todos los suscriptores disponibles"
 
-#: app/Services/TransStrings.php:708 app/Hooks/Handlers/AdminMenu.php:349
+#: app/Services/TransStrings.php:708 app/Hooks/Handlers/AdminMenu.php:354
 msgid "All Campaigns"
 msgstr "Todas las campañas"
 
-#: app/Hooks/CLI/Commands.php:23 app/Hooks/Handlers/AdminMenu.php:297
+#: app/Hooks/CLI/Commands.php:26 app/Hooks/Handlers/AdminMenu.php:302
 msgid "All Contacts"
 msgstr "Todos los contactos"
 
@@ -766,18 +770,22 @@ msgstr "Todo hecho"
 msgid "All Email Activities"
 msgstr "Todas las actividades de correo electrónico"
 
-#: app/Services/TransStrings.php:1345 app/Hooks/CLI/Commands.php:39
-#: app/Hooks/Handlers/AdminMenu.php:373
+#: app/Services/TransStrings.php:1345 app/Hooks/CLI/Commands.php:42
+#: app/Hooks/Handlers/AdminMenu.php:378
 msgid "All Emails"
 msgstr "Todos los correos electrónicos"
 
-#: app/Http/Controllers/SettingsController.php:305
+#: app/Http/Controllers/SettingsController.php:306
 msgid "All FluentCRM Database Tables have been resetted"
 msgstr "Todas las tablas de la base de datos de FluentCRM se han restablecido"
 
 #: app/Services/TransStrings.php:46
 msgid "All Lists"
 msgstr "Todas las listas"
+
+#: app/Http/Controllers/SystemLogController.php:39
+msgid "All logs has been deleted"
+msgstr ""
 
 #: app/Services/TransStrings.php:1388
 msgid "All Previous email history for this recurring campaign."
@@ -857,11 +865,11 @@ msgstr ""
 msgid "Almost Done!"
 msgstr "Ya casi está"
 
-#: app/Http/Controllers/SettingsController.php:320
+#: app/Http/Controllers/SettingsController.php:321
 msgid "Amazon SES"
 msgstr "Amazon SES"
 
-#: app/Http/Controllers/SettingsController.php:323
+#: app/Http/Controllers/SettingsController.php:324
 msgid "Amazon SES Bounce Handler URL"
 msgstr "URL del gestor de rebotes de Amazon SES"
 
@@ -875,7 +883,7 @@ msgstr ""
 "Se enviará un correo electrónico automático de doble apertura para los "
 "nuevos suscriptores"
 
-#: app/Services/TransStrings.php:1664
+#: app/Services/TransStrings.php:1665
 msgid "and manage subscription/unsubscribe url is mandatory"
 msgstr ""
 
@@ -899,7 +907,7 @@ msgstr "Angola"
 msgid "Anguilla"
 msgstr "Anguila"
 
-#: app/Services/TransStrings.php:1652
+#: app/Services/TransStrings.php:1653
 msgid "Anonymize ip Address for associate contact data"
 msgstr ""
 
@@ -922,9 +930,13 @@ msgstr "URL de acceso a la API"
 msgid "API Key"
 msgstr "Clave API"
 
-#: app/Http/Controllers/SettingsController.php:726
+#: app/Http/Controllers/SettingsController.php:844
 msgid "API Key has been successfully created"
 msgstr "La clave API ha sido creada con éxito"
+
+#: app/Http/Controllers/SettingsController.php:703
+msgid "API Key has been successfully deleted"
+msgstr ""
 
 #: app/Services/TransStrings.php:880
 msgid "API Password:"
@@ -963,7 +975,7 @@ msgstr ""
 msgid "Apply Company to the contact"
 msgstr ""
 
-#: app/Services/TransStrings.php:1618
+#: app/Services/TransStrings.php:1619
 msgid "Apply Condition"
 msgstr ""
 
@@ -999,7 +1011,7 @@ msgstr "Aplicar etiquetas"
 msgid "Apply Tags when clicked"
 msgstr "Aplicar etiquetas al hacer clic"
 
-#: app/Services/TransStrings.php:1595
+#: app/Services/TransStrings.php:1596
 msgid "April"
 msgstr ""
 
@@ -1047,6 +1059,10 @@ msgstr ""
 "¿Estás seguro de que quieres añadir contactos a la secuencia de correo "
 "electrónico seleccionada?"
 
+#: app/Services/TransStrings.php:1677
+msgid "Are you sure you want to delete the api key?"
+msgstr ""
+
 #: app/Services/TransStrings.php:1487
 msgid "Are you sure you want to delete this automation?"
 msgstr ""
@@ -1087,6 +1103,10 @@ msgstr ""
 #: app/Services/TransStrings.php:695
 msgid "Are you sure, you want to reset the CRM Database?"
 msgstr "¿Está seguro de que desea restablecer la base de datos de CRM?"
+
+#: app/Services/TransStrings.php:1676
+msgid "Are you sure? All of the Fluent CRM email will be sent from "
+msgstr ""
 
 #: app/Hooks/Handlers/CountryNames.php:65
 msgid "Argentina"
@@ -1158,7 +1178,7 @@ msgstr "Etiquetas y listas adjuntas"
 msgid "Attached Trigger could not be found"
 msgstr ""
 
-#: app/Services/TransStrings.php:1599
+#: app/Services/TransStrings.php:1600
 msgid "August"
 msgstr ""
 
@@ -1201,7 +1221,7 @@ msgstr ""
 "Sincronice automáticamente sus datos de usuario de WP y los datos de "
 "contacto de Fluent CRM"
 
-#: app/Services/Helper.php:1043
+#: app/Services/Helper.php:1054
 msgid "Automation Activity -"
 msgstr "Actividad de automatización -"
 
@@ -1234,9 +1254,9 @@ msgid "Automation Write/Edit/Delete"
 msgstr "Automatización Escribir/Editar/Borrar"
 
 #: app/Services/Stats.php:100 app/Services/TransStrings.php:57
-#: app/Hooks/CLI/Commands.php:35 app/Hooks/Handlers/AdminMenu.php:165
-#: app/Hooks/Handlers/AdminMenu.php:166 app/Hooks/Handlers/AdminMenu.php:393
-#: app/Hooks/Handlers/AdminMenu.php:1252 app/Hooks/Handlers/AdminMenu.php:1253
+#: app/Hooks/CLI/Commands.php:38 app/Hooks/Handlers/AdminMenu.php:165
+#: app/Hooks/Handlers/AdminMenu.php:166 app/Hooks/Handlers/AdminMenu.php:398
+#: app/Hooks/Handlers/AdminMenu.php:1284 app/Hooks/Handlers/AdminMenu.php:1285
 msgid "Automations"
 msgstr "Automatizaciones"
 
@@ -1303,7 +1323,7 @@ msgstr "En función de sus selecciones"
 msgid "Based on your selections, "
 msgstr "Basado en sus selecciones,"
 
-#: app/Services/TransStrings.php:1672
+#: app/Services/TransStrings.php:1673
 msgid ""
 "Based on your time selection, the emails will be scheduled within that range "
 "randomly"
@@ -1369,7 +1389,7 @@ msgstr "Bermudas"
 msgid "Bhutan"
 msgstr "Bután"
 
-#: app/Services/Helper.php:458
+#: app/Services/Helper.php:467
 msgid "Black"
 msgstr "Negro"
 
@@ -1438,19 +1458,19 @@ msgstr "Emitir/programar esta campaña de correo electrónico ahora"
 msgid "Broadcasts"
 msgstr ""
 
-#: app/Hooks/Handlers/AdminMenu.php:299
+#: app/Hooks/Handlers/AdminMenu.php:304
 msgid "Browse all your subscribers and customers"
 msgstr ""
 
-#: app/Hooks/Handlers/AdminMenu.php:311
+#: app/Hooks/Handlers/AdminMenu.php:316
 msgid "Browse and Manage contact business/companies"
 msgstr ""
 
-#: app/Hooks/Handlers/AdminMenu.php:319
+#: app/Hooks/Handlers/AdminMenu.php:324
 msgid "Browse and Manage your lists associate with contact"
 msgstr ""
 
-#: app/Hooks/Handlers/AdminMenu.php:325
+#: app/Hooks/Handlers/AdminMenu.php:330
 msgid "Browse and Manage your tags associate with contact"
 msgstr ""
 
@@ -1458,7 +1478,7 @@ msgstr ""
 msgid "Brunei"
 msgstr "Brunei"
 
-#: app/Services/TransStrings.php:1582
+#: app/Services/TransStrings.php:1583
 msgid "Build Email By Drag and Drop Visual Editor"
 msgstr ""
 
@@ -1474,7 +1494,7 @@ msgstr "Burkina Faso"
 msgid "Burundi"
 msgstr "Burundi"
 
-#: app/Services/Helper.php:185
+#: app/Services/Helper.php:192
 msgid "Business Address"
 msgstr "Dirección del negocio"
 
@@ -1482,7 +1502,7 @@ msgstr "Dirección del negocio"
 msgid "Business Full Address"
 msgstr "Dirección completa de la empresa"
 
-#: app/Services/TransStrings.php:67 app/Services/Helper.php:184
+#: app/Services/TransStrings.php:67 app/Services/Helper.php:191
 msgid "Business Name"
 msgstr "Nombre del negocio"
 
@@ -1510,7 +1530,7 @@ msgstr "Botón URL"
 msgid "By"
 msgstr "Por"
 
-#: app/Services/TransStrings.php:1653
+#: app/Services/TransStrings.php:1654
 msgid "By Advanced Filter"
 msgstr ""
 
@@ -1558,7 +1578,7 @@ msgstr ""
 msgid "Campaign Archives"
 msgstr ""
 
-#: app/Services/TransStrings.php:1573
+#: app/Services/TransStrings.php:1574
 msgid "Campaign Archives (Pro)"
 msgstr ""
 
@@ -1578,27 +1598,27 @@ msgstr "Campaña eliminada."
 msgid "Campaign Details"
 msgstr "Detalles de la campaña"
 
-#: app/Services/Helper.php:1025
+#: app/Services/Helper.php:1036
 msgid "Campaign Email -"
 msgstr "Correo electrónico de la campaña -"
 
-#: app/Http/Controllers/CampaignController.php:1184
+#: app/Http/Controllers/CampaignController.php:1191
 msgid "Campaign has been successfully duplicated"
 msgstr "La campaña se ha duplicado con éxito"
 
-#: app/Http/Controllers/CampaignController.php:1097
+#: app/Http/Controllers/CampaignController.php:1104
 msgid "Campaign has been successfully marked as paused"
 msgstr "La campaña ha sido marcada con éxito como pausada"
 
-#: app/Http/Controllers/CampaignController.php:1123
+#: app/Http/Controllers/CampaignController.php:1130
 msgid "Campaign has been successfully resumed"
 msgstr "La campaña se ha reanudado con éxito"
 
-#: app/Http/Controllers/CampaignController.php:1225
+#: app/Http/Controllers/CampaignController.php:1232
 msgid "Campaign has been successfully un-scheduled"
 msgstr "La campaña se ha desprogramado con éxito"
 
-#: app/Http/Controllers/CampaignController.php:1149
+#: app/Http/Controllers/CampaignController.php:1156
 msgid "Campaign has been updated"
 msgstr "La campaña ha sido actualizada"
 
@@ -1634,8 +1654,8 @@ msgstr "Ajustes de la campaña"
 msgid "Campaign Source (required)"
 msgstr "Fuente de la campaña (obligatorio)"
 
-#: app/Services/TransStrings.php:1636
-#: app/Http/Controllers/CampaignController.php:442
+#: app/Services/TransStrings.php:1637
+#: app/Http/Controllers/CampaignController.php:443
 msgid "Campaign status is not in draft status. Please reload the page"
 msgstr ""
 
@@ -1652,7 +1672,7 @@ msgid "Campaign Title"
 msgstr "Título de la campaña"
 
 #: app/Services/Stats.php:25 app/Services/TransStrings.php:112
-#: app/Hooks/CLI/Commands.php:31 app/Hooks/Handlers/AdminMenu.php:116
+#: app/Hooks/CLI/Commands.php:34 app/Hooks/Handlers/AdminMenu.php:116
 #: app/Hooks/Handlers/AdminMenu.php:117
 msgid "Campaigns"
 msgstr "Campañas"
@@ -1689,7 +1709,7 @@ msgstr ""
 msgid "Cancel this schedule"
 msgstr "Cancelar este horario"
 
-#: app/Services/TransStrings.php:1654
+#: app/Services/TransStrings.php:1655
 msgid "Cancelled"
 msgstr ""
 
@@ -1753,7 +1773,7 @@ msgstr "Cambiar el tipo de contacto"
 msgid "Change Funnel Status"
 msgstr ""
 
-#: app/Services/TransStrings.php:1589
+#: app/Services/TransStrings.php:1590
 msgid "Change preview contact"
 msgstr ""
 
@@ -1777,7 +1797,7 @@ msgstr ""
 msgid "Chart Report"
 msgstr "Informe gráfico"
 
-#: app/Services/TransStrings.php:1670
+#: app/Services/TransStrings.php:1671
 msgid "Check All"
 msgstr ""
 
@@ -1825,20 +1845,16 @@ msgstr "Elija los valores"
 msgid "Christmas Island"
 msgstr "Isla de Navidad"
 
-#: app/Models/Company.php:62 app/Models/Subscriber.php:705
-#: app/Services/TransStrings.php:123 app/Services/Helper.php:156
-#: app/Services/Helper.php:903 app/Hooks/Handlers/PrefFormHandler.php:50
+#: app/Models/Company.php:62 app/Models/Subscriber.php:717
+#: app/Services/TransStrings.php:123 app/Services/Helper.php:163
+#: app/Services/Helper.php:914 app/Hooks/Handlers/PrefFormHandler.php:50
 #: app/Hooks/Handlers/PrefFormHandler.php:455
 #: app/Services/CrmMigrator/BaseMigrator.php:39
 #: app/Services/Funnel/FunnelHelper.php:164
 msgid "City"
 msgstr "Ciudad"
 
-#: app/Services/TransStrings.php:1527
-msgid "Classic (EG: 20 Jun 2022, 14:15)"
-msgstr ""
-
-#: app/Services/Helper.php:303
+#: app/Services/Helper.php:311
 msgid "Classic Editor"
 msgstr "Editor clásico"
 
@@ -1866,13 +1882,11 @@ msgstr "Haga clic aquí para renovar su licencia"
 msgid "Click Rate"
 msgstr "Tasa de clics"
 
-#: app/Services/TransStrings.php:1215
-msgid ""
-"Click rates is calculated based on contact's unique link clicks. it's not "
-"the unique contacts count."
+#: app/Models/CampaignUrlMetric.php:125
+msgid "Click Rate (%d)"
 msgstr ""
 
-#: app/Models/CampaignUrlMetric.php:121
+#: app/Models/CampaignUrlMetric.php:136
 msgid "Click To Open Rate"
 msgstr "Tasa de apertura"
 
@@ -1888,7 +1902,7 @@ msgstr "Clics"
 msgid "Clicks"
 msgstr ""
 
-#: app/Services/TransStrings.php:1655
+#: app/Services/TransStrings.php:1656
 msgid "Clone"
 msgstr ""
 
@@ -1930,8 +1944,8 @@ msgstr "Colombia"
 msgid "Color"
 msgstr ""
 
-#: app/Http/Controllers/CompanyController.php:270
-#: app/Http/Controllers/SubscriberController.php:173
+#: app/Http/Controllers/CompanyController.php:271
+#: app/Http/Controllers/SubscriberController.php:175
 msgid "Column is not valid"
 msgstr "La columna no es válida"
 
@@ -1956,7 +1970,7 @@ msgid "Comoros"
 msgstr "Comoros"
 
 #: app/Services/TransStrings.php:1259 app/Hooks/Handlers/AdminMenu.php:85
-#: app/Hooks/Handlers/AdminMenu.php:86 app/Hooks/Handlers/AdminMenu.php:309
+#: app/Hooks/Handlers/AdminMenu.php:86 app/Hooks/Handlers/AdminMenu.php:314
 msgid "Companies"
 msgstr ""
 
@@ -1964,11 +1978,11 @@ msgstr ""
 msgid "Companies imported successfully"
 msgstr ""
 
-#: app/Http/Controllers/CompanyController.php:340
+#: app/Http/Controllers/CompanyController.php:341
 msgid "Companies selection is required"
 msgstr ""
 
-#: app/Services/TransStrings.php:1261 app/Services/Helper.php:1083
+#: app/Services/TransStrings.php:1261 app/Services/Helper.php:1094
 msgid "Company"
 msgstr ""
 
@@ -1980,7 +1994,7 @@ msgstr ""
 msgid "Company association removed"
 msgstr ""
 
-#: app/Http/Controllers/CompanyController.php:418
+#: app/Http/Controllers/CompanyController.php:419
 msgid "Company Category has been updated for the selected companies"
 msgstr ""
 
@@ -1996,19 +2010,19 @@ msgstr ""
 msgid "Company Fields"
 msgstr ""
 
-#: app/Http/Controllers/CompanyController.php:213
+#: app/Http/Controllers/CompanyController.php:214
 msgid "Company has been created successfully"
 msgstr ""
 
-#: app/Http/Controllers/CompanyController.php:327
+#: app/Http/Controllers/CompanyController.php:328
 msgid "Company has been deleted successfully"
 msgstr ""
 
-#: app/Http/Controllers/CompanyController.php:140
+#: app/Http/Controllers/CompanyController.php:141
 msgid "Company has been successfully detached"
 msgstr ""
 
-#: app/Http/Controllers/CompanyController.php:242
+#: app/Http/Controllers/CompanyController.php:243
 msgid "Company has been updated"
 msgstr ""
 
@@ -2036,7 +2050,7 @@ msgstr ""
 msgid "Company Module"
 msgstr ""
 
-#: app/Services/TransStrings.php:1571
+#: app/Services/TransStrings.php:1572
 msgid "Company Module Settings"
 msgstr ""
 
@@ -2064,7 +2078,7 @@ msgstr ""
 msgid "Company Phone Number"
 msgstr ""
 
-#: app/Http/Controllers/CompanyController.php:315
+#: app/Http/Controllers/CompanyController.php:316
 msgid "Company successfully updated"
 msgstr ""
 
@@ -2072,7 +2086,7 @@ msgstr ""
 msgid "Company Type"
 msgstr ""
 
-#: app/Http/Controllers/CompanyController.php:398
+#: app/Http/Controllers/CompanyController.php:399
 msgid "Company Type has been updated for the selected companies"
 msgstr ""
 
@@ -2101,7 +2115,7 @@ msgstr "Completar la importación"
 msgid "Complete Installation"
 msgstr "Instalación completa"
 
-#: app/Services/TransStrings.php:131 app/Hooks/CLI/Commands.php:125
+#: app/Services/TransStrings.php:131 app/Hooks/CLI/Commands.php:132
 msgid "Completed"
 msgstr "Completado"
 
@@ -2141,7 +2155,7 @@ msgstr ""
 msgid "Condition Blocks"
 msgstr "Bloques de condición"
 
-#: app/Services/TransStrings.php:1614
+#: app/Services/TransStrings.php:1615
 msgid "CONDITION TYPE"
 msgstr ""
 
@@ -2197,11 +2211,11 @@ msgstr "confirmar"
 msgid "Confirm Import"
 msgstr "Confirmar la importación"
 
-#: app/Services/Libs/Parser/ShortcodeParser.php:248
+#: app/Services/Libs/Parser/ShortcodeParser.php:251
 msgid "Confirm Subscription"
 msgstr "Confirmar suscripción"
 
-#: app/Hooks/Handlers/ExternalPages.php:375
+#: app/Hooks/Handlers/ExternalPages.php:412
 msgid "Confirm your unsubscribe Request"
 msgstr ""
 
@@ -2245,12 +2259,12 @@ msgstr "Conéctate con"
 msgid "Connect with your CRM"
 msgstr "Conecte con su CRM"
 
-#: app/Services/TransStrings.php:140 app/Services/Helper.php:145
-#: app/Services/Helper.php:871
+#: app/Services/TransStrings.php:140 app/Services/Helper.php:152
+#: app/Services/Helper.php:882
 msgid "Contact"
 msgstr "Contacto"
 
-#: app/Services/Helper.php:1006
+#: app/Services/Helper.php:1017
 msgid "Contact Activities"
 msgstr "Actividades de contacto"
 
@@ -2270,7 +2284,7 @@ msgstr "contacto añadido en cualquiera de las Listas seleccionadas"
 msgid "contact added in any of the selected Tags"
 msgstr "contacto añadido en cualquiera de las etiquetas seleccionadas"
 
-#: app/Http/Controllers/SubscriberController.php:706
+#: app/Http/Controllers/SubscriberController.php:716
 msgid "Contact Already Subscribed"
 msgstr "Contacto ya suscrito"
 
@@ -2285,7 +2299,7 @@ msgid ""
 msgstr ""
 "Se ha omitido la creación de un contacto porque ya existe en la base de datos"
 
-#: app/Services/Helper.php:151
+#: app/Services/Helper.php:158
 msgid "Contact Email"
 msgstr "Correo electrónico de contacto"
 
@@ -2317,7 +2331,7 @@ msgstr "El contacto se ha añadido manualmente a este embudo de automatización"
 msgid "Contact has been created in FluentCRM. Contact ID: "
 msgstr "El contacto ha sido creado en FluentCRM. ID del contacto: "
 
-#: app/Http/Controllers/SubscriberController.php:343
+#: app/Http/Controllers/SubscriberController.php:345
 msgid "contact has been successfully updated."
 msgstr "el contacto ha sido actualizado correctamente."
 
@@ -2325,7 +2339,7 @@ msgstr "el contacto ha sido actualizado correctamente."
 msgid "Contact has been updated in FluentCRM. Contact ID: "
 msgstr "El contacto ha sido actualizado en FluentCRM. ID del contacto: "
 
-#: app/Services/Helper.php:152
+#: app/Services/Helper.php:159
 msgid "Contact ID"
 msgstr "ID del contacto"
 
@@ -2353,7 +2367,7 @@ msgstr "contacto eliminado de todas las listas seleccionadas"
 msgid "contact removed from any of the selected Lists"
 msgstr "contacto eliminado de cualquiera de las Listas seleccionadas"
 
-#: app/Services/Helper.php:966
+#: app/Services/Helper.php:977 app/Hooks/Handlers/EventTrackingHandler.php:256
 msgid "Contact Segment"
 msgstr "Segmento de contacto"
 
@@ -2390,14 +2404,14 @@ msgstr ""
 msgid "Contact Type"
 msgstr "Tipo de contacto"
 
-#: app/Http/Controllers/SubscriberController.php:981
+#: app/Http/Controllers/SubscriberController.php:1008
 msgid "Contact Type has been updated for the selected subscribers"
 msgstr "Se ha actualizado el tipo de contacto para los suscritos seleccionados"
 
-#: app/Services/TransStrings.php:148 app/Services/Helper.php:1735
+#: app/Services/TransStrings.php:148 app/Services/Helper.php:1765
 #: app/Hooks/Handlers/AdminMenu.php:74 app/Hooks/Handlers/AdminMenu.php:75
-#: app/Hooks/Handlers/AdminMenu.php:291 app/Hooks/Handlers/AdminMenu.php:1205
-#: app/Hooks/Handlers/AdminMenu.php:1206
+#: app/Hooks/Handlers/AdminMenu.php:296 app/Hooks/Handlers/AdminMenu.php:1237
+#: app/Hooks/Handlers/AdminMenu.php:1238
 msgid "Contacts"
 msgstr "Contactos"
 
@@ -2550,9 +2564,9 @@ msgstr "Copie la URL del webhook al que desea enviar su solicitud POST."
 msgid "Costa Rica"
 msgstr "Costa Rica"
 
-#: app/Models/Company.php:64 app/Models/Subscriber.php:708
-#: app/Services/TransStrings.php:155 app/Services/Helper.php:159
-#: app/Services/Helper.php:918 app/Hooks/Handlers/PrefFormHandler.php:53
+#: app/Models/Company.php:64 app/Models/Subscriber.php:720
+#: app/Services/TransStrings.php:155 app/Services/Helper.php:166
+#: app/Services/Helper.php:929 app/Hooks/Handlers/PrefFormHandler.php:53
 #: app/Services/CrmMigrator/BaseMigrator.php:41
 msgid "Country"
 msgstr "País"
@@ -2593,7 +2607,7 @@ msgstr "Crear un nuevo formulario"
 msgid "Create a new Smart link"
 msgstr "Crear un nuevo enlace inteligente"
 
-#: app/Services/TransStrings.php:1607
+#: app/Services/TransStrings.php:1608
 msgid "Create a note"
 msgstr ""
 
@@ -2662,7 +2676,7 @@ msgstr ""
 msgid "Create Email Template"
 msgstr "Crear una plantilla de correo electrónico"
 
-#: app/Hooks/Handlers/AdminMenu.php:369
+#: app/Hooks/Handlers/AdminMenu.php:374
 msgid "Create email templates to use as a starting point in your emails"
 msgstr ""
 
@@ -2670,7 +2684,7 @@ msgstr ""
 msgid "Create Form"
 msgstr "Crear un formulario"
 
-#: app/Hooks/Handlers/AdminMenu.php:363
+#: app/Hooks/Handlers/AdminMenu.php:368
 msgid "Create Multiple Emails and Send in order as a Drip Email Campaign"
 msgstr ""
 
@@ -2754,7 +2768,7 @@ msgstr "Crea tu primer formulario"
 msgid "Created"
 msgstr "Creado"
 
-#: app/Services/TransStrings.php:176 app/Services/Helper.php:954
+#: app/Services/TransStrings.php:176 app/Services/Helper.php:965
 msgid "Created At"
 msgstr "Creado el"
 
@@ -2855,7 +2869,7 @@ msgstr "Campos de contacto personalizados"
 msgid "Custom Contact Properties"
 msgstr "Propiedades de contacto personalizadas"
 
-#: app/Services/Helper.php:189
+#: app/Services/Helper.php:196
 msgid "Custom Date Format (Any PHP Date Format)"
 msgstr ""
 
@@ -2867,15 +2881,15 @@ msgstr "Correo electrónico personalizado"
 msgid "Custom Email Addresses"
 msgstr "Direcciones de correo electrónico personalizadas"
 
-#: app/Services/TransStrings.php:1647
+#: app/Services/TransStrings.php:1648
 msgid "Custom Email Footer Text"
 msgstr ""
 
-#: app/Http/Controllers/SubscriberController.php:756
+#: app/Http/Controllers/SubscriberController.php:766
 msgid "Custom Email has been successfully sent"
 msgstr "El correo electrónico personalizado se ha enviado con éxito"
 
-#: app/Http/Controllers/SubscriberController.php:720
+#: app/Http/Controllers/SubscriberController.php:730
 msgid "Custom Email to Contact"
 msgstr "Correo electrónico personalizado para el contacto"
 
@@ -2887,8 +2901,8 @@ msgstr "Etiqueta de campo personalizada"
 msgid "Custom Field Slug"
 msgstr "Campo personalizado Slug"
 
-#: app/Services/TransStrings.php:716 app/Services/Helper.php:175
-#: app/Services/Helper.php:1138
+#: app/Services/TransStrings.php:716 app/Services/Helper.php:182
+#: app/Services/Helper.php:1149
 msgid "Custom Fields"
 msgstr "Campos personalizados"
 
@@ -2910,7 +2924,7 @@ msgstr "Cliente"
 msgid "customer"
 msgstr "cliente"
 
-#: app/Hooks/CLI/Commands.php:137
+#: app/Hooks/CLI/Commands.php:144
 msgid "Customer Counts"
 msgstr "El cliente cuenta"
 
@@ -2918,12 +2932,13 @@ msgstr "El cliente cuenta"
 msgid "Customer Since"
 msgstr "Cliente desde"
 
-#: app/Services/TransStrings.php:1018
-#: app/Hooks/Handlers/PurchaseHistory.php:501
+#: app/Services/TransStrings.php:1018 app/Hooks/Handlers/PurchaseHistory.php:43
+#: app/Hooks/Handlers/PurchaseHistory.php:76
+#: app/Hooks/Handlers/PurchaseHistory.php:437
 msgid "Customer Summary"
 msgstr "Resumen del cliente"
 
-#: app/Services/Helper.php:463
+#: app/Services/Helper.php:472
 msgid "Cyan bluish gray"
 msgstr "Gris azulado cian"
 
@@ -2944,8 +2959,8 @@ msgid "Danger Zone"
 msgstr "Zona de peligro"
 
 #: app/Services/TransStrings.php:187 app/Hooks/Handlers/AdminMenu.php:65
-#: app/Hooks/Handlers/AdminMenu.php:66 app/Hooks/Handlers/AdminMenu.php:283
-#: app/Hooks/Handlers/AdminMenu.php:1198 app/Hooks/Handlers/AdminMenu.php:1199
+#: app/Hooks/Handlers/AdminMenu.php:66 app/Hooks/Handlers/AdminMenu.php:288
+#: app/Hooks/Handlers/AdminMenu.php:1230 app/Hooks/Handlers/AdminMenu.php:1231
 msgid "Dashboard"
 msgstr "Escritorio"
 
@@ -2967,8 +2982,8 @@ msgstr ""
 #: app/Http/Controllers/CampaignAnalyticsController.php:81
 #: app/Http/Controllers/CampaignAnalyticsController.php:125
 #: app/Http/Controllers/CampaignAnalyticsController.php:143
-#: app/Hooks/Handlers/PurchaseHistory.php:195
-#: app/Hooks/Handlers/PurchaseHistory.php:412
+#: app/Hooks/Handlers/PurchaseHistory.php:132
+#: app/Hooks/Handlers/PurchaseHistory.php:348
 msgid "Date"
 msgstr "Fecha"
 
@@ -2988,15 +3003,19 @@ msgstr "Fecha añadida"
 msgid "Date and Time"
 msgstr "Fecha y hora"
 
-#: app/Services/TransStrings.php:190 app/Services/Helper.php:162
-#: app/Services/Helper.php:959 app/Hooks/Handlers/PrefFormHandler.php:47
+#: app/Services/TransStrings.php:190 app/Services/Helper.php:169
+#: app/Services/Helper.php:970 app/Hooks/Handlers/PrefFormHandler.php:47
 #: app/Hooks/Handlers/PrefFormHandler.php:396
 msgid "Date of Birth"
 msgstr "Fecha de nacimiento"
 
-#: app/Models/Subscriber.php:712
+#: app/Models/Subscriber.php:724
 msgid "Date of Birth (Y-m-d Format only)"
 msgstr "Fecha de nacimiento (sólo en formato Y-m-d)"
+
+#: app/Services/Helper.php:1820
+msgid "Date Time"
+msgstr ""
 
 #: app/Services/TransStrings.php:1526
 msgid "Date Time difference (EG: 2 hours ago)"
@@ -3011,7 +3030,7 @@ msgid "Day"
 msgstr ""
 
 #: app/Services/TransStrings.php:191
-#: app/Services/Funnel/Actions/WaitTimeAction.php:95
+#: app/Services/Funnel/Actions/WaitTimeAction.php:101
 msgid "Days"
 msgstr "Días"
 
@@ -3023,7 +3042,7 @@ msgstr "días"
 msgid "Days Ago"
 msgstr "Hace días"
 
-#: app/Services/TransStrings.php:1603
+#: app/Services/TransStrings.php:1604
 msgid "December"
 msgstr ""
 
@@ -3031,7 +3050,7 @@ msgstr ""
 msgid "Dedicated API and SMTP connections"
 msgstr "Conexiones API y SMTP dedicadas"
 
-#: app/Services/TransStrings.php:1668
+#: app/Services/TransStrings.php:1669
 msgid "Default Companies"
 msgstr ""
 
@@ -3091,6 +3110,10 @@ msgstr "Retraso"
 msgid "Delete"
 msgstr "Borrar"
 
+#: app/Services/TransStrings.php:1679
+msgid "Delete API Key"
+msgstr ""
+
 #: app/Services/TransStrings.php:1486
 msgid "Delete Automation"
 msgstr ""
@@ -3103,7 +3126,7 @@ msgstr ""
 msgid "Delete Companies"
 msgstr ""
 
-#: app/Services/TransStrings.php:1656
+#: app/Services/TransStrings.php:1657
 msgid "Delete connected contact when a user get deleted"
 msgstr ""
 
@@ -3167,11 +3190,11 @@ msgstr "Hora de la entrega"
 msgid "Denmark"
 msgstr "Dinamarca"
 
-#: app/Services/TransStrings.php:203
+#: app/Services/TransStrings.php:203 app/Services/Helper.php:1835
 msgid "Description"
 msgstr "Descripción"
 
-#: app/Http/Controllers/SettingsController.php:126
+#: app/Http/Controllers/SettingsController.php:127
 msgid "Design Template"
 msgstr "Plantilla de diseño"
 
@@ -3187,7 +3210,7 @@ msgstr "Desmontar etiquetas y listas"
 msgid "Developer Docs"
 msgstr ""
 
-#: app/Http/Controllers/SettingsController.php:259
+#: app/Http/Controllers/SettingsController.php:260
 msgid ""
 "Development mode is not activated. So you can not use this feature. You can "
 "define \"FLUENTCRM_IS_DEV_FEATURES\" in your wp-config to enable this feature"
@@ -3220,7 +3243,7 @@ msgstr "Yibuti"
 msgid "Do another Action"
 msgstr "Hacer otra Acción"
 
-#: app/Services/TransStrings.php:1666
+#: app/Services/TransStrings.php:1667
 msgid "Do not import segment from untrusted sources."
 msgstr ""
 
@@ -3250,7 +3273,7 @@ msgstr ""
 msgid "Do you want to skip the data change?"
 msgstr ""
 
-#: app/Services/TransStrings.php:1667
+#: app/Services/TransStrings.php:1668
 msgid "Do you want to update the companies data"
 msgstr ""
 
@@ -3311,19 +3334,19 @@ msgstr "Detalles de la configuración del correo electrónico Double Opt-in"
 msgid "Double Opt-in Settings"
 msgstr "Configuración del doble opt-in"
 
-#: app/Http/Controllers/SettingsController.php:236
+#: app/Http/Controllers/SettingsController.php:237
 msgid "Double Opt-in settings has been updated"
 msgstr "Configuración de Double Opt-in actualizada"
 
-#: app/Http/Controllers/SubscriberController.php:713
+#: app/Http/Controllers/SubscriberController.php:723
 msgid "Double OptIn email has been sent"
 msgstr "Se ha enviado el correo electrónico de Double OptIn"
 
-#: app/Http/Controllers/SubscriberController.php:793
+#: app/Http/Controllers/SubscriberController.php:820
 msgid "Double optin sent to selected contacts"
 msgstr "Envío de doble optin a los contactos seleccionados"
 
-#: app/Http/Controllers/SettingsController.php:119
+#: app/Http/Controllers/SettingsController.php:120
 msgid "Double-Optin Email Body"
 msgstr "Cuerpo de correo electrónico de doble optina"
 
@@ -3374,7 +3397,7 @@ msgstr "Suelte el archivo JSON aquí o"
 msgid "Duplicate"
 msgstr "Duplicado"
 
-#: app/Services/Helper.php:188
+#: app/Services/Helper.php:195
 msgid "Dynamic Date (ex: +2 days from now)"
 msgstr "Fecha dinámica (por ejemplo: +2 días a partir de ahora)"
 
@@ -3382,11 +3405,11 @@ msgstr "Fecha dinámica (por ejemplo: +2 días a partir de ahora)"
 msgid "Dynamic Segments"
 msgstr "Segmentos dinámicos"
 
-#: app/Services/Helper.php:1281
+#: app/Services/Helper.php:1292
 msgid "Earnings (Pro Required)"
 msgstr "Ganancias (Pro Requerido)"
 
-#: app/Services/Helper.php:437
+#: app/Services/Helper.php:446
 msgid "Easy Digital Downloads"
 msgstr "Easy Digital Downloads"
 
@@ -3398,7 +3421,7 @@ msgstr "INTEGRACIÓN DEL COMERCIO ELECTRÓNICO:"
 msgid "Ecuador"
 msgstr "Ecuador"
 
-#: app/Services/Helper.php:1202
+#: app/Services/Helper.php:1213
 msgid "EDD"
 msgstr "EDD"
 
@@ -3406,7 +3429,7 @@ msgstr "EDD"
 msgid "EDD Integration:"
 msgstr "Integración de la EDD:"
 
-#: app/Services/Helper.php:436
+#: app/Services/Helper.php:445
 msgid "EDD Purchase History"
 msgstr "Historial de compra de EDD"
 
@@ -3490,7 +3513,7 @@ msgstr ""
 msgid "Edit The Form"
 msgstr ""
 
-#: app/Services/TransStrings.php:1629
+#: app/Services/TransStrings.php:1630
 msgid "Editor is loading. Please wait"
 msgstr ""
 
@@ -3518,11 +3541,11 @@ msgstr "Egipto"
 msgid "El Salvador"
 msgstr "El Salvador"
 
-#: app/Http/Controllers/SettingsController.php:362
+#: app/Http/Controllers/SettingsController.php:363
 msgid "Elastic Email"
 msgstr ""
 
-#: app/Http/Controllers/SettingsController.php:365
+#: app/Http/Controllers/SettingsController.php:366
 msgid "Elastic Email Bounce Handler Webhook URL"
 msgstr ""
 
@@ -3534,8 +3557,8 @@ msgstr ""
 msgid "Elementor Pro Form Integration"
 msgstr ""
 
-#: app/Models/Subscriber.php:701 app/Functions/helpers.php:611
-#: app/Services/TransStrings.php:233 app/Services/Helper.php:889
+#: app/Models/Subscriber.php:713 app/Functions/helpers.php:611
+#: app/Services/TransStrings.php:233 app/Services/Helper.php:900
 #: app/Hooks/Handlers/PrefFormHandler.php:45
 #: app/Hooks/Handlers/PrefFormHandler.php:362
 #: app/Services/Funnel/FunnelHelper.php:138
@@ -3575,15 +3598,15 @@ msgstr ""
 "entregar los correos electrónicos como se espera"
 
 #: app/Services/TransStrings.php:235
-#: app/Http/Controllers/SettingsController.php:120
+#: app/Http/Controllers/SettingsController.php:121
 msgid "Email Body"
 msgstr "Cuerpo del correo electrónico"
 
-#: app/Http/Controllers/SettingsController.php:217
+#: app/Http/Controllers/SettingsController.php:218
 msgid "Email Body is required"
 msgstr "El cuerpo del correo electrónico es obligatorio"
 
-#: app/Http/Controllers/SettingsController.php:229
+#: app/Http/Controllers/SettingsController.php:230
 msgid "Email Body need to contains activation link"
 msgstr "El cuerpo del correo electrónico debe contener el enlace de activación"
 
@@ -3611,8 +3634,8 @@ msgstr ""
 msgid "Email Clicks"
 msgstr "Clics de correo electrónico"
 
-#: app/Http/Controllers/SettingsController.php:533
-#: app/Http/Controllers/SettingsController.php:542
+#: app/Http/Controllers/SettingsController.php:554
+#: app/Http/Controllers/SettingsController.php:563
 msgid "Email clicks"
 msgstr "Clics de correo electrónico"
 
@@ -3624,10 +3647,14 @@ msgstr ""
 msgid "Email Confirmation"
 msgstr "Confirmación de correo electrónico"
 
-#: app/Http/Controllers/SettingsController.php:127
+#: app/Http/Controllers/SettingsController.php:128
 msgid "Email Design Template for this double-optin email"
 msgstr ""
 "Plantilla de diseño de correo electrónico para este correo de doble apertura"
+
+#: app/Services/TransStrings.php:1680
+msgid "Email field is required"
+msgstr ""
 
 #: app/Services/TransStrings.php:238
 msgid "Email Footer Settings"
@@ -3637,7 +3664,7 @@ msgstr "Configuración del pie de página del correo electrónico"
 msgid "Email Footer Text"
 msgstr "Texto del pie de página del correo electrónico"
 
-#: app/Services/TransStrings.php:1645
+#: app/Services/TransStrings.php:1646
 msgid "Email Footer Type"
 msgstr ""
 
@@ -3650,11 +3677,11 @@ msgid "Email History"
 msgstr ""
 
 #: app/Services/TransStrings.php:1019
-#: app/Http/Controllers/SettingsController.php:524
+#: app/Http/Controllers/SettingsController.php:545
 msgid "Email History Logs"
 msgstr "Registros del historial de correo electrónico"
 
-#: app/Hooks/Handlers/ExternalPages.php:922
+#: app/Hooks/Handlers/ExternalPages.php:1009
 msgid "Email is not valid. Please provide a valid email"
 msgstr "La dirección de correo no es válida. Proporciona una que sea válida"
 
@@ -3666,6 +3693,7 @@ msgstr "Estadísticas de clics en enlaces de correo electrónico"
 msgid "Email Logging for better visibility"
 msgstr "Registro del correo electrónico para una mejor visibilidad"
 
+#: app/views/external/manage_subscription_request_form.php:43
 #: app/views/external/unsubscribe_request_form.php:43
 msgid "Email me the link"
 msgstr ""
@@ -3686,7 +3714,7 @@ msgstr ""
 msgid "Email opened"
 msgstr "Correo electrónico abierto"
 
-#: app/Http/Controllers/SettingsController.php:114
+#: app/Http/Controllers/SettingsController.php:115
 msgid "Email Pre Header"
 msgstr ""
 
@@ -3694,7 +3722,7 @@ msgstr ""
 msgid "Email Pre-Header"
 msgstr "Precabecera del correo electrónico"
 
-#: app/Services/Libs/Parser/ShortcodeParser.php:235
+#: app/Services/Libs/Parser/ShortcodeParser.php:238
 msgid "Email Preference"
 msgstr "Preferencia de correo electrónico"
 
@@ -3722,8 +3750,8 @@ msgstr ""
 msgid "Email Sending Stats"
 msgstr "Estadísticas de envío de los correos electrónicos"
 
-#: app/Services/TransStrings.php:1640
-#: app/Http/Controllers/CampaignController.php:517
+#: app/Services/TransStrings.php:1641
+#: app/Http/Controllers/CampaignController.php:519
 msgid "Email Sending will be started soon"
 msgstr "El envío de correos electrónicos se iniciará pronto"
 
@@ -3735,7 +3763,7 @@ msgstr ""
 msgid "Email Sent %"
 msgstr "Correo electrónico enviado"
 
-#: app/Models/FunnelCampaign.php:90
+#: app/Models/FunnelCampaign.php:91
 msgid "Email Sent From Funnel"
 msgstr "Correo electrónico enviado desde el embudo"
 
@@ -3743,13 +3771,13 @@ msgstr "Correo electrónico enviado desde el embudo"
 msgid "Email Sent From Funnel: "
 msgstr "Correo electrónico enviado desde el embudo"
 
-#: app/Services/Helper.php:1061
+#: app/Services/Helper.php:1072
 msgid "Email Sequence Activity -"
 msgstr "Actividad de la secuencia de correo electrónico -"
 
 #: app/Services/Stats.php:90 app/Services/TransStrings.php:248
 #: app/Hooks/Handlers/AdminMenu.php:134 app/Hooks/Handlers/AdminMenu.php:135
-#: app/Hooks/Handlers/AdminMenu.php:361
+#: app/Hooks/Handlers/AdminMenu.php:366
 msgid "Email Sequences"
 msgstr "Secuencias de correo electrónico"
 
@@ -3765,12 +3793,12 @@ msgstr "Configuración del correo electrónico"
 msgid "Email Styling Settings"
 msgstr "Configuración del estilo del correo electrónico"
 
-#: app/Services/TransStrings.php:1657
+#: app/Services/TransStrings.php:1658
 msgid "Email Styling Settings & Footer Settings"
 msgstr ""
 
 #: app/Services/TransStrings.php:251
-#: app/Http/Controllers/SettingsController.php:108
+#: app/Http/Controllers/SettingsController.php:109
 msgid "Email Subject"
 msgstr "Asunto del correo electrónico"
 
@@ -3778,13 +3806,13 @@ msgstr "Asunto del correo electrónico"
 msgid "Email Subject & Details"
 msgstr "Asunto y detalles del correo electrónico"
 
-#: app/Http/Controllers/SettingsController.php:216
+#: app/Http/Controllers/SettingsController.php:217
 msgid "Email Subject is required"
 msgstr "El asunto del correo electrónico es obligatorio"
 
 #: app/Services/Stats.php:46 app/Services/TransStrings.php:253
 #: app/Hooks/Handlers/AdminMenu.php:143 app/Hooks/Handlers/AdminMenu.php:144
-#: app/Hooks/Handlers/AdminMenu.php:367
+#: app/Hooks/Handlers/AdminMenu.php:372
 msgid "Email Templates"
 msgstr "Plantillas de correo electrónico"
 
@@ -3792,9 +3820,9 @@ msgstr "Plantillas de correo electrónico"
 msgid "Email Templates Manage"
 msgstr "Gestión de plantillas de correo electrónico"
 
-#: app/Services/TransStrings.php:255 app/Services/Helper.php:97
-#: app/Hooks/Handlers/AdminMenu.php:341 app/Hooks/Handlers/AdminMenu.php:1212
-#: app/Hooks/Handlers/AdminMenu.php:1213
+#: app/Services/TransStrings.php:255 app/Services/Helper.php:104
+#: app/Hooks/Handlers/AdminMenu.php:346 app/Hooks/Handlers/AdminMenu.php:1244
+#: app/Hooks/Handlers/AdminMenu.php:1245
 msgid "Emails"
 msgstr "Correos electrónicos"
 
@@ -3881,7 +3909,7 @@ msgstr ""
 msgid "Enable Campaign Archive Frontend Feature"
 msgstr ""
 
-#: app/Services/TransStrings.php:1572
+#: app/Services/TransStrings.php:1573
 msgid "Enable Company Module for Contacts"
 msgstr ""
 
@@ -3952,7 +3980,7 @@ msgstr ""
 "Habilitar la sincronización entre los datos de usuario de WP y los datos de "
 "contacto de Fluent CRM"
 
-#: app/Http/Controllers/SettingsController.php:174
+#: app/Http/Controllers/SettingsController.php:175
 msgid "Enable Tag based double optin redirect"
 msgstr ""
 
@@ -3986,23 +4014,23 @@ msgstr "Termina con"
 msgid "ends with"
 msgstr "termina con"
 
-#: app/Services/Helper.php:1344 app/Services/Helper.php:1400
+#: app/Services/Helper.php:1355 app/Services/Helper.php:1411
 msgid "Enrollment Categories (Pro Required)"
 msgstr "Categorías de inscripción (Pro Required)"
 
-#: app/Services/Helper.php:1326 app/Services/Helper.php:1383
+#: app/Services/Helper.php:1337 app/Services/Helper.php:1394
 msgid "Enrollment Courses (Pro Required)"
 msgstr "Cursos de inscripción (Pro Required)"
 
-#: app/Services/Helper.php:1334
+#: app/Services/Helper.php:1345
 msgid "Enrollment Groups (Pro Required)"
 msgstr "Grupos de inscripción (Pro Required)"
 
-#: app/Services/Helper.php:1391
+#: app/Services/Helper.php:1402
 msgid "Enrollment Memberships (Pro Required)"
 msgstr "Membresías de inscripción (Pro Required)"
 
-#: app/Services/Helper.php:1353 app/Services/Helper.php:1409
+#: app/Services/Helper.php:1364 app/Services/Helper.php:1420
 msgid "Enrollment Tags (Pro Required)"
 msgstr "Etiquetas de inscripción (Pro Required)"
 
@@ -4058,9 +4086,48 @@ msgstr "Estonia"
 msgid "Ethiopia"
 msgstr "Etiopía"
 
+#: app/Http/Controllers/SubscriberController.php:1252
+msgid "Event has been tracked"
+msgstr ""
+
+#: app/Hooks/Handlers/EventTrackingHandler.php:293
+msgid "Event Key"
+msgstr ""
+
 #: app/Services/TransStrings.php:264
 msgid "Event Name"
 msgstr "Nombre del evento"
+
+#: app/Hooks/Handlers/EventTrackingHandler.php:308
+msgid "Event Occurrence Count"
+msgstr ""
+
+#: app/Hooks/Handlers/EventTrackingHandler.php:360
+msgid "Event Title"
+msgstr ""
+
+#: app/Http/Controllers/SubscriberController.php:1217
+msgid "Event Tracker is not enabled"
+msgstr ""
+
+#: app/Hooks/Handlers/EventTrackingHandler.php:30
+#: app/Hooks/Handlers/EventTrackingHandler.php:217
+#: app/Hooks/Handlers/EventTrackingHandler.php:235
+#: app/Hooks/Handlers/EventTrackingHandler.php:251
+msgid "Event Tracking"
+msgstr ""
+
+#: app/Services/TransStrings.php:1571
+msgid ""
+"Event Tracking is a flexible feature that helps you collect data on a wide "
+"variety of contact behavior. You can create an event for any activity "
+"programmatically or from different automations. Then you can use those "
+"events to filter contacts or use on automation conditional logics."
+msgstr ""
+
+#: app/Hooks/Handlers/EventTrackingHandler.php:333
+msgid "Event Value"
+msgstr ""
 
 #: app/Services/TransStrings.php:1405
 msgid "Every Friday"
@@ -4158,7 +4225,7 @@ msgstr "Publicación en Facebook"
 msgid "Facebook URL"
 msgstr ""
 
-#: app/Services/TransStrings.php:653 app/Hooks/Handlers/ExternalPages.php:95
+#: app/Services/TransStrings.php:653 app/Hooks/Handlers/ExternalPages.php:97
 msgid "failed"
 msgstr "fallido"
 
@@ -4178,7 +4245,7 @@ msgstr "Islas Feroe"
 msgid "Features of Fluent SMTP Plugin"
 msgstr ""
 
-#: app/Services/TransStrings.php:1593
+#: app/Services/TransStrings.php:1594
 msgid "February"
 msgstr ""
 
@@ -4238,7 +4305,7 @@ msgstr "Filtrar suscriptores"
 msgid "Filtered by"
 msgstr "Filtrado por"
 
-#: app/Hooks/Handlers/AdminMenu.php:375
+#: app/Hooks/Handlers/AdminMenu.php:380
 msgid "Find all the emails that are being sent or scheduled by FluentCRM"
 msgstr ""
 
@@ -4246,12 +4313,12 @@ msgstr ""
 msgid "Finland"
 msgstr "Finlandia"
 
-#: app/Services/Helper.php:1320 app/Services/Helper.php:1377
+#: app/Services/Helper.php:1331 app/Services/Helper.php:1388
 msgid "First Enrollment Date (Pro Required)"
 msgstr "Primera fecha de inscripción (Pro Required)"
 
-#: app/Models/Subscriber.php:698 app/Services/TransStrings.php:277
-#: app/Services/Helper.php:149 app/Services/Helper.php:879
+#: app/Models/Subscriber.php:710 app/Services/TransStrings.php:277
+#: app/Services/Helper.php:156 app/Services/Helper.php:890
 #: app/Hooks/Handlers/PrefFormHandler.php:42
 #: app/Hooks/Handlers/PrefFormHandler.php:321
 #: app/views/external/manage_subscription_form.php:14
@@ -4262,7 +4329,7 @@ msgstr "Primera fecha de inscripción (Pro Required)"
 msgid "First Name"
 msgstr "Nombre"
 
-#: app/Services/Helper.php:1171 app/Services/Helper.php:1225
+#: app/Services/Helper.php:1182 app/Services/Helper.php:1236
 msgid "First Order Date (Pro Required)"
 msgstr "Fecha del primer pedido (Pro Required)"
 
@@ -4279,7 +4346,7 @@ msgstr "Conexión fluida"
 msgid "Fluent Crm"
 msgstr "FluentCRM"
 
-#: app/Hooks/Handlers/Cleanup.php:191
+#: app/Hooks/Handlers/Cleanup.php:192
 msgid "Fluent CRM Data"
 msgstr "Datos Fluent CRM"
 
@@ -4357,7 +4424,7 @@ msgstr ""
 "Se ha omitido la llamada a la API de FluentCRM porque no hay un correo "
 "electrónico válido disponible"
 
-#: app/Hooks/Handlers/Cleanup.php:167
+#: app/Hooks/Handlers/Cleanup.php:168
 msgid "FluentCRM Data"
 msgstr "Datos de FluentCRM"
 
@@ -4499,7 +4566,7 @@ msgstr ""
 "El envío de formularios desde Fluent Forms se mostrará aquí. Actualmente, "
 "Fluent Forms no está instalado"
 
-#: app/Services/Helper.php:113
+#: app/Services/Helper.php:120
 msgid "Form Submissions"
 msgstr "Presentación de formularios"
 
@@ -4517,8 +4584,8 @@ msgstr "Título del formulario"
 
 #: app/Services/Stats.php:95 app/Services/TransStrings.php:285
 #: app/Hooks/Handlers/AdminMenu.php:154 app/Hooks/Handlers/AdminMenu.php:155
-#: app/Hooks/Handlers/AdminMenu.php:385 app/Hooks/Handlers/AdminMenu.php:1245
-#: app/Hooks/Handlers/AdminMenu.php:1246
+#: app/Hooks/Handlers/AdminMenu.php:390 app/Hooks/Handlers/AdminMenu.php:1277
+#: app/Hooks/Handlers/AdminMenu.php:1278
 msgid "Forms"
 msgstr "Formularios"
 
@@ -4558,7 +4625,7 @@ msgstr "De la dirección de correo electrónico"
 msgid "From Name"
 msgstr "Desde el nombre"
 
-#: app/Models/Subscriber.php:700 app/Services/Helper.php:147
+#: app/Models/Subscriber.php:712 app/Services/Helper.php:154
 #: app/Services/CrmMigrator/BaseMigrator.php:27
 #: app/Services/ExternalIntegrations/FluentForm/Bootstrap.php:156
 msgid "Full Name"
@@ -4570,7 +4637,7 @@ msgctxt "full name"
 msgid "%1$s %2$s"
 msgstr "%1$s %2$s"
 
-#: app/Hooks/Handlers/AdminMenu.php:799
+#: app/Hooks/Handlers/AdminMenu.php:830
 msgid "Full Size"
 msgstr "Tamaño completo"
 
@@ -4578,7 +4645,7 @@ msgstr "Tamaño completo"
 msgid "Funnel Builder will be available soon"
 msgstr ""
 
-#: app/Models/FunnelCampaign.php:29
+#: app/Models/FunnelCampaign.php:30
 msgid "Funnel Campaign Holder"
 msgstr "Soporte de la campaña del embudo"
 
@@ -4630,11 +4697,11 @@ msgstr "Gabón"
 msgid "Gambia"
 msgstr "Gambia"
 
-#: app/Services/Helper.php:182
+#: app/Services/Helper.php:189
 msgid "General"
 msgstr "General"
 
-#: app/Services/Helper.php:875
+#: app/Services/Helper.php:886
 msgid "General Properties"
 msgstr "Propiedades generales"
 
@@ -4654,6 +4721,10 @@ msgstr "Alemania"
 msgid "Get Advanced Report of your contacts, emails, clicks and revenue"
 msgstr ""
 
+#: app/views/external/manage_subscription_request_form.php:32
+msgid "Get Email Subscription Management Link"
+msgstr ""
+
 #: app/Services/TransStrings.php:789
 msgid "Get FluentCRM Email Pro"
 msgstr "Obtenga FluentCRM Email Pro"
@@ -4666,7 +4737,7 @@ msgstr "Obtener FluentCRM Pro"
 msgid "Get FluentCRM Pro Now"
 msgstr "Obtenga FluentCRM Pro ahora"
 
-#: app/Services/TransStrings.php:1575
+#: app/Services/TransStrings.php:1576
 msgid ""
 "Get improved features and faster fixes by sharing non-sensitive data via "
 "usage tracking that shows us\n"
@@ -4688,7 +4759,7 @@ msgstr ""
 msgid "Get Pre-Defined Contact Lists"
 msgstr "Obtenga listas de contactos predefinidas"
 
-#: app/Hooks/Handlers/AdminMenu.php:418
+#: app/Hooks/Handlers/AdminMenu.php:423
 msgid "Get Pro"
 msgstr "Obtener Pro"
 
@@ -4812,6 +4883,10 @@ msgstr "Guayana"
 msgid "Haiti"
 msgstr "Haití"
 
+#: app/Http/Controllers/SubscriberController.php:791
+msgid "Handled could not be found."
+msgstr ""
+
 #: app/Services/TransStrings.php:1167
 msgid "has been completed."
 msgstr "se ha completado."
@@ -4829,7 +4904,7 @@ msgid "Heard Island and McDonald Islands"
 msgstr "Islas Heard y McDonald"
 
 #: app/Hooks/Handlers/AdminMenu.php:219 app/Hooks/Handlers/AdminMenu.php:220
-#: app/Hooks/Handlers/AdminMenu.php:1280 app/Hooks/Handlers/AdminMenu.php:1281
+#: app/Hooks/Handlers/AdminMenu.php:1312 app/Hooks/Handlers/AdminMenu.php:1313
 msgid "Help"
 msgstr "Ayuda"
 
@@ -4845,14 +4920,18 @@ msgstr "Honduras"
 msgid "Hong Kong"
 msgstr "Hong Kong"
 
-#: app/Services/TransStrings.php:1658
-#: app/Services/Funnel/Actions/WaitTimeAction.php:99
+#: app/Services/TransStrings.php:1659
+#: app/Services/Funnel/Actions/WaitTimeAction.php:105
 msgid "Hours"
 msgstr "Horas"
 
 #: app/Services/TransStrings.php:735
 msgid "How can we help you?"
 msgstr "¿Cómo podemos ayudarle?"
+
+#: app/Services/TransStrings.php:1215
+msgid "How many contacts clicked at least one of the links in the email"
+msgstr ""
 
 #: app/Services/TransStrings.php:1396
 msgid "How often you want to send this email?"
@@ -4867,11 +4946,11 @@ msgstr "https://fluentcrm.com"
 msgid "Hungary"
 msgstr "Hungría"
 
-#: app/Hooks/Handlers/ExternalPages.php:400
+#: app/Hooks/Handlers/ExternalPages.php:486
 msgid "I never signed up for this email list"
 msgstr "Nunca me suscribí a esta lista de correo electrónico"
 
-#: app/Hooks/Handlers/ExternalPages.php:399
+#: app/Hooks/Handlers/ExternalPages.php:485
 msgid "I no longer want to receive these emails"
 msgstr "No quiero volver a recibir esos correos electrónicos"
 
@@ -4881,7 +4960,7 @@ msgstr "Islandia"
 
 #: app/Services/TransStrings.php:302
 #: app/Http/Controllers/CampaignAnalyticsController.php:78
-#: app/Http/Controllers/SubscriberController.php:678
+#: app/Http/Controllers/SubscriberController.php:688
 msgid "ID"
 msgstr "ID"
 
@@ -5157,7 +5236,7 @@ msgstr ""
 "segmenta por etiquetas asociadas. Esta es una función profesional. Por favor,"
 " actualice para activar esta función"
 
-#: app/Services/TransStrings.php:1665
+#: app/Services/TransStrings.php:1666
 msgid ""
 "Import your exported dynamic segment JSON file here. Please upload your JSON "
 "file."
@@ -5202,11 +5281,11 @@ msgstr "en su"
 msgid "in your email body for compliance"
 msgstr "en el cuerpo de su correo electrónico para su cumplimiento"
 
-#: app/Services/Helper.php:1274
+#: app/Services/Helper.php:1285
 msgid "Inactive"
 msgstr "Inactivo"
 
-#: app/Services/TransStrings.php:1659
+#: app/Services/TransStrings.php:1660
 msgid "Include Contact Info in Personal Data export by WP"
 msgstr ""
 
@@ -5348,17 +5427,17 @@ msgstr "Subtítulo interno (opcional)"
 msgid "Internal Title"
 msgstr "Título interno"
 
-#: app/Http/Controllers/SubscriberController.php:935
+#: app/Http/Controllers/SubscriberController.php:962
 msgid "Invalid Automation Funnel ID"
 msgstr "ID de embudo de automatización inválido"
 
 #: app/Http/Controllers/FunnelController.php:416
-#: app/Http/Controllers/TemplateController.php:281
+#: app/Http/Controllers/TemplateController.php:290
 msgid "invalid bulk action"
 msgstr "acción masiva no válida"
 
-#: app/Http/Controllers/SubscriberController.php:835
-#: app/Http/Controllers/SubscriberController.php:871
+#: app/Http/Controllers/SubscriberController.php:862
+#: app/Http/Controllers/SubscriberController.php:898
 msgid "Invalid Company ID"
 msgstr ""
 
@@ -5370,7 +5449,7 @@ msgstr ""
 msgid "Invalid Data or Security Code"
 msgstr "Datos o código de seguridad no válidos"
 
-#: app/Http/Controllers/SubscriberController.php:806
+#: app/Http/Controllers/SubscriberController.php:833
 msgid "Invalid Email Sequence ID"
 msgstr "ID de secuencia de correo electrónico no válida"
 
@@ -5378,16 +5457,16 @@ msgstr "ID de secuencia de correo electrónico no válida"
 msgid "Invalid Emails:"
 msgstr "Correos electrónicos no válidos:"
 
-#: app/Services/TransStrings.php:1610
+#: app/Services/TransStrings.php:1611
 msgid "Invalid links detected. Check the following button / links"
 msgstr ""
 
-#: app/Services/TransStrings.php:1638
-#: app/Http/Controllers/CampaignController.php:497
+#: app/Services/TransStrings.php:1639
+#: app/Http/Controllers/CampaignController.php:498
 msgid "Invalid schedule date"
 msgstr ""
 
-#: app/Services/TransStrings.php:1637
+#: app/Services/TransStrings.php:1638
 msgid "Invalid schedule date range"
 msgstr ""
 
@@ -5400,11 +5479,11 @@ msgid "Invalid selection of lists and tags in subscribers included."
 msgstr ""
 "Selección inválida de listas y etiquetas en los suscriptores incluidos."
 
-#: app/Hooks/Handlers/ExternalPages.php:679
+#: app/Hooks/Handlers/ExternalPages.php:765
 msgid "Invalid Webhook Hash"
 msgstr "Hash de Webhook inválido"
 
-#: app/Hooks/Handlers/ExternalPages.php:670
+#: app/Hooks/Handlers/ExternalPages.php:756
 msgid "Invalid Webhook URL"
 msgstr "URL de Webhook inválida"
 
@@ -5424,7 +5503,7 @@ msgstr "Factura: Reembolsado"
 msgid "Invoice: Sent"
 msgstr "Factura: Enviada"
 
-#: app/Models/Subscriber.php:709 app/Services/TransStrings.php:303
+#: app/Models/Subscriber.php:721 app/Services/TransStrings.php:303
 msgid "IP Address"
 msgstr "Dirección IP"
 
@@ -5440,7 +5519,7 @@ msgstr "Irak"
 msgid "Ireland"
 msgstr "Irlanda"
 
-#: app/Services/Helper.php:1248
+#: app/Services/Helper.php:1259
 msgid "Is Affiliate (Pro Required)"
 msgstr "Es afiliado (se requiere Pro)"
 
@@ -5476,7 +5555,7 @@ msgstr "Costa de Marfil"
 msgid "Jamaica"
 msgstr "Jamaica"
 
-#: app/Services/TransStrings.php:1592
+#: app/Services/TransStrings.php:1593
 msgid "January"
 msgstr ""
 
@@ -5492,11 +5571,11 @@ msgstr "Jersey"
 msgid "Jordan"
 msgstr "Jordania"
 
-#: app/Services/TransStrings.php:1598
+#: app/Services/TransStrings.php:1599
 msgid "July"
 msgstr ""
 
-#: app/Services/TransStrings.php:1597
+#: app/Services/TransStrings.php:1598
 msgid "June"
 msgstr ""
 
@@ -5504,7 +5583,7 @@ msgstr ""
 msgid "Kazakhstan"
 msgstr "Kazajistán"
 
-#: app/Services/TransStrings.php:1608
+#: app/Services/TransStrings.php:1609 app/Services/Helper.php:1823
 msgid "keep blank for current time"
 msgstr ""
 
@@ -5540,11 +5619,11 @@ msgstr "Etiqueta"
 msgid "Laos"
 msgstr "Laos"
 
-#: app/Services/Helper.php:528 app/Hooks/Handlers/AdminMenu.php:798
+#: app/Services/Helper.php:537 app/Hooks/Handlers/AdminMenu.php:829
 msgid "Large"
 msgstr "Grande"
 
-#: app/Services/Helper.php:534
+#: app/Services/Helper.php:543
 msgid "Larger"
 msgstr "Más grande"
 
@@ -5552,7 +5631,7 @@ msgstr "Más grande"
 msgid "Last 3 months"
 msgstr "Últimos 3 meses"
 
-#: app/Services/TransStrings.php:321 app/Services/Helper.php:949
+#: app/Services/TransStrings.php:321 app/Services/Helper.php:960
 msgid "Last Activity"
 msgstr "Última actividad"
 
@@ -5564,19 +5643,19 @@ msgstr "Fecha del último cambio"
 msgid "Last Changed"
 msgstr "Último cambio"
 
-#: app/Services/Helper.php:1020
+#: app/Services/Helper.php:1031
 msgid "Last Email Clicked"
 msgstr "Último correo electrónico pulsado"
 
-#: app/Services/Helper.php:1015
+#: app/Services/Helper.php:1026
 msgid "Last Email Open"
 msgstr "Último correo electrónico abierto"
 
-#: app/Services/Helper.php:1010
+#: app/Services/Helper.php:1021
 msgid "Last Email Sent"
 msgstr "Último correo electrónico enviado"
 
-#: app/Services/Helper.php:1314 app/Services/Helper.php:1371
+#: app/Services/Helper.php:1325 app/Services/Helper.php:1382
 msgid "Last Enrollment Date (Pro Required)"
 msgstr "Última fecha de inscripción (Pro Required)"
 
@@ -5588,8 +5667,8 @@ msgstr "Última ejecución en"
 msgid "Last month"
 msgstr "El mes pasado"
 
-#: app/Models/Subscriber.php:699 app/Services/TransStrings.php:324
-#: app/Services/Helper.php:150 app/Services/Helper.php:884
+#: app/Models/Subscriber.php:711 app/Services/TransStrings.php:324
+#: app/Services/Helper.php:157 app/Services/Helper.php:895
 #: app/Hooks/Handlers/PrefFormHandler.php:43
 #: app/Hooks/Handlers/PrefFormHandler.php:336
 #: app/views/external/manage_subscription_form.php:20
@@ -5608,11 +5687,11 @@ msgstr "Último pedido"
 msgid "Last Order Date"
 msgstr "Fecha del último pedido"
 
-#: app/Services/Helper.php:1165 app/Services/Helper.php:1219
+#: app/Services/Helper.php:1176 app/Services/Helper.php:1230
 msgid "Last Order Date (Pro Required)"
 msgstr "Fecha del último pedido (Pro Required)"
 
-#: app/Services/Helper.php:1299
+#: app/Services/Helper.php:1310
 msgid "Last Payout Date (Pro Required)"
 msgstr "Última fecha de pago (Pro Required)"
 
@@ -5632,7 +5711,7 @@ msgstr "La semana pasada"
 msgid "Latest Action"
 msgstr "Última acción"
 
-#: app/Services/Helper.php:190
+#: app/Services/Helper.php:197
 msgid "Latest Post Title (Published)"
 msgstr ""
 
@@ -5640,7 +5719,7 @@ msgstr ""
 msgid "Latvia"
 msgstr "Letonia"
 
-#: app/Services/TransStrings.php:1624
+#: app/Services/TransStrings.php:1625
 msgid "Launch Visual Editor"
 msgstr ""
 
@@ -5652,7 +5731,7 @@ msgstr "Cliente potencial"
 msgid "lead"
 msgstr "cliente potencial"
 
-#: app/Services/TransStrings.php:1606
+#: app/Services/TransStrings.php:1607
 msgid "Learn More"
 msgstr ""
 
@@ -5660,7 +5739,7 @@ msgstr ""
 msgid "Learn more about FluentSMTP Plugin."
 msgstr "Más información sobre el plugin FluentSMTP."
 
-#: app/Services/Helper.php:1309 app/Http/Controllers/ImporterController.php:243
+#: app/Services/Helper.php:1320 app/Http/Controllers/ImporterController.php:243
 msgid "LearnDash"
 msgstr "LearnDash"
 
@@ -5716,11 +5795,11 @@ msgstr "Gestión de licencias"
 msgid "Liechtenstein"
 msgstr "Liechtenstein"
 
-#: app/Services/TransStrings.php:710
+#: app/Functions/helpers.php:1022 app/Services/TransStrings.php:710
 msgid "Lifetime Value"
 msgstr "Valor de la vida útil"
 
-#: app/Services/Helper.php:1366 app/Http/Controllers/ImporterController.php:234
+#: app/Services/Helper.php:1377 app/Http/Controllers/ImporterController.php:234
 msgid "LifterLMS"
 msgstr "LifterLMS"
 
@@ -5728,7 +5807,7 @@ msgstr "LifterLMS"
 msgid "LifterLMS:"
 msgstr "LifterLMS:"
 
-#: app/Services/Helper.php:488
+#: app/Services/Helper.php:497
 msgid "Light green cyan"
 msgstr "Verde claro cian"
 
@@ -5797,10 +5876,11 @@ msgstr "Lista eliminada del contacto"
 msgid "List the campaigns if the title match the provided keyword"
 msgstr ""
 
-#: app/Services/TransStrings.php:333 app/Services/Helper.php:996
-#: app/Hooks/CLI/Commands.php:151 app/Hooks/CLI/Commands.php:345
-#: app/Hooks/Handlers/AdminMenu.php:95 app/Hooks/Handlers/AdminMenu.php:96
-#: app/Hooks/Handlers/AdminMenu.php:317
+#: app/Services/TransStrings.php:333 app/Services/Helper.php:1007
+#: app/Hooks/CLI/Commands.php:158 app/Hooks/CLI/Commands.php:352
+#: app/Hooks/CLI/Commands.php:560 app/Hooks/Handlers/AdminMenu.php:95
+#: app/Hooks/Handlers/AdminMenu.php:96 app/Hooks/Handlers/AdminMenu.php:322
+#: app/Hooks/Handlers/EventTrackingHandler.php:277
 msgid "Lists"
 msgstr "Listas"
 
@@ -5852,7 +5932,7 @@ msgstr ""
 msgid "Logo"
 msgstr "Logotipo"
 
-#: app/Http/Controllers/SettingsController.php:586
+#: app/Http/Controllers/SettingsController.php:654
 msgid "Logs older than %d days have been deleted successfully"
 msgstr "Los registros de más de %d días han sido eliminados con éxito"
 
@@ -5878,7 +5958,13 @@ msgid ""
 "unsubscribe link via email."
 msgstr ""
 
-#: app/Hooks/Handlers/ExternalPages.php:359
+#: app/views/external/manage_subscription_request_form.php:33
+msgid ""
+"Looks like we could not determine your info. Please fill up the form and get "
+"your email subscription form link via email."
+msgstr ""
+
+#: app/Hooks/Handlers/ExternalPages.php:396
 msgid "Looks like you are already unsubscribed"
 msgstr ""
 
@@ -5927,7 +6013,7 @@ msgstr ""
 msgid "Looks like you do not have permission to view the requested resource."
 msgstr "Parece que no tienes permiso para ver el recurso solicitado."
 
-#: app/Http/Controllers/CsvController.php:69
+#: app/Http/Controllers/CsvController.php:70
 msgid ""
 "Looks like your csv has same name header multiple times. Please fix your csv "
 "first and remove any duplicate header column"
@@ -5951,11 +6037,11 @@ msgstr ""
 "Parece que su servidor no soporta las peticiones PUT y DELETE REST api. Tal "
 "vez es el bloqueo de su servidor de firewall"
 
-#: app/Services/Helper.php:483
+#: app/Services/Helper.php:492
 msgid "Luminous vivid amber"
 msgstr "Ámbar vivo y luminoso"
 
-#: app/Services/Helper.php:478
+#: app/Services/Helper.php:487
 msgid "Luminous vivid orange"
 msgstr "Naranja vivo y luminoso"
 
@@ -5979,11 +6065,11 @@ msgstr "Clave API de MailChimp"
 msgid "MailerLite API Key"
 msgstr "Clave API de MailerLite"
 
-#: app/Http/Controllers/SettingsController.php:327
+#: app/Http/Controllers/SettingsController.php:328
 msgid "Mailgun"
 msgstr "Mailgun"
 
-#: app/Http/Controllers/SettingsController.php:330
+#: app/Http/Controllers/SettingsController.php:331
 msgid "Mailgun Bounce Handler Webhook URL"
 msgstr "URL del Webhook de Mailgun Bounce Handler"
 
@@ -6028,15 +6114,15 @@ msgstr "Gestionar la configuración del CRM"
 msgid "Manage Forms"
 msgstr "Gestionar los formularios"
 
-#: app/Services/Helper.php:195
+#: app/Services/Helper.php:202
 msgid "Manage Subscription Hyperlink HTML"
 msgstr "Gestionar el hipervínculo de suscripción HTML"
 
-#: app/Services/Helper.php:192
+#: app/Services/Helper.php:199
 msgid "Manage Subscription URL"
 msgstr "Gestionar la URL de la suscripción"
 
-#: app/Hooks/Handlers/AdminMenu.php:331
+#: app/Hooks/Handlers/AdminMenu.php:336
 msgid "Manage your dynamic contact segments"
 msgstr ""
 
@@ -6084,7 +6170,7 @@ msgstr "Mapear los datos"
 msgid "Map your Data"
 msgstr "Mapear sus datos"
 
-#: app/Services/TransStrings.php:1594
+#: app/Services/TransStrings.php:1595
 msgid "March"
 msgstr ""
 
@@ -6124,11 +6210,15 @@ msgstr "Mauricio"
 msgid "Max Campaigns to list (max 50)"
 msgstr ""
 
+#: app/Hooks/CLI/Commands.php:54
+msgid "Max Rune Time"
+msgstr ""
+
 #: app/Services/TransStrings.php:350
 msgid "Maximum Email Limit Per Second"
 msgstr "Límite máximo de correos electrónicos por segundo"
 
-#: app/Services/TransStrings.php:1596
+#: app/Services/TransStrings.php:1597
 msgid "May"
 msgstr ""
 
@@ -6140,7 +6230,7 @@ msgstr ""
 msgid "Mayotte"
 msgstr "Mayotte"
 
-#: app/Services/Helper.php:522 app/Hooks/Handlers/AdminMenu.php:797
+#: app/Services/Helper.php:531 app/Hooks/Handlers/AdminMenu.php:828
 msgid "Medium"
 msgstr "Mediano"
 
@@ -6177,7 +6267,7 @@ msgid "Migrating"
 msgstr "Migración"
 
 #: app/Services/TransStrings.php:351
-#: app/Services/Funnel/Actions/WaitTimeAction.php:103
+#: app/Services/Funnel/Actions/WaitTimeAction.php:109
 msgid "Minutes"
 msgstr "Minutos"
 
@@ -6257,13 +6347,13 @@ msgstr "Nombre"
 msgid "Name of this key"
 msgstr "Nombre de esta llave"
 
-#: app/Models/Subscriber.php:697 app/Services/TransStrings.php:1051
-#: app/Services/Helper.php:148 app/Services/CrmMigrator/BaseMigrator.php:24
+#: app/Models/Subscriber.php:709 app/Services/TransStrings.php:1051
+#: app/Services/Helper.php:155 app/Services/CrmMigrator/BaseMigrator.php:24
 #: app/Services/Funnel/FunnelHelper.php:148
 msgid "Name Prefix"
 msgstr "Prefijo del nombre"
 
-#: app/Services/Helper.php:937
+#: app/Services/Helper.php:948
 msgid "Name Prefix (Title)"
 msgstr "Nombre Prefijo (Título)"
 
@@ -6283,7 +6373,7 @@ msgstr "Namibia"
 msgid "Nauru"
 msgstr "Nauru"
 
-#: app/Services/TransStrings.php:1528
+#: app/Services/TransStrings.php:1527
 msgid "Navigation"
 msgstr ""
 
@@ -6385,11 +6475,11 @@ msgstr "Nigeria"
 msgid "Niue"
 msgstr "Niué"
 
-#: app/Services/TransStrings.php:365 app/Services/Helper.php:1252
+#: app/Services/TransStrings.php:365 app/Services/Helper.php:1263
 msgid "No"
 msgstr "No"
 
-#: app/Hooks/Handlers/ExternalPages.php:1061
+#: app/Hooks/Handlers/ExternalPages.php:1151
 msgid "No Action found"
 msgstr "No se ha encontrado ninguna acción"
 
@@ -6471,7 +6561,7 @@ msgstr "No se ha encontrado ninguna nota. Por favor, añada la primera nota"
 msgid "No Subscriber Found"
 msgstr "No se ha encontrado ningún abonado"
 
-#: app/Services/TransStrings.php:1641
+#: app/Services/TransStrings.php:1642
 msgid ""
 "No subscriber found to send test. Please add at least one contact as "
 "subscribed status"
@@ -6487,7 +6577,7 @@ msgstr ""
 msgid "No tags found"
 msgstr "No se han encontrado etiquetas"
 
-#: app/Services/TransStrings.php:1577
+#: app/Services/TransStrings.php:1578
 msgid "No Thanks"
 msgstr ""
 
@@ -6501,16 +6591,16 @@ msgstr ""
 "saltarlo y volver al panel de control de WordPress. Vuelve cuando quieras si "
 "cambias de opinión"
 
-#: app/Http/Controllers/SubscriberController.php:849
-#: app/Http/Controllers/SubscriberController.php:885
+#: app/Http/Controllers/SubscriberController.php:876
+#: app/Http/Controllers/SubscriberController.php:912
 msgid "No valid active subscribers found for this company"
 msgstr ""
 
-#: app/Http/Controllers/SubscriberController.php:949
+#: app/Http/Controllers/SubscriberController.php:976
 msgid "No valid active subscribers found for this funnel"
 msgstr "No se han encontrado suscriptores activos válidos para este embudo"
 
-#: app/Http/Controllers/SubscriberController.php:821
+#: app/Http/Controllers/SubscriberController.php:848
 msgid "No valid active subscribers found for this sequence"
 msgstr "No se han encontrado abonados activos válidos para esta secuencia"
 
@@ -6580,23 +6670,27 @@ msgstr "Nota"
 msgid "Note (Optional)"
 msgstr "Nota (opcional)"
 
-#: app/Http/Controllers/CompanyController.php:601
+#: app/Http/Controllers/CompanyController.php:605
 msgid "Note has been successfully added"
 msgstr ""
 
-#: app/Http/Controllers/SubscriberController.php:587
+#: app/Http/Controllers/SubscriberController.php:595
 msgid "Note successfully added"
 msgstr "Nota añadida correctamente"
 
-#: app/Http/Controllers/CompanyController.php:659
-#: app/Http/Controllers/SubscriberController.php:645
+#: app/Http/Controllers/CompanyController.php:663
+#: app/Http/Controllers/SubscriberController.php:655
 msgid "Note successfully deleted"
 msgstr "Nota borrada correctamente"
 
-#: app/Http/Controllers/CompanyController.php:640
-#: app/Http/Controllers/SubscriberController.php:626
+#: app/Http/Controllers/CompanyController.php:644
+#: app/Http/Controllers/SubscriberController.php:636
 msgid "Note successfully updated"
 msgstr "Nota actualizada correctamente"
+
+#: app/Services/TransStrings.php:1678
+msgid "Note: Once deleted, the API key cannot be recovered."
+msgstr ""
 
 #: app/Services/TransStrings.php:456
 msgid ""
@@ -6607,16 +6701,16 @@ msgstr ""
 msgid "Notes"
 msgstr ""
 
-#: app/Services/TransStrings.php:1331 app/Services/Helper.php:129
-#: app/Services/Helper.php:1740
+#: app/Services/TransStrings.php:1331 app/Services/Helper.php:136
+#: app/Services/Helper.php:1770
 msgid "Notes & Activities"
 msgstr "Notas y actividades"
 
-#: app/Services/TransStrings.php:1609
+#: app/Services/TransStrings.php:1610
 msgid "Notes export feature is only available on pro version"
 msgstr ""
 
-#: app/Services/TransStrings.php:1602
+#: app/Services/TransStrings.php:1603
 msgid "November"
 msgstr ""
 
@@ -6628,7 +6722,7 @@ msgstr ""
 msgid "Numeric Field"
 msgstr "Campo numérico"
 
-#: app/Services/TransStrings.php:1601
+#: app/Services/TransStrings.php:1602
 msgid "October"
 msgstr ""
 
@@ -6690,6 +6784,10 @@ msgstr "Recuento abierto"
 msgid "Open Rate"
 msgstr "Tasa de apertura"
 
+#: app/Models/CampaignUrlMetric.php:115
+msgid "Open Rate (%d)"
+msgstr ""
+
 #: app/Services/TransStrings.php:1214 app/Services/TransStrings.php:1352
 msgid ""
 "Open rate is estimated based on pixel loads. it may not show the correct "
@@ -6714,11 +6812,11 @@ msgid "Optimized API connection with Mail Service Providers"
 msgstr ""
 "Conexión optimizada de la API con los proveedores de servicios de correo"
 
-#: app/Http/Controllers/SettingsController.php:113
+#: app/Http/Controllers/SettingsController.php:114
 msgid "Optin Email Pre Header"
 msgstr ""
 
-#: app/Http/Controllers/SettingsController.php:107
+#: app/Http/Controllers/SettingsController.php:108
 msgid "Optin Email Subject"
 msgstr "Asunto del correo electrónico Optin"
 
@@ -6731,8 +6829,8 @@ msgstr "O"
 msgid "or"
 msgstr "o"
 
-#: app/Hooks/Handlers/PurchaseHistory.php:191
-#: app/Hooks/Handlers/PurchaseHistory.php:408
+#: app/Hooks/Handlers/PurchaseHistory.php:128
+#: app/Hooks/Handlers/PurchaseHistory.php:344
 msgid "Order"
 msgstr ""
 
@@ -6744,7 +6842,7 @@ msgstr "pedir"
 msgid "Order Count"
 msgstr "Recuento de pedidos"
 
-#: app/Hooks/Handlers/ExternalPages.php:403
+#: app/Hooks/Handlers/ExternalPages.php:489
 msgid "Other (fill in reason below)"
 msgstr "Otro (escribe una razón abajo)"
 
@@ -6756,7 +6854,7 @@ msgstr "Otros campos"
 msgid "Overall Conversion Rate"
 msgstr "Tasa de conversión global"
 
-#: app/Services/Helper.php:92
+#: app/Services/Helper.php:99
 msgid "Overview"
 msgstr "Resumen"
 
@@ -6772,7 +6870,7 @@ msgstr ""
 msgid "Oxygen Builder Integration"
 msgstr ""
 
-#: app/Services/TransStrings.php:1660
+#: app/Services/TransStrings.php:1661
 msgid "Page"
 msgstr ""
 
@@ -6792,11 +6890,11 @@ msgstr ""
 msgid "Pakistan"
 msgstr "Pakistán"
 
-#: app/Services/Helper.php:498
+#: app/Services/Helper.php:507
 msgid "Pale cyan blue"
 msgstr "Azul cian pálido"
 
-#: app/Services/Helper.php:473
+#: app/Services/Helper.php:482
 msgid "Pale pink"
 msgstr "Rosa pálido"
 
@@ -6832,17 +6930,17 @@ msgstr ""
 msgid "Pause Sending"
 msgstr "Pausa de envío"
 
-#: app/Services/Helper.php:444
+#: app/Services/Helper.php:453
 msgid "Paymattic"
 msgstr ""
 
-#: app/Services/Helper.php:443
+#: app/Services/Helper.php:452
 msgid "Paymattic Purchase History"
 msgstr ""
 
 #: app/Functions/helpers.php:498 app/Functions/helpers.php:545
 #: app/Services/TransStrings.php:383 app/Services/TransStrings.php:639
-#: app/Services/Helper.php:1275
+#: app/Services/Helper.php:1286
 msgid "Pending"
 msgstr "Pendiente"
 
@@ -6850,11 +6948,11 @@ msgstr "Pendiente"
 msgid "Pending Emails"
 msgstr "Correos electrónicos pendientes"
 
-#: app/Http/Controllers/SettingsController.php:334
+#: app/Http/Controllers/SettingsController.php:335
 msgid "PepiPost"
 msgstr "PepiPost"
 
-#: app/Http/Controllers/SettingsController.php:337
+#: app/Http/Controllers/SettingsController.php:338
 msgid "PepiPost Bounce Handler Webhook URL"
 msgstr "URL del Webhook de PepiPost Bounce Handler"
 
@@ -6874,14 +6972,14 @@ msgstr "Perú"
 msgid "Philippines"
 msgstr "Filipinas"
 
-#: app/Models/Subscriber.php:710 app/Services/TransStrings.php:385
-#: app/Services/Helper.php:927 app/Hooks/Handlers/PrefFormHandler.php:377
+#: app/Models/Subscriber.php:722 app/Services/TransStrings.php:385
+#: app/Services/Helper.php:938 app/Hooks/Handlers/PrefFormHandler.php:377
 #: app/Services/CrmMigrator/BaseMigrator.php:28
 #: app/Services/Funnel/FunnelHelper.php:176
 msgid "Phone"
 msgstr "Teléfono"
 
-#: app/Services/TransStrings.php:1298 app/Services/Helper.php:160
+#: app/Services/TransStrings.php:1298 app/Services/Helper.php:167
 msgid "Phone Number"
 msgstr "Número de teléfono"
 
@@ -6901,11 +6999,11 @@ msgstr ""
 msgid "Pitcairn"
 msgstr "Pitcairn"
 
-#: app/Services/Helper.php:289
+#: app/Services/Helper.php:297
 msgid "Plain Centered"
 msgstr "Llano Centrado"
 
-#: app/Services/Helper.php:296
+#: app/Services/Helper.php:304
 msgid "Plain Left"
 msgstr "Izquierda lisa"
 
@@ -6913,11 +7011,11 @@ msgstr "Izquierda lisa"
 msgid "Please"
 msgstr "Por favor"
 
-#: app/Services/TransStrings.php:1579
+#: app/Services/TransStrings.php:1580
 msgid "Please add at least one list"
 msgstr ""
 
-#: app/Services/TransStrings.php:1580
+#: app/Services/TransStrings.php:1581
 msgid "Please add at least one Tag"
 msgstr ""
 
@@ -6976,7 +7074,7 @@ msgstr "Rellene todos los campos obligatorios"
 msgid "Please fill up all the fields"
 msgstr "Por favor, rellene todos los campos"
 
-#: app/Services/Funnel/Actions/WaitTimeAction.php:116
+#: app/Services/Funnel/Actions/WaitTimeAction.php:122
 msgid ""
 "Please input date and time and this step will be executed after that time "
 "(TimeZone will be as per your WordPress Date Time Zone)"
@@ -6984,7 +7082,7 @@ msgstr ""
 "Por favor, introduzca la fecha y la hora y este paso se ejecutará después de "
 "ese momento (la zona horaria será la de su zona horaria de WordPress)"
 
-#: app/Hooks/Handlers/ExternalPages.php:300
+#: app/Hooks/Handlers/ExternalPages.php:322
 msgid "Please let us know a reason"
 msgstr "Haznos saber una razón"
 
@@ -7016,18 +7114,18 @@ msgstr ""
 "Tenga en cuenta que, las secuencias de correos electrónicos se programarán a "
 "los contactos según el estado actual"
 
-#: app/Services/TransStrings.php:1613
+#: app/Services/TransStrings.php:1614
 msgid ""
 "Please note, some smart codes like footer links may not work on test email"
 msgstr ""
 
-#: app/Http/Controllers/SettingsController.php:366
+#: app/Http/Controllers/SettingsController.php:367
 msgid ""
 "Please paste this URL into your Elastic Email's Webhook settings to enable "
 "Bounce Handling with FluentCRM"
 msgstr ""
 
-#: app/Http/Controllers/SettingsController.php:331
+#: app/Http/Controllers/SettingsController.php:332
 msgid ""
 "Please paste this URL into your Mailgun's Webhook settings to enable Bounce "
 "Handling with FluentCRM"
@@ -7035,7 +7133,7 @@ msgstr ""
 "Por favor, pegue esta URL en la configuración de Webhook de su Mailgun para "
 "habilitar el manejo de rebotes con FluentCRM"
 
-#: app/Http/Controllers/SettingsController.php:338
+#: app/Http/Controllers/SettingsController.php:339
 msgid ""
 "Please paste this URL into your PepiPost's Webhook settings to enable Bounce "
 "Handling with FluentCRM"
@@ -7043,7 +7141,14 @@ msgstr ""
 "Por favor, pegue esta URL en la configuración del Webhook de su PepiPost "
 "para habilitar el manejo de rebotes con FluentCRM"
 
-#: app/Http/Controllers/SettingsController.php:345
+#: app/Http/Controllers/SettingsController.php:374
+msgid ""
+"Please paste this URL into your Postal Server's Webhook settings to enable "
+"Bounce Handling with FluentCRM. Please select only MessageBounced & "
+"MessageDeliveryFailed event"
+msgstr ""
+
+#: app/Http/Controllers/SettingsController.php:346
 msgid ""
 "Please paste this URL into your PostMark's Webhook settings to enable Bounce "
 "Handling with FluentCRM"
@@ -7051,7 +7156,7 @@ msgstr ""
 "Por favor, pegue esta URL en la configuración de su Webhook de PostMark para "
 "habilitar el manejo de rebotes con FluentCRM"
 
-#: app/Http/Controllers/SettingsController.php:352
+#: app/Http/Controllers/SettingsController.php:353
 msgid ""
 "Please paste this URL into your SendGrid's Webhook settings to enable Bounce "
 "Handling with FluentCRM"
@@ -7059,7 +7164,7 @@ msgstr ""
 "Por favor, pegue esta URL en la configuración de su Webhook de SendGrid para "
 "habilitar el manejo de rebotes con FluentCRM"
 
-#: app/Http/Controllers/SettingsController.php:359
+#: app/Http/Controllers/SettingsController.php:360
 msgid ""
 "Please paste this URL into your SparkPost's Webhook settings to enable "
 "Bounce Handling with FluentCRM"
@@ -7087,7 +7192,7 @@ msgstr "Proporcione una clave de licencia de FluentCRM - Email Marketing Addon"
 msgid "Please provide a name so you can identify easily"
 msgstr "Por favor, indique un nombre para poder identificarlo fácilmente"
 
-#: app/Services/TransStrings.php:1585
+#: app/Services/TransStrings.php:1586
 msgid "Please provide a template name"
 msgstr ""
 
@@ -7095,7 +7200,8 @@ msgstr ""
 msgid "Please provide a time"
 msgstr ""
 
-#: app/Hooks/Handlers/ExternalPages.php:345
+#: app/Hooks/Handlers/ExternalPages.php:382
+#: app/Hooks/Handlers/ExternalPages.php:436
 msgid "Please provide a valid email address"
 msgstr ""
 
@@ -7103,7 +7209,7 @@ msgstr ""
 msgid "Please provide an unique title"
 msgstr ""
 
-#: app/Http/Controllers/SubscriberController.php:1011
+#: app/Http/Controllers/SubscriberController.php:1038
 msgid "Please provide bulk options"
 msgstr "Por favor, facilite las opciones de volumen"
 
@@ -7115,7 +7221,7 @@ msgstr "Por favor, proporcione las IDs de la campaña"
 msgid "Please provide condition value"
 msgstr ""
 
-#: app/Http/Controllers/SettingsController.php:133
+#: app/Http/Controllers/SettingsController.php:134
 msgid "Please provide details after a contact confirm double option from email"
 msgstr ""
 "Por favor, proporcione los detalles después de un contacto confirmar la "
@@ -7158,7 +7264,7 @@ msgstr ""
 msgid "Please provide Name of this Segment"
 msgstr "Indique el nombre de este segmento"
 
-#: app/Http/Controllers/SettingsController.php:165
+#: app/Http/Controllers/SettingsController.php:166
 msgid "Please provide redirect URL after confirmation"
 msgstr ""
 "Por favor, proporcione la URL de redirección después de la confirmación"
@@ -7200,7 +7306,7 @@ msgstr ""
 msgid "Please select an option first"
 msgstr "Seleccione primero una opción"
 
-#: app/Services/TransStrings.php:1619
+#: app/Services/TransStrings.php:1620
 msgid "Please select at least one tag"
 msgstr ""
 
@@ -7217,9 +7323,9 @@ msgid "Please select companies first"
 msgstr ""
 
 #: app/Http/Controllers/FunnelController.php:372
-#: app/Http/Controllers/CompanyController.php:362
-#: app/Http/Controllers/TemplateController.php:251
-#: app/Http/Controllers/SubscriberController.php:906
+#: app/Http/Controllers/CompanyController.php:363
+#: app/Http/Controllers/TemplateController.php:260
+#: app/Http/Controllers/SubscriberController.php:933
 msgid "Please select status"
 msgstr "Por favor, seleccione el estado"
 
@@ -7247,7 +7353,7 @@ msgstr ""
 "Seleccione a qué segmento dinámico desea enviar los correos electrónicos "
 "para esta campaña"
 
-#: app/Http/Controllers/SettingsController.php:138
+#: app/Http/Controllers/SettingsController.php:139
 msgid "Please select what will happen once a contact confirm double-optin "
 msgstr ""
 "Por favor, seleccione lo que sucederá una vez que un contacto confirme la "
@@ -7281,11 +7387,11 @@ msgstr ""
 "Por favor, especifique qué ocurrirá si el abonado ya existe en la base de "
 "datos"
 
-#: app/Services/TransStrings.php:1627
+#: app/Services/TransStrings.php:1628
 msgid "Please update FluentCRM Pro first"
 msgstr ""
 
-#: app/Hooks/actions.php:179
+#: app/Hooks/actions.php:175
 msgid "Please update FluentCRM Pro to latest version"
 msgstr ""
 
@@ -7293,7 +7399,7 @@ msgstr ""
 msgid "Please upgrade to pro to use this feature"
 msgstr "Por favor, actualice a pro para utilizar esta función"
 
-#: app/Services/TransStrings.php:1674
+#: app/Services/TransStrings.php:1675
 msgid "Please upgrade."
 msgstr ""
 
@@ -7316,7 +7422,7 @@ msgid ""
 "subscribers"
 msgstr ""
 
-#: app/Http/Controllers/SettingsController.php:324
+#: app/Http/Controllers/SettingsController.php:325
 msgid "Please use this bounce handler url in your Amazon SES + SNS settings"
 msgstr ""
 "Por favor, utilice esta url del gestor de rebotes en su configuración de "
@@ -7334,18 +7440,26 @@ msgstr "Polonia"
 msgid "Portugal"
 msgstr "Portugal"
 
-#: app/Models/Company.php:61 app/Models/Subscriber.php:707
-#: app/Services/TransStrings.php:391 app/Services/Helper.php:158
-#: app/Services/Helper.php:913 app/Services/CrmMigrator/BaseMigrator.php:38
+#: app/Models/Company.php:61 app/Models/Subscriber.php:719
+#: app/Services/TransStrings.php:391 app/Services/Helper.php:165
+#: app/Services/Helper.php:924 app/Services/CrmMigrator/BaseMigrator.php:38
 #: app/Services/Funnel/FunnelHelper.php:160
 msgid "Postal Code"
 msgstr "Código postal"
 
-#: app/Http/Controllers/SettingsController.php:341
+#: app/Http/Controllers/SettingsController.php:370
+msgid "Postal Server"
+msgstr ""
+
+#: app/Http/Controllers/SettingsController.php:373
+msgid "Postal Server Bounce Handler Webhook URL"
+msgstr ""
+
+#: app/Http/Controllers/SettingsController.php:342
 msgid "PostMark"
 msgstr "PostMark"
 
-#: app/Http/Controllers/SettingsController.php:344
+#: app/Http/Controllers/SettingsController.php:345
 msgid "PostMark Bounce Handler Webhook URL"
 msgstr "URL del Webhook de PostMark Bounce Handler"
 
@@ -7365,7 +7479,7 @@ msgstr "Prefijo"
 msgid "Prev step"
 msgstr "Paso anterior"
 
-#: app/Services/TransStrings.php:394
+#: app/Services/TransStrings.php:394 app/Services/TransStrings.php:1681
 msgid "Preview"
 msgstr "Vista previa"
 
@@ -7428,7 +7542,7 @@ msgstr "Año anterior"
 msgid "Primary"
 msgstr ""
 
-#: app/Models/Subscriber.php:716 app/Services/TransStrings.php:1274
+#: app/Models/Subscriber.php:728 app/Services/TransStrings.php:1274
 msgid "Primary Company"
 msgstr ""
 
@@ -7454,7 +7568,7 @@ msgid "pro version of FluentCRM"
 msgstr "versión pro de FluentCRM"
 
 #: app/Services/TransStrings.php:1219
-#: app/Http/Controllers/UsersController.php:79 app/Hooks/CLI/Commands.php:129
+#: app/Http/Controllers/UsersController.php:79 app/Hooks/CLI/Commands.php:136
 msgid "Processing"
 msgstr "Procesamiento"
 
@@ -7471,7 +7585,7 @@ msgstr ""
 msgid "Processing now..."
 msgstr "Procesando ahora..."
 
-#: app/Services/TransStrings.php:1671
+#: app/Services/TransStrings.php:1672
 msgid "Processing now.Please wait a bit..."
 msgstr ""
 
@@ -7487,7 +7601,7 @@ msgstr ""
 msgid "Provide campaign details"
 msgstr ""
 
-#: app/Http/Controllers/SettingsController.php:121
+#: app/Http/Controllers/SettingsController.php:122
 msgid "Provide Email Body for the double-optin"
 msgstr "Proporcionar cuerpo de correo electrónico para el doble-optin"
 
@@ -7511,9 +7625,9 @@ msgstr ""
 "Proporcionar una dirección de correo electrónico válida que se utilizará "
 "para enviar correos electrónicos"
 
-#: app/Http/Controllers/SubscriberController.php:287
-#: app/Http/Controllers/SubscriberController.php:294
-#: app/Http/Controllers/SubscriberController.php:369
+#: app/Http/Controllers/SubscriberController.php:289
+#: app/Http/Controllers/SubscriberController.php:296
+#: app/Http/Controllers/SubscriberController.php:371
 msgid "Provided email already assigned to another subscriber."
 msgstr ""
 "El correo electrónico proporcionado ya se ha asignado a otro suscriptor."
@@ -7546,7 +7660,7 @@ msgstr "Puerto Rico"
 msgid "Purchase Count"
 msgstr "Recuento de compras"
 
-#: app/Services/Helper.php:105
+#: app/Services/Helper.php:112
 msgid "Purchase History"
 msgstr "Historial de compras"
 
@@ -7566,11 +7680,11 @@ msgstr ""
 msgid "Purchase one here"
 msgstr "Compre uno aquí"
 
-#: app/Hooks/Handlers/PurchaseHistory.php:512
+#: app/Hooks/Handlers/PurchaseHistory.php:448
 msgid "Purchased Products"
 msgstr "Productos comprados"
 
-#: app/Services/Helper.php:1177 app/Services/Helper.php:1231
+#: app/Services/Helper.php:1188 app/Services/Helper.php:1242
 msgid "Purchased Products (Pro Required)"
 msgstr "Productos comprados (se requiere Pro)"
 
@@ -7614,7 +7728,7 @@ msgstr "Presupuesto: Enviado"
 msgid "Radio Choice"
 msgstr "Elección de radio"
 
-#: app/Services/Helper.php:312
+#: app/Services/Helper.php:320
 msgid "Raw HTML"
 msgstr "HTML sin procesar"
 
@@ -7650,8 +7764,8 @@ msgstr "Razón:"
 msgid "Recipient Sections"
 msgstr ""
 
-#: app/Services/TransStrings.php:1633
-#: app/Http/Controllers/CampaignController.php:271
+#: app/Services/TransStrings.php:1634
+#: app/Http/Controllers/CampaignController.php:272
 msgid "Recipient settings has been updated"
 msgstr "Se ha actualizado la configuración de los destinatarios"
 
@@ -7664,7 +7778,7 @@ msgid "Recommended Plugins and Addons"
 msgstr ""
 
 #: app/Services/TransStrings.php:1439 app/Hooks/Handlers/AdminMenu.php:125
-#: app/Hooks/Handlers/AdminMenu.php:126 app/Hooks/Handlers/AdminMenu.php:355
+#: app/Hooks/Handlers/AdminMenu.php:126 app/Hooks/Handlers/AdminMenu.php:360
 msgid "Recurring Campaigns"
 msgstr ""
 
@@ -7672,12 +7786,12 @@ msgstr ""
 msgid "Recurring Email Campaigns"
 msgstr ""
 
-#: app/Http/Controllers/SettingsController.php:146
+#: app/Http/Controllers/SettingsController.php:147
 msgid "Redirect to an URL"
 msgstr "Redirigir a una URL"
 
-#: app/Http/Controllers/SettingsController.php:163
 #: app/Http/Controllers/SettingsController.php:164
+#: app/Http/Controllers/SettingsController.php:165
 msgid "Redirect URL"
 msgstr "Redirigir la URL"
 
@@ -7685,11 +7799,11 @@ msgstr "Redirigir la URL"
 msgid "Redirect URL after unsubscribe (leave blank for inline message)"
 msgstr ""
 
-#: app/Services/TransStrings.php:1588
+#: app/Services/TransStrings.php:1589
 msgid "Refresh Email Preview"
 msgstr ""
 
-#: app/Services/Helper.php:1293
+#: app/Services/Helper.php:1304
 msgid "Registration Date (Pro Required)"
 msgstr "Fecha de inscripción (Pro Required)"
 
@@ -7819,10 +7933,14 @@ msgid "Report Type:"
 msgstr "Tipo de informe:"
 
 #: app/Services/TransStrings.php:436 app/Hooks/Handlers/AdminMenu.php:188
-#: app/Hooks/Handlers/AdminMenu.php:189 app/Hooks/Handlers/AdminMenu.php:404
-#: app/Hooks/Handlers/AdminMenu.php:1259 app/Hooks/Handlers/AdminMenu.php:1260
+#: app/Hooks/Handlers/AdminMenu.php:189 app/Hooks/Handlers/AdminMenu.php:409
+#: app/Hooks/Handlers/AdminMenu.php:1291 app/Hooks/Handlers/AdminMenu.php:1292
 msgid "Reports"
 msgstr "Informes"
+
+#: app/views/external/manage_subscription_request_form.php:13
+msgid "Request Manage Subscription"
+msgstr ""
 
 #: app/views/external/unsubscribe_request_form.php:13
 msgid "Request Unsubscribe"
@@ -7884,7 +8002,7 @@ msgstr "Reintentar el envío"
 msgid "Reunion"
 msgstr "Reunión"
 
-#: app/Models/Campaign.php:657 app/Models/CampaignUrlMetric.php:134
+#: app/Models/Campaign.php:658 app/Models/CampaignUrlMetric.php:159
 #: app/Services/TransStrings.php:1128
 msgid "Revenue"
 msgstr "Ingresos"
@@ -8044,7 +8162,7 @@ msgstr "Arabia Saudita"
 msgid "Save"
 msgstr "Guardar"
 
-#: app/Services/TransStrings.php:1625
+#: app/Services/TransStrings.php:1626
 msgid "Save & close"
 msgstr ""
 
@@ -8068,7 +8186,7 @@ msgstr "Guardar la configuración"
 msgid "Save Template"
 msgstr "Guardar plantilla"
 
-#: app/Services/TransStrings.php:1626
+#: app/Services/TransStrings.php:1627
 msgid "Saved"
 msgstr ""
 
@@ -8124,22 +8242,25 @@ msgstr "Programado en"
 msgid "Scheduled at:"
 msgstr ""
 
-#: app/Http/Controllers/SettingsController.php:454
-#: app/Http/Controllers/SettingsController.php:491
+#: app/Http/Controllers/SettingsController.php:461
+#: app/Http/Controllers/SettingsController.php:512
 msgid "Scheduled Automation Tasks"
 msgstr "Tareas de automatización programadas"
 
-#: app/Http/Controllers/SettingsController.php:455
-#: app/Http/Controllers/SettingsController.php:492
+#: app/Http/Controllers/SettingsController.php:462
+#: app/Http/Controllers/SettingsController.php:513
 msgid "Scheduled Email Processing"
 msgstr "Procesamiento programado del correo electrónico"
 
-#: app/Http/Controllers/SettingsController.php:453
-#: app/Http/Controllers/SettingsController.php:490
+#: app/Http/Controllers/SettingsController.php:511
 msgid "Scheduled Email Sending"
 msgstr "Envío programado de correos electrónicos"
 
-#: app/Hooks/CLI/Commands.php:47
+#: app/Http/Controllers/SettingsController.php:473
+msgid "Scheduled Email Sending Tasks"
+msgstr ""
+
+#: app/Hooks/CLI/Commands.php:50
 msgid "Scheduled Emails"
 msgstr "Correos electrónicos programados"
 
@@ -8196,7 +8317,7 @@ msgstr ""
 "del contacto, los campos personalizados, las etiquetas, el historial de "
 "compras, etc."
 
-#: app/Hooks/Handlers/AdminMenu.php:329
+#: app/Hooks/Handlers/AdminMenu.php:334
 msgid "Segments"
 msgstr "Segmentos"
 
@@ -8212,7 +8333,7 @@ msgstr "Seleccione una lista"
 msgid "Select a List"
 msgstr "Seleccione una lista"
 
-#: app/Services/TransStrings.php:1623
+#: app/Services/TransStrings.php:1624
 msgid "Select a starter design to build your email"
 msgstr ""
 
@@ -8270,7 +8391,7 @@ msgstr "Seleccionar por funciones"
 msgid "Select choice"
 msgstr "Seleccione la opción"
 
-#: app/Services/TransStrings.php:1669
+#: app/Services/TransStrings.php:1670
 msgid "Select Companies"
 msgstr ""
 
@@ -8289,7 +8410,7 @@ msgstr ""
 msgid "Select Condition"
 msgstr "Seleccione la condición"
 
-#: app/Services/TransStrings.php:1587
+#: app/Services/TransStrings.php:1588
 msgid "Select Contact"
 msgstr ""
 
@@ -8310,7 +8431,7 @@ msgstr "Seleccione el país"
 msgid "Select Current CRM"
 msgstr "Seleccione el CRM actual"
 
-#: app/Services/TransStrings.php:1661
+#: app/Services/TransStrings.php:1662
 msgid "Select custom contacts by advanced filters"
 msgstr ""
 
@@ -8318,7 +8439,7 @@ msgstr ""
 msgid "Select data source and operator first"
 msgstr "Seleccione primero la fuente de datos y el operador"
 
-#: app/Services/Funnel/Actions/WaitTimeAction.php:115
+#: app/Services/Funnel/Actions/WaitTimeAction.php:121
 msgid "Select Date & Time"
 msgstr "Seleccione la fecha y la hora"
 
@@ -8366,7 +8487,7 @@ msgstr "Seleccione el campo del formulario"
 msgid "Select Form Property"
 msgstr "Seleccione la propiedad del formulario"
 
-#: app/Services/TransStrings.php:1628
+#: app/Services/TransStrings.php:1629
 msgid "Select Image for Your Email Body"
 msgstr ""
 
@@ -8378,7 +8499,7 @@ msgstr ""
 msgid "Select List"
 msgstr "Seleccionar la lista"
 
-#: app/Services/TransStrings.php:1612
+#: app/Services/TransStrings.php:1613
 msgid "Select List First"
 msgstr ""
 
@@ -8511,7 +8632,7 @@ msgstr "Seleccionar etiquetas (eliminar del contacto)"
 msgid "Select Tags that you want to remove from targeted Contact"
 msgstr "Seleccione las etiquetas que desea eliminar del contacto objetivo"
 
-#: app/Services/TransStrings.php:1615
+#: app/Services/TransStrings.php:1616
 msgid "Select Targeted Tags"
 msgstr ""
 
@@ -8632,12 +8753,12 @@ msgstr "Seleccione su proveedor de servicios de correo electrónico"
 msgid "Select your form"
 msgstr "Seleccione su formulario"
 
-#: app/Http/Controllers/SubscriberController.php:995
+#: app/Http/Controllers/SubscriberController.php:1022
 msgid "Selected Action is not valid"
 msgstr "La acción seleccionada no es válida"
 
-#: app/Http/Controllers/CompanyController.php:423
-#: app/Http/Controllers/SubscriberController.php:1024
+#: app/Http/Controllers/CompanyController.php:424
+#: app/Http/Controllers/SubscriberController.php:1051
 msgid "Selected bulk action has been successfully completed"
 msgstr "La acción masiva seleccionada se ha completado con éxito"
 
@@ -8645,29 +8766,29 @@ msgstr "La acción masiva seleccionada se ha completado con éxito"
 msgid "Selected Campaigns has been deleted permanently"
 msgstr "Las campañas seleccionadas han sido eliminadas definitivamente"
 
-#: app/Http/Controllers/CompanyController.php:125
+#: app/Http/Controllers/CompanyController.php:126
 msgid "Selected Companies has been attached successfully"
 msgstr ""
 
-#: app/Http/Controllers/CompanyController.php:356
+#: app/Http/Controllers/CompanyController.php:357
 msgid "Selected Companies has been deleted permanently"
 msgstr ""
 
-#: app/Http/Controllers/SubscriberController.php:788
+#: app/Http/Controllers/SubscriberController.php:815
 msgid "Selected Contacts has been deleted permanently"
 msgstr "Los contactos seleccionados se han borrado definitivamente"
 
-#: app/Http/Controllers/SettingsController.php:504
+#: app/Http/Controllers/SettingsController.php:525
 msgid "Selected CRON Event successfully ran"
 msgstr "El evento CRON seleccionado se ha ejecutado con éxito"
 
-#: app/Services/TransStrings.php:1635
-#: app/Http/Controllers/CampaignController.php:430
+#: app/Services/TransStrings.php:1636
+#: app/Http/Controllers/CampaignController.php:431
 msgid "Selected emails are deleted"
 msgstr "Los correos electrónicos seleccionados han sido eliminados."
 
-#: app/Http/Controllers/ReportingController.php:71
-#: app/Http/Controllers/SubscriberController.php:528
+#: app/Http/Controllers/ReportingController.php:90
+#: app/Http/Controllers/SubscriberController.php:530
 msgid "Selected emails has been deleted"
 msgstr "Los correos electrónicos seleccionados han sido borrados"
 
@@ -8679,11 +8800,11 @@ msgstr "Los embudos seleccionados han sido eliminados definitivamente"
 msgid "Selected Lists has been removed permanently"
 msgstr "Las listas seleccionadas se han eliminado de forma permanente"
 
-#: app/Http/Controllers/SubscriberController.php:214
+#: app/Http/Controllers/SubscriberController.php:216
 msgid "Selected Subscriber has been deleted successfully"
 msgstr "El suscriptor seleccionado ha sido eliminado con éxito"
 
-#: app/Http/Controllers/SubscriberController.php:230
+#: app/Http/Controllers/SubscriberController.php:232
 msgid "Selected Subscribers has been deleted"
 msgstr "Se han eliminado los suscriptores seleccionados"
 
@@ -8691,7 +8812,7 @@ msgstr "Se han eliminado los suscriptores seleccionados"
 msgid "Selected Tags has been removed permanently"
 msgstr "Las etiquetas seleccionadas se han eliminado de forma permanente"
 
-#: app/Http/Controllers/TemplateController.php:276
+#: app/Http/Controllers/TemplateController.php:285
 msgid "Selected Templates has been deleted permanently"
 msgstr "Las plantillas seleccionadas se han borrado definitivamente"
 
@@ -8713,7 +8834,7 @@ msgstr ""
 msgid "Send a test email"
 msgstr "Enviar un correo electrónico de prueba"
 
-#: app/Hooks/Handlers/AdminMenu.php:357
+#: app/Hooks/Handlers/AdminMenu.php:362
 msgid ""
 "Send automated daily or weekly emails of your dynamic data like new blog "
 "posts"
@@ -8745,7 +8866,7 @@ msgstr "Enviar doble Optin a los contactos pendientes"
 msgid "Send Email"
 msgstr "Enviar correo electrónico"
 
-#: app/Hooks/Handlers/AdminMenu.php:351
+#: app/Hooks/Handlers/AdminMenu.php:356
 msgid ""
 "Send Email Broadcast to your selected subscribers by tags, lists or segment"
 msgstr ""
@@ -8754,7 +8875,7 @@ msgstr ""
 msgid "Send Email to"
 msgstr "Enviar correo electrónico a"
 
-#: app/Hooks/CLI/Commands.php:43
+#: app/Hooks/CLI/Commands.php:46
 msgid "Send Emails"
 msgstr "Enviar correos electrónicos"
 
@@ -8818,11 +8939,11 @@ msgstr "Enviar a direcciones de correo electrónico (si es personalizado)"
 msgid "Send To the contact"
 msgstr "Enviar al contacto"
 
-#: app/Http/Controllers/SettingsController.php:348
+#: app/Http/Controllers/SettingsController.php:349
 msgid "SendGrid"
 msgstr "SendGrid"
 
-#: app/Http/Controllers/SettingsController.php:351
+#: app/Http/Controllers/SettingsController.php:352
 msgid "SendGrid Bounce Handler Webhook URL"
 msgstr "URL del Webhook de SendGrid Bounce Handler"
 
@@ -8838,7 +8959,7 @@ msgstr ""
 msgid "Sending Time Range"
 msgstr "Rango de tiempo de envío"
 
-#: app/Services/TransStrings.php:1611
+#: app/Services/TransStrings.php:1612
 msgid "Sending To Contacts"
 msgstr ""
 
@@ -8854,7 +8975,7 @@ msgstr "Enviado"
 msgid "sent"
 msgstr "enviado"
 
-#: app/Services/TransStrings.php:1600
+#: app/Services/TransStrings.php:1601
 msgid "September"
 msgstr ""
 
@@ -8893,6 +9014,11 @@ msgstr ""
 #: app/Services/TransStrings.php:943
 msgid "Server Issue detected"
 msgstr "Se ha detectado un problema en el servidor"
+
+#: app/Hooks/Handlers/AdminMenu.php:263
+#, php-format
+msgid "Server-Side Cron Job is not enabled %1sView Documentation%2s."
+msgstr ""
 
 #: app/Services/TransStrings.php:1025
 msgid "Set after how many"
@@ -8972,17 +9098,17 @@ msgstr ""
 
 #: app/Services/Stats.php:105 app/Services/TransStrings.php:1069
 #: app/Hooks/Handlers/AdminMenu.php:179 app/Hooks/Handlers/AdminMenu.php:180
-#: app/Hooks/Handlers/AdminMenu.php:410 app/Hooks/Handlers/AdminMenu.php:1266
-#: app/Hooks/Handlers/AdminMenu.php:1267
+#: app/Hooks/Handlers/AdminMenu.php:415 app/Hooks/Handlers/AdminMenu.php:1298
+#: app/Hooks/Handlers/AdminMenu.php:1299
 msgid "Settings"
 msgstr "Ajustes"
 
-#: app/Http/Controllers/SettingsController.php:445
-#: app/Http/Controllers/SettingsController.php:814
+#: app/Http/Controllers/SettingsController.php:453
+#: app/Http/Controllers/SettingsController.php:937
 msgid "Settings has been updated"
 msgstr "Los ajustes se han actualizado"
 
-#: app/Http/Controllers/SettingsController.php:78
+#: app/Http/Controllers/SettingsController.php:79
 msgid "Settings Updated"
 msgstr "Ajustes actualizados"
 
@@ -9010,19 +9136,19 @@ msgstr "Shortcode"
 msgid "Show Errors"
 msgstr "Mostrar errores"
 
-#: app/Services/TransStrings.php:1616
+#: app/Services/TransStrings.php:1617
 msgid "Show IF in Selected Tag"
 msgstr ""
 
-#: app/Services/TransStrings.php:1620
+#: app/Services/TransStrings.php:1621
 msgid "Show if in tags:"
 msgstr ""
 
-#: app/Services/TransStrings.php:1617
+#: app/Services/TransStrings.php:1618
 msgid "Show IF not in selected tag"
 msgstr ""
 
-#: app/Services/TransStrings.php:1621
+#: app/Services/TransStrings.php:1622
 msgid "Show if not in tags:"
 msgstr ""
 
@@ -9038,7 +9164,7 @@ msgstr ""
 msgid "Show Invalid Contacts"
 msgstr "Mostrar contactos no válidos"
 
-#: app/Http/Controllers/SettingsController.php:142
+#: app/Http/Controllers/SettingsController.php:143
 msgid "Show Message"
 msgstr "Mostrar mensaje"
 
@@ -9054,7 +9180,7 @@ msgstr "Mostrar contactos omitidos"
 msgid "Show Subscribers"
 msgstr "Mostrar suscriptores"
 
-#: app/Services/TransStrings.php:1586
+#: app/Services/TransStrings.php:1587
 msgid "Showing preview for current contact"
 msgstr ""
 
@@ -9070,7 +9196,7 @@ msgstr "Sierra Leona"
 msgid "Sign me up for the newsletter!"
 msgstr "¡Suscríbeme al boletín!"
 
-#: app/Services/Helper.php:282
+#: app/Services/Helper.php:290
 msgid "Simple Boxed"
 msgstr "Caja simple"
 
@@ -9095,7 +9221,7 @@ msgstr "Singapur"
 msgid "Single Line Text"
 msgstr "Texto de una sola línea"
 
-#: app/Services/Helper.php:187
+#: app/Services/Helper.php:194
 msgid "Site URL"
 msgstr "URL del sitio"
 
@@ -9141,7 +9267,7 @@ msgstr "Babosa"
 msgid "Slug (Optional)"
 msgstr "Babosa (opcional)"
 
-#: app/Services/Helper.php:516
+#: app/Services/Helper.php:525
 msgid "Small"
 msgstr "Pequeño"
 
@@ -9202,6 +9328,10 @@ msgstr "Somalia"
 msgid "Some of the users matching your criteria"
 msgstr "Algunos de los usuarios que coinciden con sus criterios"
 
+#: app/Http/Controllers/SettingsController.php:698
+msgid "Something is wrong"
+msgstr ""
+
 #: app/Services/TransStrings.php:1170
 msgid "Something is wrong when importing. Please check the error message below"
 msgstr ""
@@ -9219,7 +9349,7 @@ msgstr "¡Algo salió mal!"
 msgid "Something went wrong, when syncing data"
 msgstr "Algo salió mal, al sincronizar los datos"
 
-#: app/Http/Controllers/SubscriberController.php:350
+#: app/Http/Controllers/SubscriberController.php:352
 msgid "Sorry contact already exist"
 msgstr "Lo siento, el contacto ya existe"
 
@@ -9248,11 +9378,11 @@ msgstr ""
 "Lo sentimos, no se han encontrado enlaces en los que los contactos hayan "
 "hecho clic"
 
-#: app/Services/TransStrings.php:1632
+#: app/Services/TransStrings.php:1633
 msgid "Sorry no subscribers found based on your selection"
 msgstr ""
 
-#: app/Services/TransStrings.php:1584
+#: app/Services/TransStrings.php:1585
 msgid ""
 "Sorry you can not insert the selected template type in this email campaign"
 msgstr ""
@@ -9261,13 +9391,12 @@ msgstr ""
 msgid "Sorry! No docs found"
 msgstr "Lo siento No se han encontrado documentos"
 
-#: app/Hooks/Handlers/ExternalPages.php:888
-#: app/Hooks/Handlers/ExternalPages.php:898
+#: app/Hooks/Handlers/ExternalPages.php:984
 msgid "Sorry! No subscriber found in the database"
 msgstr "¡Lo siento! No se encontró ningún suscriptor en la base de datos"
 
-#: app/Services/TransStrings.php:1631
-#: app/Http/Controllers/CampaignController.php:225
+#: app/Services/TransStrings.php:1632
+#: app/Http/Controllers/CampaignController.php:226
 msgid "Sorry! No subscribers found based on your selection"
 msgstr "¡Lo siento! No se encontraron suscriptores según tu selección"
 
@@ -9275,11 +9404,8 @@ msgstr "¡Lo siento! No se encontraron suscriptores según tu selección"
 msgid "Sorry! The plugin could not be installed. Please install manually"
 msgstr ""
 
-#: app/Hooks/Handlers/ExternalPages.php:280
-msgid "Sorry! This is not a valid unsubscribe url"
-msgstr "Lo siento Esta no es una url válida para darse de baja"
-
-#: app/Hooks/Handlers/ExternalPages.php:353
+#: app/Hooks/Handlers/ExternalPages.php:390
+#: app/Hooks/Handlers/ExternalPages.php:444
 msgid "Sorry! We could not verify your email address"
 msgstr ""
 
@@ -9289,11 +9415,11 @@ msgstr ""
 msgid "Sorry! you do not have permission to install plugin"
 msgstr "Lo siento, no tienes permisos para instalar plugins"
 
-#: app/Hooks/Handlers/ExternalPages.php:572
+#: app/Hooks/Handlers/ExternalPages.php:658
 msgid "Sorry! Your confirmation url is not valid"
 msgstr "¡Lo sentimos! Su url de confirmación no es válida"
 
-#: app/Hooks/Handlers/ExternalPages.php:420
+#: app/Hooks/Handlers/ExternalPages.php:506
 msgid "Sorry, No email found based on your data"
 msgstr ""
 "Lo sentimos, no se ha encontrado ningún correo electrónico basado en sus "
@@ -9304,38 +9430,43 @@ msgid "Sorry, No emails found in this automation"
 msgstr ""
 "Lo sentimos, no se han encontrado correos electrónicos en esta automatización"
 
-#: app/Services/TransStrings.php:1634
-#: app/Http/Controllers/CampaignController.php:349
-#: app/Http/Controllers/CampaignController.php:377
+#: app/Services/TransStrings.php:1635
+#: app/Http/Controllers/CampaignController.php:350
+#: app/Http/Controllers/CampaignController.php:378
 msgid "Sorry, No subscribers found based on your filters"
 msgstr "Lo sentimos, no se han encontrado suscriptores según sus filtros"
 
-#: app/Http/Controllers/SettingsController.php:763
+#: app/Http/Controllers/SettingsController.php:881
 msgid "Sorry, the provided provider does not exist"
 msgstr "Lo sentimos, el proveedor proporcionado no existe"
 
-#: app/Http/Controllers/SettingsController.php:674
-#: app/Http/Controllers/SettingsController.php:688
+#: app/Http/Controllers/SettingsController.php:672
+#: app/Http/Controllers/SettingsController.php:792
+#: app/Http/Controllers/SettingsController.php:806
 msgid "Sorry, the provided user does not have FluentCRM access"
 msgstr "Lo sentimos, el usuario proporcionado no tiene acceso a FluentCRM"
 
-#: app/Services/TransStrings.php:1574
+#: app/Services/TransStrings.php:1575
 msgid "Sorry, the selected plugins could not be installed"
 msgstr ""
 
-#: app/Http/Controllers/CompanyController.php:300
+#: app/Http/Controllers/CompanyController.php:301
 msgid "Sorry, we could not find the logo from website. Please upload manually"
 msgstr ""
 
-#: app/Http/Controllers/SettingsController.php:253
+#: app/Http/Controllers/SettingsController.php:254
 msgid "Sorry, You do not have admin permission to reset database"
 msgstr ""
 "Lo sentimos, no tiene permiso de administrador para restablecer la base de "
 "datos"
 
-#: app/Http/Controllers/SettingsController.php:680
+#: app/Http/Controllers/SettingsController.php:798
 msgid "Sorry, You do not have permission to create REST API"
 msgstr "Lo sentimos, no tiene permiso para crear la API REST"
+
+#: app/Http/Controllers/SettingsController.php:678
+msgid "Sorry, You do not have permission to delete REST API"
+msgstr ""
 
 #: app/Hooks/Handlers/FunnelHandler.php:218
 #: app/Hooks/Handlers/FunnelHandler.php:263
@@ -9343,8 +9474,8 @@ msgstr "Lo sentimos, no tiene permiso para crear la API REST"
 msgid "Sorry, You do not have permission to do this action"
 msgstr "Lo sentimos, no tiene permiso para realizar esta acción"
 
-#: app/Models/Subscriber.php:711 app/Services/TransStrings.php:514
-#: app/Services/Helper.php:945
+#: app/Models/Subscriber.php:723 app/Services/TransStrings.php:514
+#: app/Services/Helper.php:956
 msgid "Source"
 msgstr "Fuente"
 
@@ -9368,15 +9499,15 @@ msgstr "Sudán del Sur"
 msgid "Spain"
 msgstr "España"
 
-#: app/Http/Controllers/SettingsController.php:355
+#: app/Http/Controllers/SettingsController.php:356
 msgid "SparkPost"
 msgstr "SparkPost"
 
-#: app/Http/Controllers/SettingsController.php:358
+#: app/Http/Controllers/SettingsController.php:359
 msgid "SparkPost Bounce Handler Webhook URL"
 msgstr "URL del Webhook de SparkPost Bounce Handler"
 
-#: app/Services/Funnel/Actions/WaitTimeAction.php:113
+#: app/Services/Funnel/Actions/WaitTimeAction.php:119
 msgid "Specify Date and Time"
 msgstr "Especifique la fecha y la hora"
 
@@ -9420,9 +9551,9 @@ msgstr "Comienza con"
 msgid "starts with"
 msgstr "comienza con"
 
-#: app/Models/Company.php:63 app/Models/Subscriber.php:706
-#: app/Services/TransStrings.php:522 app/Services/Helper.php:157
-#: app/Services/Helper.php:908 app/Hooks/Handlers/PrefFormHandler.php:51
+#: app/Models/Company.php:63 app/Models/Subscriber.php:718
+#: app/Services/TransStrings.php:522 app/Services/Helper.php:164
+#: app/Services/Helper.php:919 app/Hooks/Handlers/PrefFormHandler.php:51
 #: app/Hooks/Handlers/PrefFormHandler.php:466
 #: app/Services/CrmMigrator/BaseMigrator.php:40
 #: app/Services/Funnel/FunnelHelper.php:168
@@ -9433,14 +9564,14 @@ msgstr "Provincia"
 msgid "Stats"
 msgstr "Estadísticas"
 
-#: app/Services/TransStrings.php:524 app/Services/Helper.php:161
-#: app/Services/Helper.php:970
+#: app/Services/TransStrings.php:524 app/Services/Helper.php:168
+#: app/Services/Helper.php:981
 #: app/Http/Controllers/CampaignAnalyticsController.php:80
 #: app/Http/Controllers/CampaignAnalyticsController.php:124
 #: app/Http/Controllers/CampaignAnalyticsController.php:142
-#: app/Hooks/CLI/Commands.php:155 app/Hooks/CLI/Commands.php:349
-#: app/Hooks/Handlers/PurchaseHistory.php:198
-#: app/Hooks/Handlers/PurchaseHistory.php:415
+#: app/Hooks/CLI/Commands.php:162 app/Hooks/CLI/Commands.php:356
+#: app/Hooks/CLI/Commands.php:564 app/Hooks/Handlers/PurchaseHistory.php:135
+#: app/Hooks/Handlers/PurchaseHistory.php:351
 #: app/Services/ExternalIntegrations/FluentForm/Bootstrap.php:263
 msgid "Status"
 msgstr "Estado"
@@ -9449,7 +9580,7 @@ msgstr "Estado"
 msgid "status"
 msgstr "estado"
 
-#: app/Services/Helper.php:1270
+#: app/Services/Helper.php:1281
 msgid "Status (Pro Required)"
 msgstr "Estado (Pro requerido)"
 
@@ -9457,7 +9588,7 @@ msgstr "Estado (Pro requerido)"
 msgid "Status for the new subscribers"
 msgstr "Estado de los nuevos abonados"
 
-#: app/Http/Controllers/CompanyController.php:378
+#: app/Http/Controllers/CompanyController.php:379
 msgid "Status has been changed for the selected companies"
 msgstr ""
 
@@ -9465,11 +9596,11 @@ msgstr ""
 msgid "Status has been changed for the selected funnels"
 msgstr "Se ha modificado el estado de los embudos seleccionados"
 
-#: app/Http/Controllers/SubscriberController.php:922
+#: app/Http/Controllers/SubscriberController.php:949
 msgid "Status has been changed for the selected subscribers"
 msgstr "Se ha modificado el estado de los abonados seleccionados"
 
-#: app/Http/Controllers/TemplateController.php:266
+#: app/Http/Controllers/TemplateController.php:275
 msgid "Status has been changed for the selected templates"
 msgstr "Se ha modificado el estado de las plantillas seleccionadas"
 
@@ -9494,8 +9625,8 @@ msgstr "Paso 2"
 msgid "Step Report"
 msgstr "Informe del paso"
 
-#: app/Services/TransStrings.php:1630
-#: app/Http/Controllers/CampaignController.php:212
+#: app/Services/TransStrings.php:1631
+#: app/Http/Controllers/CampaignController.php:213
 msgid "step saved"
 msgstr "paso guardado"
 
@@ -9547,11 +9678,11 @@ msgstr "Suscriptor"
 msgid "Subscriber Clicks"
 msgstr "Clics de los abonados"
 
-#: app/Hooks/Handlers/ExternalPages.php:605
+#: app/Hooks/Handlers/ExternalPages.php:691
 msgid "Subscriber confirmed double opt-in from IP Address:"
 msgstr "Suscriptor confirmado de doble opt-in desde la dirección IP:"
 
-#: app/Hooks/Handlers/ExternalPages.php:604
+#: app/Hooks/Handlers/ExternalPages.php:690
 msgid "Subscriber double opt-in confirmed"
 msgstr "Confirmación del doble opt-in del suscriptor"
 
@@ -9559,20 +9690,20 @@ msgstr "Confirmación del doble opt-in del suscriptor"
 msgid "Subscriber Fields"
 msgstr "Campos de los abonados"
 
-#: app/Http/Controllers/SubscriberController.php:104
+#: app/Http/Controllers/SubscriberController.php:106
 msgid "Subscriber not found"
 msgstr "Abonado no encontrado"
 
-#: app/Http/Controllers/SubscriberController.php:448
+#: app/Http/Controllers/SubscriberController.php:450
 msgid "Subscriber successfully updated"
 msgstr "Suscriptor actualizado correctamente"
 
-#: app/Hooks/Handlers/ExternalPages.php:487
+#: app/Hooks/Handlers/ExternalPages.php:573
 #, php-format
 msgid "Subscriber unsubscribed from IP Address: %1s <br />Reason: %2s"
 msgstr ""
 
-#: app/Http/Controllers/SubscriberController.php:731
+#: app/Http/Controllers/SubscriberController.php:741
 msgid "Subscriber's status need to be subscribed."
 msgstr "Es necesario que el estado del abonado esté suscrito."
 
@@ -9580,7 +9711,7 @@ msgstr "Es necesario que el estado del abonado esté suscrito."
 msgid "subscriber_ids parameter is required"
 msgstr "el parámetro subscriber_ids es obligatorio"
 
-#: app/Services/TransStrings.php:533 app/Hooks/CLI/Commands.php:27
+#: app/Services/TransStrings.php:533 app/Hooks/CLI/Commands.php:30
 msgid "Subscribers"
 msgstr "Suscriptores"
 
@@ -9600,11 +9731,11 @@ msgstr "Los suscriptores se han añadido con éxito a esta secuencia."
 msgid "Subscribers imported successfully."
 msgstr "Suscriptores importados con éxito."
 
-#: app/Http/Controllers/SubscriberController.php:781
+#: app/Http/Controllers/SubscriberController.php:808
 msgid "Subscribers selection is required"
 msgstr "Se requiere la selección de suscriptores"
 
-#: app/Http/Controllers/SubscriberController.php:203
+#: app/Http/Controllers/SubscriberController.php:205
 msgid "Subscribers successfully updated"
 msgstr "Suscriptores actualizados con éxito"
 
@@ -9612,7 +9743,7 @@ msgstr "Suscriptores actualizados con éxito"
 msgid "Subscription Form"
 msgstr "Formulario de suscripción"
 
-#: app/Hooks/CLI/Commands.php:133
+#: app/Hooks/CLI/Commands.php:140
 msgid "Subscription Payments"
 msgstr "Pagos de suscripción"
 
@@ -9637,12 +9768,12 @@ msgstr "Restar valor"
 msgid "Success"
 msgstr "Éxito"
 
-#: app/Hooks/Handlers/ExternalPages.php:111
-#: app/Hooks/Handlers/ExternalPages.php:166
+#: app/Hooks/Handlers/ExternalPages.php:113
+#: app/Hooks/Handlers/ExternalPages.php:168
 msgid "success"
 msgstr "éxito"
 
-#: app/Http/Controllers/SubscriberController.php:330
+#: app/Http/Controllers/SubscriberController.php:332
 msgid "Successfully added the subscriber."
 msgstr "Se ha añadido el abonado con éxito."
 
@@ -9676,7 +9807,7 @@ msgstr "Se ha guardado la etiqueta con éxito."
 msgid "Successfully saved the tags."
 msgstr "Se han guardado las etiquetas con éxito."
 
-#: app/Http/Controllers/SubscriberController.php:268
+#: app/Http/Controllers/SubscriberController.php:270
 msgid "Successfully updated the "
 msgstr "Se ha actualizado con éxito el"
 
@@ -9718,7 +9849,7 @@ msgstr ""
 msgid "Support"
 msgstr "Soporte"
 
-#: app/Services/Helper.php:122
+#: app/Services/Helper.php:129
 msgid "Support Tickets"
 msgstr "Entradas de apoyo"
 
@@ -9802,9 +9933,11 @@ msgid "Tag Removed From Contact"
 msgstr "Etiqueta eliminada del contacto"
 
 #: app/Services/Stats.php:39 app/Services/TransStrings.php:644
-#: app/Services/Helper.php:988 app/Hooks/CLI/Commands.php:147
-#: app/Hooks/CLI/Commands.php:341 app/Hooks/Handlers/AdminMenu.php:104
-#: app/Hooks/Handlers/AdminMenu.php:105 app/Hooks/Handlers/AdminMenu.php:323
+#: app/Services/Helper.php:999 app/Hooks/CLI/Commands.php:154
+#: app/Hooks/CLI/Commands.php:348 app/Hooks/CLI/Commands.php:556
+#: app/Hooks/Handlers/AdminMenu.php:104 app/Hooks/Handlers/AdminMenu.php:105
+#: app/Hooks/Handlers/AdminMenu.php:328
+#: app/Hooks/Handlers/EventTrackingHandler.php:269
 msgid "Tags"
 msgstr "Etiquetas"
 
@@ -9870,15 +10003,15 @@ msgstr ""
 msgid "Template Name"
 msgstr "Nombre de la plantilla"
 
-#: app/Http/Controllers/TemplateController.php:152
+#: app/Http/Controllers/TemplateController.php:161
 msgid "Template successfully created"
 msgstr "Plantilla creada con éxito"
 
-#: app/Http/Controllers/TemplateController.php:184
+#: app/Http/Controllers/TemplateController.php:193
 msgid "Template successfully duplicated"
 msgstr "Plantilla duplicada con éxito"
 
-#: app/Http/Controllers/TemplateController.php:235
+#: app/Http/Controllers/TemplateController.php:244
 msgid "Template successfully updated"
 msgstr "Plantilla actualizada correctamente."
 
@@ -9886,7 +10019,7 @@ msgstr "Plantilla actualizada correctamente."
 msgid "Template Title"
 msgstr "Título de la plantilla"
 
-#: app/Services/TransStrings.php:1642
+#: app/Services/TransStrings.php:1643
 msgid "Test email successfully sent to"
 msgstr ""
 
@@ -9924,7 +10057,7 @@ msgstr ""
 "de marketing por correo electrónico Este asistente de configuración rápida "
 "le ayudará a configurar las opciones básicas."
 
-#: app/Hooks/Handlers/AdminMenu.php:261
+#: app/Hooks/Handlers/AdminMenu.php:266
 #, fuzzy, php-format
 #| msgid "Thank you for using <a href=\"%s\">FluentCRM</a>"
 msgid "Thank you for using <a href=\"%s\">FluentCRM</a>."
@@ -9951,11 +10084,11 @@ msgstr "La dirección de correo electrónico es obligatoria"
 msgid "the email will be triggered from the starting date"
 msgstr "el correo electrónico se activará a partir de la fecha de inicio"
 
-#: app/Hooks/Handlers/ExternalPages.php:401
+#: app/Hooks/Handlers/ExternalPages.php:487
 msgid "The emails are inappropriate"
 msgstr "No tengo interés en la información que me ofrecen"
 
-#: app/Hooks/Handlers/ExternalPages.php:402
+#: app/Hooks/Handlers/ExternalPages.php:488
 msgid "The emails are spam"
 msgstr "Recibo demasiados emails promocionales de esta página"
 
@@ -9965,11 +10098,11 @@ msgstr ""
 "Los mensajes de correo electrónico se enviarán en función de la fecha y la "
 "hora establecidas."
 
-#: app/Http/Controllers/CsvController.php:43
+#: app/Http/Controllers/CsvController.php:44
 msgid "The file must be a valid CSV."
 msgstr "El archivo debe ser un CSV válido."
 
-#: app/Hooks/Handlers/ExternalPages.php:930
+#: app/Hooks/Handlers/ExternalPages.php:1017
 msgid ""
 "The new email has been used to another account. Please use a new email "
 "address"
@@ -9981,7 +10114,7 @@ msgstr ""
 msgid "The new steps will start processing within 5 minutes once you confirm."
 msgstr ""
 
-#: app/Http/Controllers/SettingsController.php:497
+#: app/Http/Controllers/SettingsController.php:518
 msgid "The provided hook name is not valid"
 msgstr "El nombre del gancho proporcionado no es válido"
 
@@ -10003,7 +10136,7 @@ msgstr "El estado ya completado"
 msgid "The subscriber is already present in the database."
 msgstr "El abonado ya está presente en la base de datos."
 
-#: app/Http/Controllers/TemplateController.php:292
+#: app/Http/Controllers/TemplateController.php:301
 msgid "The template has been deleted successfully."
 msgstr "La plantilla ha sido eliminada con éxito."
 
@@ -10049,8 +10182,8 @@ msgstr ""
 "Estas etiquetas se eliminarán de un contacto cada vez que se haga clic en "
 "este enlace"
 
-#: app/Http/Controllers/SubscriberController.php:798
-#: app/Http/Controllers/SubscriberController.php:927
+#: app/Http/Controllers/SubscriberController.php:825
+#: app/Http/Controllers/SubscriberController.php:954
 msgid "This action requires FluentCRM Pro"
 msgstr "Esta acción requiere FluentCRM Pro"
 
@@ -10078,7 +10211,7 @@ msgstr ""
 "Este texto de pie de página del correo electrónico se utilizará para todos "
 "sus correos electrónicos"
 
-#: app/Services/TransStrings.php:1648
+#: app/Services/TransStrings.php:1649
 msgid "This email footer text will be used to this email only"
 msgstr ""
 
@@ -10132,7 +10265,7 @@ msgstr ""
 msgid "This is a pro feature"
 msgstr "Esta es una función profesional"
 
-#: app/Http/Controllers/SettingsController.php:154
+#: app/Http/Controllers/SettingsController.php:155
 msgid "This message will be shown after a subscriber confirm subscription"
 msgstr ""
 "Este mensaje se mostrará después de que el abonado confirme la suscripción"
@@ -10151,7 +10284,7 @@ msgid ""
 "disable."
 msgstr ""
 
-#: app/Services/TransStrings.php:1604
+#: app/Services/TransStrings.php:1605
 msgid ""
 "This subject will not be used to send emails. Please set A/B testing subjects"
 msgstr ""
@@ -10205,7 +10338,7 @@ msgstr ""
 msgid "ThriveThemes integration"
 msgstr ""
 
-#: app/Hooks/Handlers/AdminMenu.php:796
+#: app/Hooks/Handlers/AdminMenu.php:827
 msgid "Thumbnail"
 msgstr "Miniatura"
 
@@ -10217,7 +10350,7 @@ msgstr "Jueves"
 msgid "time unit"
 msgstr ""
 
-#: app/Models/Subscriber.php:702
+#: app/Models/Subscriber.php:714
 msgid "Timezone"
 msgstr "Zona horaria"
 
@@ -10229,7 +10362,7 @@ msgstr "Timor Oriental"
 msgid "Tips"
 msgstr "Consejos"
 
-#: app/Services/TransStrings.php:540
+#: app/Services/TransStrings.php:540 app/Services/Helper.php:1828
 #: app/Http/Controllers/CampaignAnalyticsController.php:79
 #: app/Hooks/Handlers/PrefFormHandler.php:44
 msgid "Title"
@@ -10283,7 +10416,7 @@ msgstr "para ver todos los bloques disponibles"
 msgid "to see smart tags"
 msgstr "para ver las etiquetas inteligentes"
 
-#: app/Services/TransStrings.php:1673
+#: app/Services/TransStrings.php:1674
 msgid "To use this feature you need FluentCRM Pro."
 msgstr ""
 
@@ -10314,8 +10447,8 @@ msgstr "Productos más vendidos"
 #: app/Http/Controllers/CampaignAnalyticsController.php:82
 #: app/Http/Controllers/CampaignAnalyticsController.php:126
 #: app/Http/Controllers/CampaignAnalyticsController.php:144
-#: app/Hooks/Handlers/PurchaseHistory.php:202
-#: app/Hooks/Handlers/PurchaseHistory.php:419
+#: app/Hooks/Handlers/PurchaseHistory.php:139
+#: app/Hooks/Handlers/PurchaseHistory.php:355
 msgid "Total"
 msgstr "Total"
 
@@ -10347,15 +10480,15 @@ msgstr "Totalmente insertado:"
 msgid "Total Order Count"
 msgstr "Recuento total de pedidos"
 
-#: app/Services/Helper.php:1153 app/Services/Helper.php:1207
+#: app/Services/Helper.php:1164 app/Services/Helper.php:1218
 msgid "Total Order Count (Pro Required)"
 msgstr "Recuento total de pedidos (Pro Required)"
 
-#: app/Services/Helper.php:1213
+#: app/Services/Helper.php:1224
 msgid "Total Order Value (Pro Required)"
 msgstr "Valor total del pedido (Pro Required)"
 
-#: app/Services/Helper.php:1159
+#: app/Services/Helper.php:1170
 msgid "Total Order value (Pro Required)"
 msgstr "Valor total del pedido (Pro Required)"
 
@@ -10363,7 +10496,7 @@ msgstr "Valor total del pedido (Pro Required)"
 msgid "Total Recipients"
 msgstr "Total de beneficiarios"
 
-#: app/Services/Helper.php:1264
+#: app/Services/Helper.php:1275
 msgid "Total Referrals (Pro Required)"
 msgstr "Total de referencias (Pro requerido)"
 
@@ -10374,6 +10507,10 @@ msgstr "Ingresos totales de este embudo"
 #: app/Services/TransStrings.php:347
 msgid "Total Skipped (Including Invalid):"
 msgstr "Total de omisiones (incluidas las no válidas):"
+
+#: app/Hooks/CLI/Commands.php:552
+msgid "Total Students"
+msgstr ""
 
 #: app/Services/TransStrings.php:550
 msgid "Total Updated:"
@@ -10486,7 +10623,8 @@ msgid "Twitter Url"
 msgstr ""
 
 #: app/Models/Company.php:56 app/Services/TransStrings.php:552
-#: app/Services/Helper.php:979
+#: app/Services/Helper.php:990 app/Services/Helper.php:1811
+#: app/Hooks/Handlers/EventTrackingHandler.php:260
 msgid "Type"
 msgstr "Tipo"
 
@@ -10557,29 +10695,33 @@ msgstr ""
 msgid "unknown error. Please check your csv first"
 msgstr ""
 
-#: app/Services/Helper.php:1287
+#: app/Services/Helper.php:1298
 msgid "Unpaid Earnings (Pro Required)"
 msgstr "Ganancias no pagadas (Pro Required)"
 
-#: app/Services/TransStrings.php:1358 app/Hooks/Handlers/ExternalPages.php:297
-#: app/Hooks/Handlers/ExternalPages.php:301
+#: app/Services/TransStrings.php:1358 app/Hooks/Handlers/ExternalPages.php:319
+#: app/Hooks/Handlers/ExternalPages.php:323
 #: app/views/external/manage_subscription_form.php:39
 #: app/views/external/unsubscribe.php:19
-#: app/Services/Libs/Parser/ShortcodeParser.php:222
+#: app/Services/Libs/Parser/ShortcodeParser.php:225
 msgid "Unsubscribe"
 msgstr "Cancelar la suscripción"
 
-#: app/Services/Helper.php:194
+#: app/Models/CampaignUrlMetric.php:145
+msgid "Unsubscribe (%d)"
+msgstr ""
+
+#: app/Services/Helper.php:201
 msgid "Unsubscribe Hyperlink HTML"
 msgstr "Hipervínculo de cancelación de suscripción HTML"
 
-#: app/Services/Helper.php:191
+#: app/Services/Helper.php:198
 msgid "Unsubscribe URL"
 msgstr "URL de cancelación de la suscripción"
 
 #: app/Functions/helpers.php:499 app/Functions/helpers.php:546
 #: app/Services/TransStrings.php:555 app/Services/TransStrings.php:640
-#: app/Hooks/Handlers/ExternalPages.php:486
+#: app/Hooks/Handlers/ExternalPages.php:572
 msgid "Unsubscribed"
 msgstr "No suscrito"
 
@@ -10591,7 +10733,7 @@ msgstr ""
 msgid "Update"
 msgstr "Actualización"
 
-#: app/Services/TransStrings.php:1644
+#: app/Services/TransStrings.php:1645
 msgid "Update Companies"
 msgstr ""
 
@@ -10701,7 +10843,7 @@ msgstr ""
 msgid "Use comma separated values for multiple"
 msgstr "Utilice valores separados por comas para múltiples"
 
-#: app/Services/TransStrings.php:1646
+#: app/Services/TransStrings.php:1647
 msgid "Use Custom Email Footer"
 msgstr ""
 
@@ -10709,7 +10851,7 @@ msgstr ""
 msgid "Use Email Template"
 msgstr "Utilizar la plantilla de correo electrónico"
 
-#: app/Services/TransStrings.php:1591
+#: app/Services/TransStrings.php:1592
 msgid "Use Global Email Footer"
 msgstr ""
 
@@ -10765,7 +10907,7 @@ msgstr "Correo electrónico del usuario"
 msgid "User Email Address"
 msgstr "Dirección de correo electrónico del usuario"
 
-#: app/Services/TransStrings.php:570 app/Services/Helper.php:153
+#: app/Services/TransStrings.php:570 app/Services/Helper.php:160
 msgid "User ID"
 msgstr "ID del usuario"
 
@@ -10785,11 +10927,11 @@ msgstr "Configuración del registro de usuarios Optin"
 msgid "Uzbekistan"
 msgstr "Uzbekistán"
 
-#: app/Http/Controllers/SettingsController.php:244
+#: app/Http/Controllers/SettingsController.php:245
 msgid "Valid"
 msgstr "Válido"
 
-#: app/Hooks/Handlers/ExternalPages.php:701
+#: app/Hooks/Handlers/ExternalPages.php:787
 msgid "Validation failed."
 msgstr "Validación fallida."
 
@@ -10797,10 +10939,10 @@ msgstr "Validación fallida."
 msgid "Value"
 msgstr "Valor"
 
-#: app/Http/Controllers/CompanyController.php:276
-#: app/Http/Controllers/CompanyController.php:280
-#: app/Http/Controllers/SubscriberController.php:179
-#: app/Http/Controllers/SubscriberController.php:183
+#: app/Http/Controllers/CompanyController.php:277
+#: app/Http/Controllers/CompanyController.php:281
+#: app/Http/Controllers/SubscriberController.php:181
+#: app/Http/Controllers/SubscriberController.php:185
 msgid "Value is not valid"
 msgstr "El valor no es válido"
 
@@ -10824,7 +10966,7 @@ msgstr "Remitentes de correo electrónico verificados"
 msgid "Verify License"
 msgstr "Verificar la licencia"
 
-#: app/Hooks/Handlers/ExternalPages.php:85
+#: app/Hooks/Handlers/ExternalPages.php:87
 msgid "verify_key verification failed"
 msgstr "verify_key verificación fallida"
 
@@ -10869,7 +11011,7 @@ msgstr "Ver los correos electrónicos"
 msgid "View FluentCRM Documentation"
 msgstr "Ver documentación de FluentCRM"
 
-#: app/Services/TransStrings.php:1662
+#: app/Services/TransStrings.php:1663
 msgid "View Full Profile"
 msgstr ""
 
@@ -10877,13 +11019,13 @@ msgstr ""
 msgid "View GridPane Article"
 msgstr "Ver artículo de GridPane"
 
-#: app/Services/Helper.php:193
+#: app/Services/Helper.php:200
 msgid "View On Browser URL"
 msgstr "Ver en la URL del navegador"
 
-#: app/Hooks/Handlers/PurchaseHistory.php:124
-#: app/Hooks/Handlers/PurchaseHistory.php:339
-#: app/Hooks/Handlers/PurchaseHistory.php:372
+#: app/Hooks/Handlers/PurchaseHistory.php:109
+#: app/Hooks/Handlers/PurchaseHistory.php:275
+#: app/Hooks/Handlers/PurchaseHistory.php:308
 msgid "View Order"
 msgstr ""
 
@@ -10899,7 +11041,7 @@ msgstr "Ver el informe"
 msgid "View Reports"
 msgstr "Ver los informes"
 
-#: app/Services/TransStrings.php:1663
+#: app/Services/TransStrings.php:1664
 msgid "View Sequence"
 msgstr ""
 
@@ -10923,29 +11065,29 @@ msgstr "Islas Vírgenes (británicas)"
 msgid "Virgin Islands (US)"
 msgstr "Islas Vírgenes (EEUU)"
 
-#: app/Services/Helper.php:324
+#: app/Services/Helper.php:332
 msgid "Visual Builder"
 msgstr ""
 
-#: app/Services/TransStrings.php:1583
+#: app/Services/TransStrings.php:1584
 msgid ""
 "Visual Email Builder is a Pro feature. Please upgrade to pro to use this "
 "feature"
 msgstr ""
 
-#: app/Services/TransStrings.php:1622
+#: app/Services/TransStrings.php:1623
 msgid "Visually design your email with Drag & Drop Builder"
 msgstr ""
 
-#: app/Services/Helper.php:503
+#: app/Services/Helper.php:512
 msgid "Vivid cyan blue"
 msgstr "Azul cian intenso"
 
-#: app/Services/Helper.php:493
+#: app/Services/Helper.php:502
 msgid "Vivid green cyan"
 msgstr "Verde intenso cian"
 
-#: app/Services/Helper.php:508
+#: app/Services/Helper.php:517
 msgid "Vivid purple"
 msgstr "Morado vivo"
 
@@ -10954,15 +11096,15 @@ msgid "Wait "
 msgstr ""
 
 #: app/Services/Funnel/Actions/WaitTimeAction.php:24
-#: app/Services/Funnel/Actions/WaitTimeAction.php:58
+#: app/Services/Funnel/Actions/WaitTimeAction.php:64
 msgid "Wait defined timespan before execute the next action"
 msgstr "Esperar un tiempo definido antes de ejecutar la siguiente acción"
 
-#: app/Services/Funnel/Actions/WaitTimeAction.php:79
+#: app/Services/Funnel/Actions/WaitTimeAction.php:85
 msgid "Wait Time"
 msgstr "Tiempo de espera"
 
-#: app/Services/Funnel/Actions/WaitTimeAction.php:89
+#: app/Services/Funnel/Actions/WaitTimeAction.php:95
 msgid "Wait Time Unit"
 msgstr "Unidad de tiempo de espera"
 
@@ -10975,7 +11117,7 @@ msgid "Wait until next "
 msgstr ""
 
 #: app/Services/Funnel/Actions/WaitTimeAction.php:23
-#: app/Services/Funnel/Actions/WaitTimeAction.php:57
+#: app/Services/Funnel/Actions/WaitTimeAction.php:63
 msgid "Wait X Days/Hours"
 msgstr "Esperar X días/horas"
 
@@ -11000,11 +11142,17 @@ msgid "We will send marketing tips and advanced usage of FluentCRM (Monthly)"
 msgstr ""
 "Enviaremos consejos de marketing y uso avanzado de FluentCRM (Mensualmente)"
 
-#: app/Hooks/Handlers/ExternalPages.php:298
+#: app/Hooks/Handlers/ExternalPages.php:320
 msgid "We're sorry to see you go!"
 msgstr "¡Sentimos que te vayas!"
 
-#: app/Hooks/Handlers/ExternalPages.php:388
+#: app/Hooks/Handlers/ExternalPages.php:474
+msgid ""
+"We've sent an email to your inbox that contains a link to email management "
+"from. Please check your email address to get the link."
+msgstr ""
+
+#: app/Hooks/Handlers/ExternalPages.php:425
 msgid ""
 "We've sent an email to your inbox that contains a link to unsubscribe from "
 "our mailing list. Please check your email address and unsubscribe."
@@ -11014,7 +11162,7 @@ msgstr ""
 msgid "Webhook Info"
 msgstr "Información sobre el webhook"
 
-#: app/Hooks/Handlers/ExternalPages.php:657
+#: app/Hooks/Handlers/ExternalPages.php:743
 msgid "Webhook must need to be as POST Method"
 msgstr "El webhook debe ser como método POST"
 
@@ -11026,7 +11174,7 @@ msgstr ""
 msgid "Website"
 msgstr ""
 
-#: app/Models/Company.php:69 app/Services/TransStrings.php:1643
+#: app/Models/Company.php:69 app/Services/TransStrings.php:1644
 msgid "Website URL"
 msgstr ""
 
@@ -11066,7 +11214,7 @@ msgstr "¿Cuándo se envían los correos electrónicos?"
 msgid "Which time you would like to schedule"
 msgstr ""
 
-#: app/Services/Helper.php:468
+#: app/Services/Helper.php:477
 msgid "White"
 msgstr "Blanco"
 
@@ -11109,7 +11257,7 @@ msgid "will be shown here, Currently no tickets found for this subscriber"
 msgstr ""
 "se mostrará aquí, Actualmente no se han encontrado entradas para este abonado"
 
-#: app/Services/TransStrings.php:1581
+#: app/Services/TransStrings.php:1582
 msgid "Will be stored from your last saved email contents"
 msgstr ""
 
@@ -11146,7 +11294,7 @@ msgstr ""
 msgid "within days"
 msgstr "en cuestión de días"
 
-#: app/Services/Helper.php:430 app/Services/Helper.php:1148
+#: app/Services/Helper.php:439 app/Services/Helper.php:1159
 msgid "WooCommerce"
 msgstr "WooCommerce"
 
@@ -11158,9 +11306,13 @@ msgstr "Campo de suscripción de Woocommerce Checkout"
 msgid "WooCommerce Integration:"
 msgstr "Integración con WooCommerce:"
 
-#: app/Services/Helper.php:429
+#: app/Services/Helper.php:438
 msgid "Woocommerce Purchase History"
 msgstr "Historial de compras de Woocommerce"
+
+#: app/Services/TransStrings.php:1528
+msgid "WordPress Default"
+msgstr ""
 
 #: app/Http/Controllers/DocsController.php:105
 msgid ""
@@ -11188,7 +11340,7 @@ msgstr "Trabajando"
 msgid "WP Email Newsletter Team - FluentCRM"
 msgstr ""
 
-#: app/Services/Helper.php:932
+#: app/Services/Helper.php:943
 msgid "WP User ID"
 msgstr "ID de usuario de WP"
 
@@ -11216,11 +11368,11 @@ msgstr "Año hasta la fecha"
 msgid "Yemen"
 msgstr "Yemen"
 
-#: app/Services/TransStrings.php:594 app/Services/Helper.php:1251
+#: app/Services/TransStrings.php:594 app/Services/Helper.php:1262
 msgid "Yes"
 msgstr "Sí"
 
-#: app/Services/TransStrings.php:1578
+#: app/Services/TransStrings.php:1579
 msgid "Yes, Count me in!"
 msgstr ""
 
@@ -11236,7 +11388,8 @@ msgstr "Sí, quiero borrar los registros antiguos"
 msgid "You are successfully subscribed to our email list"
 msgstr "Se ha suscrito correctamente a nuestra lista de correo electrónico"
 
-#: app/Hooks/Handlers/ExternalPages.php:490
+#: app/Hooks/Handlers/ExternalPages.php:286
+#: app/Hooks/Handlers/ExternalPages.php:576
 msgid "You are successfully unsubscribed from the email list"
 msgstr "Te has dado de baja correctamente de la lista de correo electrónico"
 
@@ -11254,7 +11407,7 @@ msgstr ""
 "correo electrónico sólo a un segmento seleccionado. Esto le permitirá "
 "dirigirse a audiencias específicas y aumentar su tasa de conversión."
 
-#: app/Services/TransStrings.php:1590
+#: app/Services/TransStrings.php:1591
 msgid ""
 "You can customize your footer in this section. If no custom footer being "
 "added here, global footer will be added to this email."
@@ -11326,7 +11479,7 @@ msgstr "No se puede cambiar el slug una vez guardado un campo personalizado"
 msgid "You can not reverse this action."
 msgstr "No se puede revertir esta acción."
 
-#: app/Http/Controllers/CampaignController.php:1083
+#: app/Http/Controllers/CampaignController.php:1088
 msgid ""
 "You can only pause a campaign if it is on \"Working\" state, Please reload "
 "this page"
@@ -11334,7 +11487,7 @@ msgstr ""
 "Sólo se puede poner en pausa una campaña si está en estado de \"Trabajo\", "
 "Por favor, recargue esta página"
 
-#: app/Http/Controllers/CampaignController.php:1108
+#: app/Http/Controllers/CampaignController.php:1115
 msgid ""
 "You can only resume a campaign if it is on \"paused\" state, Please reload "
 "this page"
@@ -11342,8 +11495,8 @@ msgstr ""
 "Sólo puede reanudar una campaña si está en estado de \"pausa\", por favor "
 "recargue esta página"
 
-#: app/Http/Controllers/CampaignController.php:1203
-#: app/Http/Controllers/CampaignController.php:1209
+#: app/Http/Controllers/CampaignController.php:1210
+#: app/Http/Controllers/CampaignController.php:1216
 msgid ""
 "You can only un-schedule a campaign if it is on \"scheduled\" state, Please "
 "reload this page"
@@ -11455,24 +11608,29 @@ msgstr ""
 "El nombre de su empresa se utilizará en los correos electrónicos, en las "
 "páginas para darse de baja y en las interfaces públicas"
 
-#: app/Services/TransStrings.php:1639
-#: app/Http/Controllers/CampaignController.php:513
+#: app/Services/TransStrings.php:1640
+#: app/Http/Controllers/CampaignController.php:514
 msgid "Your campaign email has been scheduled"
 msgstr "Tu campaña de correo electrónico ha sido programada"
 
-#: app/Http/Controllers/SettingsController.php:115
+#: app/Http/Controllers/SettingsController.php:116
 msgid "Your double-optin email pre header"
 msgstr ""
 
-#: app/Http/Controllers/SettingsController.php:109
+#: app/Http/Controllers/SettingsController.php:110
 msgid "Your double-optin email subject"
 msgstr "El asunto de su correo electrónico de doble apertura"
 
-#: app/Services/TransStrings.php:935 app/Hooks/Handlers/ExternalPages.php:299
+#: app/Services/TransStrings.php:935 app/Hooks/Handlers/ExternalPages.php:321
 #: app/views/external/manage_subscription_form.php:9
+#: app/views/external/manage_subscription_request_form.php:38
 #: app/views/external/unsubscribe_request_form.php:38
 msgid "Your Email Address"
 msgstr "Tu dirección de correo electrónico"
+
+#: app/Hooks/Handlers/ExternalPages.php:461
+msgid "Your Email preferences URL"
+msgstr ""
 
 #: app/Services/TransStrings.php:581
 msgid "Your emails are sending right now...."
@@ -11498,7 +11656,7 @@ msgstr "Su clave de licencia"
 msgid "Your link title so you do not forget it"
 msgstr "El título de tu enlace para que no lo olvides"
 
-#: app/Services/TransStrings.php:596
+#: app/Services/TransStrings.php:596 app/Services/Helper.php:1830
 msgid "Your Note Title"
 msgstr "Título de tu nota"
 
@@ -11506,7 +11664,7 @@ msgstr "Título de tu nota"
 msgid "Your provided API key is valid"
 msgstr "La clave de API proporcionada es válida"
 
-#: app/Hooks/Handlers/ExternalPages.php:974
+#: app/Hooks/Handlers/ExternalPages.php:1062
 msgid "Your provided information has been successfully updated"
 msgstr "La información que nos has facilitado se ha actualizado correctamente"
 

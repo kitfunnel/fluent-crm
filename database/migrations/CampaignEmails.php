@@ -45,7 +45,8 @@ class CampaignEmails
                 INDEX `{$indexPrefix}_et_idx` (`email_type` ASC),
                 INDEX `{$indexPrefix}_estidx` (`status` ASC),
                 INDEX `{$indexPrefix}_emtidx` (`email_hash` ASC),
-                KEY `scheduled_at` (`scheduled_at`)
+                INDEX `{$indexPrefix}_scheduled_at` (`scheduled_at`),
+                INDEX `{$indexPrefix}_updated_at` (`updated_at`)
             ) $charsetCollate;";
 
             dbDelta($sql);
@@ -58,6 +59,10 @@ class CampaignEmails
 
             if(!in_array('scheduled_at', $indexedColumns)) {
                 $wpdb->query("ALTER TABLE {$table} ADD INDEX `scheduled_at` (`scheduled_at`);");
+            }
+
+            if(!in_array('updated_at', $indexedColumns)) {
+                $wpdb->query("ALTER TABLE {$table} ADD INDEX {$indexPrefix}_updated_at (`updated_at`);");
             }
 
             if(!in_array('email_hash', $indexedColumns)) {

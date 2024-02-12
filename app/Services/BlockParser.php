@@ -224,11 +224,11 @@ class BlockParser
         $extraStyle = '';
         if ($spacings = Arr::get($block, 'attrs.style.spacing.margin', [])) {
 
-            if(!empty($spacings['top'])) {
+            if (!empty($spacings['top'])) {
                 $extraStyle .= 'margin-top:' . $spacings['top'] . ';';
             }
 
-            if(!empty($spacings['bottom'])) {
+            if (!empty($spacings['bottom'])) {
                 $extraStyle .= 'margin-bottom:' . $spacings['bottom'] . ';';
             }
         }
@@ -296,6 +296,9 @@ class BlockParser
     private function renderConditionalBlock($content, $data)
     {
         $subscriber = BlockParserHelper::getSubscriber();
+        if (!$subscriber) {
+            $subscriber = apply_filters('fluent_crm/get_current_block_condition_subscriber', $subscriber);
+        }
 
         if (!$subscriber) {
             return $content;
@@ -334,24 +337,24 @@ class BlockParser
             'align' . Arr::get($block, 'attrs.align', 'left')
         ]));
         $radius = Arr::get($block, 'attrs.style.border.radius', '0px');
-        $marginTop  = $this->getSpacing('attrs.marginTop', $block);
-        $marginBottom  = $this->getSpacing('attrs.marginBottom', $block);
-        $marginLeft  = $this->getSpacing('attrs.marginLeft', $block);
-        $marginRight  = $this->getSpacing('attrs.marginRight', $block);
+        $marginTop = $this->getSpacing('attrs.marginTop', $block);
+        $marginBottom = $this->getSpacing('attrs.marginBottom', $block);
+        $marginLeft = $this->getSpacing('attrs.marginLeft', $block);
+        $marginRight = $this->getSpacing('attrs.marginRight', $block);
 
-        $paddingTop  = $this->getSpacing('attrs.paddingTop', $block);
-        $paddingBottom  = $this->getSpacing('attrs.paddingBottom', $block);
-        $paddingLeft  = $this->getSpacing('attrs.paddingLeft', $block);
-        $paddingRight  = $this->getSpacing('attrs.paddingRight', $block);
+        $paddingTop = $this->getSpacing('attrs.paddingTop', $block);
+        $paddingBottom = $this->getSpacing('attrs.paddingBottom', $block);
+        $paddingLeft = $this->getSpacing('attrs.paddingLeft', $block);
+        $paddingRight = $this->getSpacing('attrs.paddingRight', $block);
 
-        $margin  = ''.$marginTop.'px '.$marginRight.'px '.$marginBottom.'px '.$marginLeft.'px';
-        $padding = ''.$paddingTop.'px '.$paddingRight.'px '.$paddingBottom.'px '.$paddingLeft.'px';
+        $margin = '' . $marginTop . 'px ' . $marginRight . 'px ' . $marginBottom . 'px ' . $marginLeft . 'px';
+        $padding = '' . $paddingTop . 'px ' . $paddingRight . 'px ' . $paddingBottom . 'px ' . $paddingLeft . 'px';
 
 
         $content = $block['innerContent'][0];
         $html = strip_tags($content, '<a><figcaption><img>');
         $html = str_replace(['<figcaption', 'figcaption/>'], ['<p', '/p>'], $html);
-        $html = '<div class="' . $classNames .'" style="border-radius: ' . $radius . '; margin: '. $margin . '; padding: '.$padding.'">'. $html . '</div>';
+        $html = '<div class="' . $classNames . '" style="border-radius: ' . $radius . '; margin: ' . $margin . '; padding: ' . $padding . '">' . $html . '</div>';
         return $html;
     }
 
@@ -360,9 +363,9 @@ class BlockParser
         return '';
     }
 
-    private  function getSpacing($key, $block)
+    private function getSpacing($key, $block)
     {
-        $data  = Arr::get($block, $key, '0');
+        $data = Arr::get($block, $key, '0');
         if (empty($data)) {
             $data = '0';
         }

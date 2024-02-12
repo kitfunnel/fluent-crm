@@ -79,6 +79,8 @@ class Company extends Model
 
     public static function boot()
     {
+        parent::boot();
+
         static::creating(function ($model) {
             $model->hash = md5(wp_generate_uuid4() . '_' . time() . '_' . mt_rand(1000, 9999));
         });

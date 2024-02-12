@@ -52,12 +52,31 @@ class ReportingController extends Controller
 
     public function getEmails(Request $request)
     {
-        $emails = CampaignEmail::orderBy('id', 'DESC')
+        $status = $request->get('status', '');
+
+        $emails = CampaignEmail::orderBy('scheduled_at', 'DESC')
             ->with('subscriber', 'campaign')
+            ->when($status, function ($q) use ($status) {
+                return $q->where('status', $status);
+            })
             ->paginate();
 
+        $statuses = null;
+
+        if ($request->get('page') == 1) {
+            $statuses = CampaignEmail::select('status')
+                ->selectRaw('count(id) as total')
+                ->groupBy('status')
+                ->get()
+                ->keyBy('status')
+                ->map(function ($status) {
+                    return $status->total;
+                });
+        }
+
         return [
-            'emails' => $emails
+            'emails' => $emails,
+            'statuses' => $statuses
         ];
     }
 

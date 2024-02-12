@@ -70,9 +70,13 @@ $router->prefix('subscribers')->withPolicy('SubscriberPolicy')->group(function (
     $router->put('{id}/notes/{note_id}', 'SubscriberController@updateNote')->int('id')->int('note_id');
     $router->delete('{id}/notes/{note_id}', 'SubscriberController@deleteNote')->int('id')->int('note_id');
     $router->get('{id}/external_view', 'SubscriberController@getExternalView')->int('id');
+    $router->post('{id}/external_view', 'SubscriberController@saveExternalViewData')->int('id');
     $router->get('{id}/info-widgets', 'SubscriberController@getInfoWidgets')->int('id');
 
     $router->get('search-contacts', 'SubscriberController@searchContacts');
+
+    $router->get('{id}/tracking-events', 'SubscriberController@getTrackingEvents')->int('id');
+    $router->post('track-event', 'SubscriberController@trackEvent');
 
 });
 
@@ -108,6 +112,8 @@ $router->prefix('campaigns')->withPolicy('CampaignPolicy')->group(function ($rou
     $router->post('{id}/schedule', 'CampaignController@schedule')->int('id');
     $router->post('{id}/un-schedule', 'CampaignController@unSchedule')->int('id');
     $router->get('{id}/processing-stat', 'CampaignController@processingStat')->int('id');
+
+    $router->get('{id}/share-url', 'CampaignController@getShareUrl')->int('id');
 
 
     $router->get('{id}/status', 'CampaignController@getCampaignStatus')->int('id');
@@ -176,7 +182,6 @@ $router->prefix('funnels')->withPolicy('FunnelPolicy')->group(function ($router)
 
 });
 
-
 /*
  * Reporting Route
  */
@@ -198,6 +203,7 @@ $router->prefix('reports')->withPolicy('ReportPolicy')->group(function ($router)
     $router->get('advanced-providers', 'ReportingController@getAdvancedReportProviders');
 
     $router->get('ping', 'ReportingController@ping');
+
 });
 
 
@@ -233,6 +239,8 @@ $router->prefix('setting')->withPolicy('SettingsPolicy')->group(function ($route
 
     $router->get('rest-keys', 'SettingsController@getRestKeys');
     $router->post('rest-keys', 'SettingsController@createRestKey');
+    $router->delete('rest-keys', 'SettingsController@deleteRestKey');
+
 
     $router->get('integrations', 'SettingsController@getIntegrations');
     $router->post('integrations', 'SettingsController@saveIntegration');
@@ -242,6 +250,9 @@ $router->prefix('setting')->withPolicy('SettingsPolicy')->group(function ($route
 
     $router->get('experiments', 'SettingsController@getExperimentalSettings');
     $router->post('experiments', 'SettingsController@updateExperimentalSettings');
+
+    $router->get('system-logs', 'SystemLogController@index');
+    $router->get('system-logs/reset', 'SystemLogController@deleteAll');
 
 });
 

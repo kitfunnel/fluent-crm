@@ -99,7 +99,7 @@ class SequencePoints
 
             if ($sequence->action_name == 'fluentcrm_wait_times' && !$inWaitTimes) {
                 $inWaitTimes = true;
-                $seconds = FunnelHelper::getCurrentDelayInSeconds($sequence->settings);
+                $seconds = FunnelHelper::getCurrentDelayInSeconds($sequence->settings, $sequence, $this->funnelSubscriber ? $this->funnelSubscriber->id : null);
                 $this->nextSequenceExecutionTime = date('Y-m-d H:i:s', current_time('timestamp') + $seconds);
             }
 

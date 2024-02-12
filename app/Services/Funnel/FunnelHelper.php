@@ -332,7 +332,7 @@ class FunnelHelper
         return (int) $time * $converter;
     }
 
-    public static function getCurrentDelayInSeconds($settings)
+    public static function getCurrentDelayInSeconds($settings, $sequence = null, $funnerSubId = null)
     {
         $waitType = Arr::get($settings, 'wait_type');
 
@@ -345,12 +345,16 @@ class FunnelHelper
             if ($waitTimes < 1) {
                 $waitTimes = 0;
             }
-            return apply_filters('fluent_crm/funnel_seq_delay_in_seconds', $waitTimes, $settings);
+            return apply_filters('fluent_crm/funnel_seq_delay_in_seconds', $waitTimes, $settings, $sequence, $funnerSubId);
         }
 
         if ($waitType && $waitType == 'to_day') {
-            $nextDays = Arr::get($settings, 'to_day');
+            $nextDays = Arr::get($settings, 'to_day', []);
             $timeStampNow = current_time('timestamp');
+
+            $nextDays = array_map(function ($dayName) {
+                return substr($dayName, 0, 3);
+            }, $nextDays);
 
             if (empty($nextDays)) { // if no day is selected
                 $nextDays = [date('D', $timeStampNow), date('D', strtotime('+1 day', $timeStampNow))];
@@ -362,9 +366,10 @@ class FunnelHelper
             }
 
             $date = self::getEarliestDay($nextDays, $nextTime);
+
             $seconds = strtotime($date) - current_time('timestamp');
             $waitTimes = ($seconds < 1) ? 0 : $seconds;
-            return apply_filters('fluent_crm/funnel_seq_delay_in_seconds', $waitTimes, $settings);
+            return apply_filters('fluent_crm/funnel_seq_delay_in_seconds', $waitTimes, $settings, $sequence, $funnerSubId);
         }
 
         $unit = Arr::get($settings, 'wait_time_unit');
@@ -378,7 +383,7 @@ class FunnelHelper
         $time = Arr::get($settings, 'wait_time_amount');
         $waitTimes = (int) $time * $converter;
 
-        return apply_filters('fluent_crm/funnel_seq_delay_in_seconds', $waitTimes, $settings);
+        return apply_filters('fluent_crm/funnel_seq_delay_in_seconds', $waitTimes, $settings, $sequence, $funnerSubId);
     }
 
     /*

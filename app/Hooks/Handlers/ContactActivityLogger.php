@@ -3,6 +3,8 @@
 namespace FluentCrm\App\Hooks\Handlers;
 
 use FluentCrm\App\Models\Subscriber;
+use FluentCrm\App\Services\Helper;
+use FluentCrm\Framework\Support\Arr;
 
 /**
  *  ContactActivityLogger Class
@@ -23,6 +25,7 @@ class ContactActivityLogger
         // Global Tracker
         add_action('fluent_crm/track_activity_by_subscriber', array($this, 'trackActivityByUser'));
         add_action('fluent_crm/track_activity_by_subscriber', array($this, 'trackActivityBySubscriber'));
+
     }
 
     public function trackLogin($username, $user)
@@ -56,7 +59,7 @@ class ContactActivityLogger
 
         $subscriber->save();
 
-        if($type == 'login') {
+        if ($type == 'login') {
             fluentcrm_update_subscriber_meta($subscriber->id, '_last_login', current_time('mysql'));
         }
 

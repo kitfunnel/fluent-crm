@@ -89,7 +89,6 @@ class ShortcodeParser
 
         $matched = explode('.', $matches[2]);
 
-
         if (count($matched) <= 1) {
             return apply_filters('fluentcrm_smartcode_fallback', $matches[0], $subscriber);
         }
@@ -97,7 +96,7 @@ class ShortcodeParser
         $dataKey = trim(array_shift($matched));
 
         $valueKey = trim(implode('.', $matched));
-
+        
         if (!$valueKey) {
             return apply_filters('fluentcrm_smartcode_fallback', $matches[0], $subscriber);
         }
@@ -115,6 +114,10 @@ class ShortcodeParser
             $transformer = trim($valueKeys[2]);
         } else if ($valueCounts === 2) {
             $defaultValue = trim($valueKeys[1]);
+        }
+
+        if (!$subscriber) {
+            return $defaultValue;
         }
 
         $value = '';
@@ -208,14 +211,14 @@ class ShortcodeParser
                     'fluentcrm'   => 1,
                     'route'       => 'unsubscribe',
                     'ce_id'       => $subscriber->email_id,
-                    'secure_hash' => fluentCrmGetContactSecureHash($subscriber->id)
+                    'secure_hash' => fluentCrmGetContactManagedHash($subscriber->id)
                 ]), site_url('/'));
             case "manage_subscription_url":
                 return add_query_arg(array_filter([
                     'fluentcrm'   => 1,
                     'route'       => 'manage_subscription',
                     'ce_id'       => $subscriber->id,
-                    'secure_hash' => fluentCrmGetContactSecureHash($subscriber->id)
+                    'secure_hash' => fluentCrmGetContactManagedHash($subscriber->id)
                 ]), site_url('/'));
             case "unsubscribe_html":
                 if ($defaultValue) {
@@ -226,7 +229,7 @@ class ShortcodeParser
                     'fluentcrm'   => 1,
                     'route'       => 'unsubscribe',
                     'ce_id'       => $subscriber->email_id,
-                    'secure_hash' => fluentCrmGetContactSecureHash($subscriber->id)
+                    'secure_hash' => fluentCrmGetContactManagedHash($subscriber->id)
                 ]), site_url('/'));
 
                 return '<a class="fc_unsub_url" href="' . $url . '">' . $defaultValue . '</a>';
@@ -239,7 +242,7 @@ class ShortcodeParser
                     'fluentcrm'   => 1,
                     'route'       => 'manage_subscription',
                     'ce_id'       => $subscriber->id,
-                    'secure_hash' => fluentCrmGetContactSecureHash($subscriber->id)
+                    'secure_hash' => fluentCrmGetContactManagedHash($subscriber->id)
                 ]), site_url('/'));
 
                 return '<a class="fc_msub_url" href="' . $url . '">' . $defaultValue . '</a>';
@@ -329,6 +332,10 @@ class ShortcodeParser
             if ($customProperty == '_secure_hash') {
                 return fluentCrmGetContactSecureHash($subscriber->id);
             }
+
+            if ($customKey == '_secure_managed_hash') {
+                return fluentCrmGetContactManagedHash($subscriber->id);
+            }
         }
 
         return $defaultValue;
@@ -408,39 +415,39 @@ class ShortcodeParser
             return $defaultValue;
         }
 
-        if($key == 'latest_post') {
+        if ($key == 'latest_post') {
             // get latest post title
             $posts = get_posts([
-                'post_type' => 'post',
-                'post_status' => 'publish',
-                'posts_per_page' => 1,
-                'orderby' => 'date',
-                'order' => 'DESC',
+                'post_type'           => 'post',
+                'post_status'         => 'publish',
+                'posts_per_page'      => 1,
+                'orderby'             => 'date',
+                'order'               => 'DESC',
                 'ignore_sticky_posts' => 1
             ]);
 
-            if(!count($posts)) {
+            if (!count($posts)) {
                 return $defaultValue;
             }
 
             $post = $posts[0];
 
-            if($otherKey == 'title') {
+            if ($otherKey == 'title') {
                 return $post->post_title;
             }
 
-            if($otherKey == 'content') {
+            if ($otherKey == 'content') {
                 return get_the_content(null, false, $post);
             }
 
-            if($otherKey == 'excerpt') {
+            if ($otherKey == 'excerpt') {
                 return get_the_excerpt($post);
             }
 
             return $post->post_title;
         }
 
-        if($key == 'date_format') {
+        if ($key == 'date_format') {
             array_shift($valueKeys);
             $dateKey = implode('.', $valueKeys);
             return date($dateKey, current_time('timestamp'));

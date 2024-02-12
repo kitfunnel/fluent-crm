@@ -20,12 +20,12 @@ abstract class BaseTrigger
     {
         add_filter('fluentcrm_funnel_triggers', array($this, 'addTrigger'), $this->priority, 1);
 
-        add_filter('fluentcrm_funnel_editor_details_'.$this->triggerName, array($this, 'prepareEditorDetails'), 10, 1);
+        add_filter('fluentcrm_funnel_editor_details_' . $this->triggerName, array($this, 'prepareEditorDetails'), 10, 1);
 
         add_action('fluentcrm_funnel_start_' . $this->triggerName, array($this, 'handle'), 10, 2);
 
         add_filter('fluentcrm_funnel_arg_num_' . $this->triggerName, function ($num) {
-            if($num >= $this->actionArgNum) {
+            if ($num >= $this->actionArgNum) {
                 return $num;
             }
             return $this->actionArgNum;
@@ -34,7 +34,13 @@ abstract class BaseTrigger
 
     public function addTrigger($triggers)
     {
-        $triggers[$this->triggerName] = $this->getTrigger();
+        $trigger = $this->getTrigger();
+
+        if (!$trigger) {
+            return $triggers;
+        }
+
+        $triggers[$this->triggerName] = $trigger;
         return $triggers;
     }
 

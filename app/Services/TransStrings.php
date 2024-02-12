@@ -1212,7 +1212,7 @@ class TransStrings
             'All Sequences'                                                => __('All Sequences', 'fluent-crm'),
             'View Sequence Emails'                                         => __('View Sequence Emails', 'fluent-crm'),
             'open_rate_info'                                               => __('Open rate is estimated based on pixel loads. it may not show the correct analytics as many email clients load or block tracking regardless of the actual email open', 'fluent-crm'),
-            'click_rate_info'                                              => __('Click rates is calculated based on contact\'s unique link clicks. it\'s not the unique contacts count.', 'fluent-crm'),
+            'click_rate_info'                                              => __('How many contacts clicked at least one of the links in the email', 'fluent-crm'),
             'This Month'                                                   => __('This Month', 'fluent-crm'),
             'Internal Description'                                         => __('Internal Description', 'fluent-crm'),
             'to insert post/page links'                                    => __('to insert post/page links', 'fluent-crm'),
@@ -1524,8 +1524,8 @@ class TransStrings
             'Date_And_Time_Format_Label'                                            => __('Your selected date and time format will be shown on different views.', 'fluent-crm'),
             'Date & Time Format'                                                    => __('Date & Time Format', 'fluent-crm'),
             'Date Time difference (EG: 2 hours ago)'                                => __('Date Time difference (EG: 2 hours ago)', 'fluent-crm'),
-            'Classic (EG: 20 Jun 2022, 14:15)'                                      => __('Classic (EG: 20 Jun 2022, 14:15)', 'fluent-crm'),
             'Navigation'                                                            => __('Navigation', 'fluent-crm'),
+            'WordPress Default'                                                     => __('WordPress Default', 'fluent-crm'),
             'Fluent_CRM_Nav_Hide'                                                   => __('If you enable this, then FluentCRM will hide the default WP Admin Sidebar and Replace with FluentCRM\'s own navigation for better focus.', 'fluent-crm'),
             'Fluent_CRM_Exp'                                                        => __('Adds the new FluentCRM navigation experience to the dashboard', 'fluent-crm'),
             'Company Module'                                                        => __('Company Module', 'fluent-crm'),
@@ -1568,6 +1568,7 @@ class TransStrings
             'Enabled'                                                                => __('Enabled', 'fluent-crm'),
             'Disabled'                                                               => __('Disabled', 'fluent-crm'),
             'Company_Module_Help'                                                    => __('With company module, you can manage Companies/Businesses and assign contacts to companies.', 'fluent-crm'),
+            'Event_Tracking_Module_Help'                                             => __('Event Tracking is a flexible feature that helps you collect data on a wide variety of contact behavior. You can create an event for any activity programmatically or from different automations. Then you can use those events to filter contacts or use on automation conditional logics.', 'fluent-crm'),
             'Company Module Settings'                                               => __('Company Module Settings', 'fluent-crm'),
             'Enable Company Module for Contacts'                                    => __('Enable Company Module for Contacts', 'fluent-crm'),
             'Campaign Archives (Pro)'                                               => __('Campaign Archives (Pro)', 'fluent-crm'),
@@ -1672,6 +1673,12 @@ class TransStrings
             'Camp_Notice_About_Time'                        => __('Based on your time selection, the emails will be scheduled within that range randomly', 'fluent-crm'),
             'To use this feature you need FluentCRM Pro.'   => __('To use this feature you need FluentCRM Pro.', 'fluent-crm'),
             'Please upgrade.'                               => __('Please upgrade.', 'fluent-crm'),
+            'Warning default email change'                  => __('Are you sure? All of the Fluent CRM email will be sent from ', 'fluent-crm'),
+            'Api key delete confirmation'                   => __('Are you sure you want to delete the api key?', 'fluent-crm'),
+            'Api key delete warning'                        => __('Note: Once deleted, the API key cannot be recovered.', 'fluent-crm'),
+            'Delete API Key'                                => __('Delete API Key', 'fluent-crm'),
+            'Email field is required'                       => __('Email field is required', 'fluent-crm'),
+            'Preview'                                       => __('Preview', 'fluent-crm')
         ];
     }
 }

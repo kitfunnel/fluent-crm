@@ -37,7 +37,7 @@ class Mailer
 
     protected static function buildHeaders($data, $subscriber = null)
     {
-        $headers[] = 'Content-Type: text/html; charset=UTF-8';
+        $headers[] = "Content-Type: text/html; charset=UTF-8";
 
         $from = Arr::get($data, 'headers.From');
         $replyTo = Arr::get($data, 'headers.Reply-To');
@@ -48,33 +48,22 @@ class Mailer
 
         // Set Reply-To Header
         if ($replyTo) {
-            $headers[] = "Reply-To: $replyTo";
+            $headers[] = "Reply-To: {$replyTo}";
         }
 
-        if (apply_filters('fluent_crm/enable_unsub_header', true, $data)) {
-            $sendingEmail = Arr::get($data, 'to.email');
+        if ($subscriber && apply_filters('fluent_crm/enable_unsub_header', true, $data, $subscriber)) {
 
-            if ($subscriber) {
+            $unsubscribeUrl = add_query_arg([
+                'fluentcrm'   => 1,
+                'route'       => 'unsubscribe',
+                'secure_hash' => fluentCrmGetContactManagedHash($subscriber->id)
+            ], site_url('index.php'));
 
-                $unsubscribeUrl = add_query_arg([
-                    'fluentcrm'   => 1,
-                    'route'       => 'unsubscribe',
-                    'secure_hash' => fluentCrmGetContactSecureHash($subscriber->id)
-                ], site_url('/'));
-
-                $headers[] = 'List-Unsubscribe: <' . $unsubscribeUrl . '>';
-            } else if ($sendingEmail) {
-                $unsubscribeUrl = add_query_arg([
-                    'fluentcrm' => 1,
-                    'route'     => 'unsubscribe',
-                    'hash'      => md5($sendingEmail)
-                ], site_url('/'));
-                $headers[] = 'List-Unsubscribe: <' . $unsubscribeUrl . '>';
-            }
-
+            $headers[] = "List-Unsubscribe: <{$unsubscribeUrl}>";
+            $headers[] = "List-Unsubscribe-Post: List-Unsubscribe=One-Click";
         }
 
-        return apply_filters('fluent_crm/email_headers', $headers, $data);
+        return apply_filters('fluent_crm/email_headers', $headers, $data, $subscriber);
     }
 
     private static function willIncludeName()

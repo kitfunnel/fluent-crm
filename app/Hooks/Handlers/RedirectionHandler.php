@@ -6,6 +6,7 @@ use FluentCrm\App\Models\Campaign;
 use FluentCrm\App\Models\CampaignEmail;
 use FluentCrm\App\Models\CampaignUrlMetric;
 use FluentCrm\App\Models\UrlStores;
+use FluentCrm\Framework\Support\Arr;
 
 /**
  *  RedirectionHandler Class
@@ -18,7 +19,6 @@ class RedirectionHandler
 {
     public function redirect($data)
     {
-
         nocache_headers();
 
         $mailId = false;
@@ -36,8 +36,7 @@ class RedirectionHandler
             return;
         }
 
-
-        if(isset($data['fch'])) {
+        if (isset($data['fch'])) {
             $urlData->url_token = $data['fch'];
         }
 
@@ -47,7 +46,6 @@ class RedirectionHandler
 
         if ($redirectUrl) {
             do_action('fluentcrm_email_url_click', $redirectUrl, $mailId, $urlData);
-            nocache_headers();
             wp_redirect($redirectUrl, 307);
             exit;
         }
@@ -55,7 +53,6 @@ class RedirectionHandler
 
     public function trackUrlClick($mailId, $urlData)
     {
-
         if (!$mailId) {
             return $urlData->url;
         }
@@ -70,7 +67,7 @@ class RedirectionHandler
             return Campaign::withoutGlobalScopes()->find($campaignEmail->campaign_id);
         });
 
-        if(!$campaign) {
+        if (!$campaign) {
             return $urlData->url;
         }
 
@@ -82,14 +79,14 @@ class RedirectionHandler
             'ip_address'    => FluentCrm('request')->getIp(fluentCrmWillAnonymizeIp())
         ]);
 
-        if (apply_filters('fluent_crm/will_use_cookie', true) && !empty($urlData->url_token)) {
+        $tokenVerified = false;
 
+        if (apply_filters('fluent_crm/will_use_cookie', true) && !empty($urlData->url_token)) {
             // validate the URL token here
-            if(substr($campaignEmail->email_hash, 0, 8) == $urlData->url_token) {
+            if (substr($campaignEmail->email_hash, 0, 8) == $urlData->url_token) {
+                $tokenVerified = true;
                 $secureHash = fluentCrmGetContactSecureHash($campaignEmail->subscriber_id);
-                //   setcookie("fc_s_hash", $campaignEmail->subscriber->hash, time() + 7776000, COOKIEPATH, COOKIE_DOMAIN);  /* expire in 90 days */
                 setcookie("fc_hash_secure", $secureHash, time() + 7776000, COOKIEPATH, COOKIE_DOMAIN);  /* expire in 90 days */
-                //   $_COOKIE['fc_s_hash'] = $campaignEmail->subscriber->hash;
                 $_COOKIE['fc_hash_secure'] = $secureHash;
             }
 
@@ -108,16 +105,27 @@ class RedirectionHandler
 
         do_action('fluent_crm/track_activity_by_subscriber', $campaignEmail->subscriber_id);
 
-        $url = str_replace(['&amp;', '+'], ['&', '%2B'], $urlData->url);
+        $url = $urlData->url;
+
+        $url = str_replace('&amp;', '&', $url);
+        $url = esc_url_raw($url);
 
         if (strpos($url, 'route=smart_url')) {
             // this is a smart URL
             $url_components = parse_url($url);
-
             parse_str($url_components['query'], $params);
 
             if (!empty($params['slug'])) {
-                do_action('fluentcrm_smartlink_clicked_direct', sanitize_text_field($params['slug']), $campaignEmail->subscriber);
+                $subscriber = $campaignEmail->subscriber;
+
+                $signedHash = Arr::get($_REQUEST, 'signed_hash');
+                $isSecure = $tokenVerified && $signedHash && wp_check_password($campaignEmail->email_hash, $signedHash);
+
+                if ($isSecure) {
+                    do_action('fluent_crm/smart_link_verified', $subscriber);
+                }
+
+                do_action('fluentcrm_smartlink_clicked_direct', sanitize_text_field($params['slug']), $subscriber, $campaignEmail);
             }
         }
 
@@ -135,6 +143,6 @@ class RedirectionHandler
             $url = add_query_arg($args, $url);
         }
 
-        return esc_url_raw($url);
+        return $url;
     }
 }
