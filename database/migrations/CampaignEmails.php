@@ -46,7 +46,8 @@ class CampaignEmails
                 INDEX `{$indexPrefix}_estidx` (`status` ASC),
                 INDEX `{$indexPrefix}_emtidx` (`email_hash` ASC),
                 INDEX `{$indexPrefix}_scheduled_at` (`scheduled_at`),
-                INDEX `{$indexPrefix}_updated_at` (`updated_at`)
+                INDEX `{$indexPrefix}_updated_at` (`updated_at`),
+                INDEX `{$indexPrefix}sc_at_status` (`scheduled_at`, `status`)
             ) $charsetCollate;";
 
             dbDelta($sql);

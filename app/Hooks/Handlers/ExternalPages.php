@@ -805,9 +805,9 @@ class ExternalPages
 
         foreach ($mainFields as $fieldKey => $value) {
             if (is_array($value)) {
-                $mainFields[$fieldKey] = map_deep($value, 'sanitize_textarea_field');
+                $mainFields[$fieldKey] = map_deep($value, 'sanitize_text_field');
             } else {
-                $mainFields[$fieldKey] = wp_unslash(sanitize_textarea_field($value));
+                $mainFields[$fieldKey] = wp_unslash(sanitize_text_field($value));
             }
         }
 
@@ -821,7 +821,7 @@ class ExternalPages
             $customValues = [];
             foreach (Arr::only($postData, $customColumns) as $itemKey => $value) {
                 if (is_string($value)) {
-                    $customValues[$itemKey] = sanitize_text_field($value);
+                    $customValues[$itemKey] = sanitize_textarea_field($value);
                 } else {
                     $customValues[$itemKey] = map_deep($value, 'sanitize_textarea_field');
                 }

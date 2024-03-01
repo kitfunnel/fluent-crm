@@ -1414,7 +1414,7 @@ class TransStrings
             'Current Date & Time (server):'                               => __('Current Date & Time (server):', 'fluent-crm'),
             'Send_Email_Auto_Info'                                        => __('Send Emails automatically to the selected day and time (if you disable this, emails will be on draft state and you can trigger emails after review)', 'fluent-crm'),
             'Blog Posts'                                                 => __('Blog Posts', 'fluent-crm'),
-            'publishes within'                                           => __('publishes within', 'fluent-crm'),
+            'published within'                                           => __('published within', 'fluent-crm'),
             'type days'                                                 => __('type days', 'fluent-crm'),
             'Create a recurring email broadcast'                            => __('Create a recurring email broadcast', 'fluent-crm'),
             'Add OR Condition'                                              => __('Add OR Condition', 'fluent-crm'),

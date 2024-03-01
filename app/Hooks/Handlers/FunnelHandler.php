@@ -73,14 +73,14 @@ class FunnelHandler
             }
         }
 
-        add_action('fluentcrm_process_scheduled_tasks_init', function () {
-            if($this->funnelFired) {
+        add_action('fluent_crm_process_automation', function () {
+            if ($this->funnelFired) {
                 return;
             }
 
             $this->funnelFired = true;
             $lastProcessor = get_option('_fc_last_funnel_processor');
-            if($lastProcessor && (time() - $lastProcessor) < 60 ) {
+            if ($lastProcessor && (time() - $lastProcessor) < 60) {
                 return; // We want to run the processor only once per 60 seconds
             }
 
@@ -296,7 +296,7 @@ class FunnelHandler
             $funnelCampaignId = $campaign->id;
         }
 
-        if(Arr::get($funnelCampaign, 'design_template') == 'visual_builder') {
+        if (Arr::get($funnelCampaign, 'design_template') == 'visual_builder') {
             $design = Arr::get($funnelCampaign, '_visual_builder_design', []);
             fluentcrm_update_campaign_meta($funnelCampaignId, '_visual_builder_design', $design);
         } else {
@@ -362,7 +362,7 @@ class FunnelHandler
 
         $nextStep = Arr::get($data, 'next_step');
 
-        if($nextStep) {
+        if ($nextStep) {
             do_action('fluent_crm/update_campaign_compose', $data, $campaign);
             fluentcrm_update_campaign_meta($id, '_next_config_step', $nextStep);
         }

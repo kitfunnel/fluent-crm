@@ -67,6 +67,8 @@ class SetupWizard
             fluentCrmMix('admin/js/setup-wizard.js'), ['fluentcrm-boot'], date('Ymd'), true
         );
 
+        wp_enqueue_script('lodash');
+
         $existingSettings = get_option(FLUENTCRM . '-global-settings');
         $businessSettings = Arr::get($existingSettings, 'business_settings', []);
 

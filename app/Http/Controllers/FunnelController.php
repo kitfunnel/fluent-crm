@@ -812,7 +812,7 @@ class FunnelController extends Controller
         if (is_wp_error($result)) {
             return $this->sendError($result->get_error_messages());
         }
-        
+
         return [
             'message' => __('Synced successfully', 'fluent-crm')
         ];

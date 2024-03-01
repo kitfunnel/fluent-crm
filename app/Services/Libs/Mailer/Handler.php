@@ -10,7 +10,7 @@ class Handler extends BaseHandler
 {
     protected $runnerTitle = 'Handler::handle';
 
-    protected $sendingPerChunk = 12;
+    protected $sendingPerChunk = 20;
 
     protected $maximumProcessingTime = 50;
 
@@ -67,6 +67,7 @@ class Handler extends BaseHandler
 
         if (!$this->sentCount) {
             do_action('fluentcrm_scheduled_maybe_regular_tasks');
+            do_action('fluent_crm_process_automation');
         }
 
         return true;
@@ -116,15 +117,10 @@ class Handler extends BaseHandler
     {
         $currentTime = current_time('mysql');
 
-        $orderBy = 'scheduled_at';
-        if ($this->isMultiThread) {
-            $orderBy = 'id';
-        }
-
         $emails = CampaignEmail::whereIn('status', ['pending', 'scheduled'])
             ->where('scheduled_at', '<=', $currentTime)
             ->with('campaign', 'subscriber')
-            ->orderBy($orderBy, 'ASC')
+            ->orderBy('scheduled_at', 'DESC')
             ->limit($this->sendingPerChunk)
             ->get();
 

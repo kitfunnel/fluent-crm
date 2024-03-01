@@ -1010,7 +1010,17 @@ class Helper
                         'component'   => 'options_selector',
                         'option_key'  => 'lists',
                         'is_multiple' => true,
-                    ]
+                    ],
+                    [
+                        'label'             => __('WP User Role', 'fluent-crm'),
+                        'value'             => 'user_role',
+                        'type'              => 'selections',
+                        'component'         => 'options_selector',
+                        'option_key'        => 'user_roles_options',
+                        'is_multiple'       => false,
+                        'is_singular_value' => true,
+                        'help'              => 'Filter by user role, please make sure your users are synced with your FluentCRM contacts'
+                    ],
                 ],
             ],
             'activities' => [
@@ -1026,6 +1036,7 @@ class Helper
                         'label' => __('Last Email Open', 'fluent-crm'),
                         'value' => 'email_opened',
                         'type'  => 'dates',
+                        'help' => 'Please note that, some email clients send false-positive for email open pixel tracking so it may not 100% correct.'
                     ],
                     [
                         'label' => __('Last Email Clicked', 'fluent-crm'),

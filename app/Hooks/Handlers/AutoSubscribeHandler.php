@@ -182,7 +182,7 @@ class AutoSubscribeHandler
             return false;
         }
 
-        if(!empty($newData['user_pass'])) {
+        if (!empty($newData['user_pass'])) {
             $user = get_user_by('ID', $userId);
             (new Cleanup())->handleUserPasswordChanged($user);
         }
@@ -269,6 +269,45 @@ class AutoSubscribeHandler
         }
 
         return Helper::deleteContacts([$subscriber->id]);
+    }
+
+    public function syncWooAddressUpdate($userId, $addressType)
+    {
+        if ($addressType != 'billing') {
+            return;
+        }
+
+        $customer = new \WC_Customer($userId);
+
+        if (!$customer || !$customer->get_id()) {
+            return;
+        }
+
+        $user = get_user_by('ID', $userId);
+        $contact = Subscriber::where('email', $user->user_email)->first();
+
+        $addressData = $customer->get_billing();
+
+        $updateData = [
+            'user_id'        => $userId,
+            'address_line_1' => $addressData['address_1'],
+            'address_line_2' => $addressData['address_2'],
+            'city'           => $addressData['city'],
+            'state'          => $addressData['state'],
+            'country'        => $addressData['country'],
+            'postal_code'    => $addressData['postcode']
+        ];
+
+        if ($contact) {
+            $contact->fill($updateData);
+            $dirty = $contact->getDirty();
+            if ($dirty) {
+                $contact->save();
+                do_action('fluent_crm/contact_updated', $contact, $dirty);
+            }
+        } else {
+            FluentCrmApi('contacts')->createOrUpdate($updateData);
+        }
     }
 
 }

@@ -23,7 +23,7 @@ final class FCApi
             throw new \Exception("Error Processing Request");
 
         } catch (\Exception $e) {
-            return $result;
+            return null;
         }
     }
 }

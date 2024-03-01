@@ -51,7 +51,13 @@ class Companies
             return false;
         }
 
-        $exist = Company::where('id', $data['id'])->first();
+        $exist = null;
+
+        if (!empty($data['id'])) {
+            $exist = Company::where('id', $data['id'])->first();
+        } else {
+            $exist = Company::where('name', $data['name'])->first();
+        }
 
         if ($exist) {
             if (!empty($data['owner_id']) && $data['owner_id'] != $exist->owner_id) {

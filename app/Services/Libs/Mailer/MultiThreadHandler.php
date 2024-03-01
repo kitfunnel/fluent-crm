@@ -11,7 +11,7 @@ class MultiThreadHandler extends BaseHandler
 
     protected $runnerTitle = 'MultiThreadHandler::handle';
 
-    protected $sendingPerChunk = 12;
+    protected $sendingPerChunk = 20;
 
     protected $maximumProcessingTime = 50;
 
@@ -72,7 +72,7 @@ class MultiThreadHandler extends BaseHandler
             return false;
         }
 
-        if (!Helper::willMultiThreadEmail(200)) {
+        if (!Helper::willMultiThreadEmail(300)) {
             as_schedule_single_action(time() + 1, 'fluent_crm_cancel_multi_thread_mailing', [], 'fluent-crm', true);
             return false;
         }
@@ -99,7 +99,8 @@ class MultiThreadHandler extends BaseHandler
         $emails = CampaignEmail::whereIn('status', ['pending', 'scheduled'])
             ->where('scheduled_at', '<=', $currentTime)
             ->with('campaign', 'subscriber')
-            ->orderBy('id', 'DESC')
+            ->orderBy('scheduled_at', 'DESC')
+            ->offset(250)
             ->limit($this->sendingPerChunk)
             ->get();
 

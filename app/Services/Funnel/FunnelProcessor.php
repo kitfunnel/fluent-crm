@@ -7,6 +7,7 @@ use FluentCrm\App\Models\FunnelMetric;
 use FluentCrm\App\Models\FunnelSequence;
 use FluentCrm\App\Models\FunnelSubscriber;
 use FluentCrm\App\Models\Subscriber;
+use FluentCrm\App\Services\Helper;
 use FluentCrm\Framework\Support\Arr;
 
 class FunnelProcessor
@@ -235,18 +236,34 @@ class FunnelProcessor
 
     public function followUpSequenceActions()
     {
+        update_option('_fc_last_funnel_processor_ran', time(), 'no');
+
         $jobs = FunnelSubscriber::where('status', 'active')
             ->whereHas('funnel', function ($q) {
                 return $q->where('status', 'published');
             })
             ->where('next_execution_time', '<=', current_time('mysql'))
             ->whereNotNull('next_execution_time')
+            ->orderBy('next_execution_time', 'ASC')
             ->limit(200)// we want to process 200 records each time
             ->get();
 
+        $startingAt = time();
+
+        $completed = 0;
+
         foreach ($jobs as $job) {
+            if ((time() - $startingAt) > 55) {
+                // We are running this for 55 seconds. We have to stop now
+                break;
+            }
+
+            $completed++;
+
             $this->processFunnelAction($job);
         }
+
+        Helper::debugLog('Automation followUpSequenceActions', 'Completed Jobs Count: ' . $completed);
     }
 
     public function processFunnelAction($funnelSubscriber)

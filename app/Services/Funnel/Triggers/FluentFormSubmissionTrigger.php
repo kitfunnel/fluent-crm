@@ -133,6 +133,11 @@ class FluentFormSubmissionTrigger extends BaseTrigger
 
         $form = fluentCrmDb()->table('fluentform_forms')
             ->find($formId);
+
+        if(!$form) {
+            return [];
+        }
+
         $formFields = FormFieldsParser::getShortCodeInputs(
             $form, [
             'admin_label'

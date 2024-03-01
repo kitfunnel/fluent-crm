@@ -10,17 +10,17 @@ class CliSendingHandler extends BaseHandler
 
     protected $runnerTitle = 'CliSendingHandler::handle';
 
-    protected $sendingPerChunk = 50;
+    protected $sendingPerChunk = 30;
 
     protected $maximumProcessingTime = 50;
 
-    public $offset = 200;
+    public $offset = 350;
 
-    public $minPendingRequired = 300;
+    public $minPendingRequired = 400;
 
     protected $optionKey = 'fluentcrm_is_sending_cli_emails';
 
-    public function __construct($optionName = 'fluentcrm_is_sending_cli_emails', $runTime = 50, $offset = 200, $minPendingRequired = 300)
+    public function __construct($optionName = 'fluentcrm_is_sending_cli_emails', $runTime = 50, $offset = 350, $minPendingRequired = 400)
     {
         $this->optionKey = $optionName;
         $this->maximumProcessingTime = $runTime;
@@ -43,7 +43,7 @@ class CliSendingHandler extends BaseHandler
             $this->handleFailedLog();
             $this->startedAt = microtime(true);
             $result = $this->processBatchEmails();
-            
+
             if (is_wp_error($result)) {
                 update_option($this->optionKey, null);
                 $this->logSentCount();
@@ -122,7 +122,7 @@ class CliSendingHandler extends BaseHandler
         $emails = CampaignEmail::whereIn('status', ['pending', 'scheduled'])
             ->where('scheduled_at', '<=', $currentTime)
             ->with('campaign', 'subscriber')
-            ->orderBy('id', 'DESC')
+            ->orderBy('scheduled_at', 'DESC')
             ->offset($this->offset)
             ->limit($this->sendingPerChunk)
             ->get();

@@ -41,6 +41,8 @@ class Scheduler
                 return;
             }
 
+            do_action('fluent_crm_process_automation');
+
             // Looks like action scheduler is working just fine. Maybe we can check for some regular tasks
             // We will run the five minutes tasks for around 60% times
             if (mt_rand(1, 100) > 40) {
@@ -127,8 +129,8 @@ class Scheduler
             return false; // it's too fast. We don't want to run this again within 30 seconds
         }
 
-        do_action('fluentcrm_process_scheduled_tasks_init');
         fluentCrmSetOptionCache('_fcrm_last_scheduler', time(), 50);
+        do_action('fluentcrm_process_scheduled_tasks_init');
 
         // Send Pending Emails
         (new Handler)->handle();
@@ -147,6 +149,7 @@ class Scheduler
     {
         self::markArchiveCampaigns();
         self::maybeCleanupCsvFiles();
+        do_action('fluent_crm_process_automation');
     }
 
 
@@ -178,13 +181,6 @@ class Scheduler
             return true;
         }
 
-        fluentCrmDb()->table('fc_campaign_emails')
-            ->where('status', 'sent')
-            ->where('email_body', '!=', '')
-            ->update([
-                'email_body' => ''
-            ]);
-
         return false;
     }
 
@@ -194,6 +190,13 @@ class Scheduler
     public static function processWeekly()
     {
         (new Maintenance())->maybeProcessData();
+
+        fluentCrmDb()->table('fc_campaign_emails')
+            ->where('status', 'sent')
+            ->where('email_body', '!=', '')
+            ->update([
+                'email_body' => ''
+            ]);
     }
 
     /**
@@ -239,6 +242,7 @@ class Scheduler
             ->get();
 
         if ($campaigns->isEmpty()) {
+            do_action('fluent_crm_process_automation');
             do_action('fluentcrm_scheduled_hourly_tasks');
             return false;
         }

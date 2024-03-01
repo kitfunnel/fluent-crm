@@ -57,15 +57,19 @@ class SequencePoints
             if ($isInChild && $sequences->isEmpty()) {
                 // No sequences found with the conditions so we may have to
                 // move to parent again
+                // @todo Urgent: Need Deep Understanding this block!
                 $nextSequenceNumber = $this->funnelSubscriber->next_sequence;
+
                 if ($this->funnelSubscriber->next_sequence_item) {
                     $nextSequenceNumber = $this->funnelSubscriber->next_sequence_item->sequence;
                 }
 
-                $sequences = FunnelSequence::orderBy('sequence', 'ASC')
-                    ->where('funnel_id', $this->funnel->id)
-                    ->where('sequence', '>=', $nextSequenceNumber)
-                    ->get();
+                if ($nextSequenceNumber) {
+                    $sequences = FunnelSequence::orderBy('sequence', 'ASC')
+                        ->where('funnel_id', $this->funnel->id)
+                        ->where('sequence', '>=', $nextSequenceNumber)
+                        ->get();
+                }
             }
         } else {
             $sequences = FunnelSequence::orderBy('sequence', 'ASC')
@@ -120,7 +124,7 @@ class SequencePoints
             if ($sequence->c_delay == $firstSequence->c_delay) {
                 $immediateSequences[] = $sequence;
 
-                if($sequence->action_name == 'end_this_funnel') {
+                if ($sequence->action_name == 'end_this_funnel') {
                     $hasEndSequence = true;
                 }
 
@@ -162,7 +166,7 @@ class SequencePoints
                 if ($inWaitTimes) {
                     $this->hasNext = true;
                     $this->nextSequence = $sequences[0];
-                    if($this->nextSequenceExecutionTime) {
+                    if ($this->nextSequenceExecutionTime) {
                         $this->nextSequence->execution_date_time = $this->nextSequenceExecutionTime;
                     }
                     return;
@@ -192,7 +196,7 @@ class SequencePoints
 
                     if ($sequence->c_delay == $firstSequence->c_delay) {
                         $this->immediateSequences[] = $sequence;
-                        if($sequence->action_name == 'end_this_funnel') {
+                        if ($sequence->action_name == 'end_this_funnel') {
                             $hasEndSequence = true;
                         }
                     } else {

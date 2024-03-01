@@ -678,7 +678,7 @@ class Campaign extends Model
     {
         $duplicates = fluentCrmDb()->table('fc_campaign_emails')
             ->where('campaign_id', $this->id)
-            ->select(['id', 'subscriber_id', fluentCrmDb()->raw('COUNT(subscriber_id) as count')])
+            ->select([fluentCrmDb()->raw('MIN(`id`) AS min_id'), 'subscriber_id', fluentCrmDb()->raw('COUNT(subscriber_id) as count')])
             ->groupBy('subscriber_id')
             ->havingRaw('COUNT(subscriber_id) > ?', [1])
             ->get();
@@ -691,7 +691,7 @@ class Campaign extends Model
         $exceptIds = [];
         foreach ($duplicates as $duplicate) {
             $subscriberIds[] = $duplicate->subscriber_id;
-            $exceptIds[] = $duplicate->id;
+            $exceptIds[] = $duplicate->min_id;
         }
 
         fluentCrmDb()->table('fc_campaign_emails')

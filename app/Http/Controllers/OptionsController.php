@@ -236,6 +236,24 @@ class OptionsController extends Controller
         ];
     }
 
+    public function user_roles_options()
+    {
+        $roles = $this->roles();
+
+        $formattedRoles = [];
+        foreach ($roles['roles'] as $role => $roleData) {
+            $formattedRoles[] = [
+                'id'    => $role,
+                'title' => $roleData['name'],
+                'slug' => $role
+            ];
+        }
+
+        return [
+            'user_roles_options' => $formattedRoles
+        ];
+    }
+
     public function profile_sections()
     {
         return [

@@ -61,12 +61,14 @@ abstract class BaseHandler
                 continue;
             }
 
+            $emailData = $email->data();
             try {
                 $wpdb->update(
                     $wpdb->prefix . 'fc_campaign_emails',
                     [
                         'status'       => 'sent',
-                        'scheduled_at' => current_time('mysql')
+                        'scheduled_at' => current_time('mysql'),
+                        'email_body'   => ''
                     ],
                     [
                         'id' => $email->id
@@ -83,7 +85,7 @@ abstract class BaseHandler
 
             $this->sentCount++;
 
-            $response = Mailer::send($email->data(), $email->subscriber);
+            $response = Mailer::send($emailData, $email->subscriber);
 
             $this->dispatchedWithinOneSecond++;
 
@@ -227,7 +229,7 @@ abstract class BaseHandler
         $emailSettings = fluentcrmGetGlobalSettings('email_settings', []);
 
         if (!empty($emailSettings['emails_per_second'])) {
-            $limit = (int) $emailSettings['emails_per_second'] - 3; // 3 is buffer
+            $limit = (int)$emailSettings['emails_per_second'] - 3; // 3 is buffer
         } else {
             $limit = 14;
         }

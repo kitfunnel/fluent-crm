@@ -741,7 +741,7 @@ class Subscriber extends Model
             return $this->attributes['avatar'];
         }
 
-        if(empty($this->attributes['email'])) {
+        if (empty($this->attributes['email'])) {
             return '';
         }
 
@@ -1434,6 +1434,7 @@ class Subscriber extends Model
 
     public static function applyGeneralFilterQuery($query, $filter, $referenceColumn = 'value')
     {
+
         $exactOperators = ['=', '!=', '>', '<'];
 
         $operator = self::parseCustomFieldsFilterOperator($filter);
@@ -1827,6 +1828,22 @@ class Subscriber extends Model
                     list($method, $subMethod) = static::parseRelationalFilterQueryMethods($filter);
                     $query = static::buildRelationFilterQuery($filter['property'], $query, $method, $subMethod, 'object_id', $filter);
                 }
+            } else if($filter['property'] == 'user_role') {
+                $userRole = esc_sql($filter['value']);
+
+                $operator = $filter['operator'];
+                $method = ($operator == 'in' || $operator == 'contains') ? 'whereHas' : 'whereDoesntHave';
+
+                $query = $query->{$method}('user', function ($userQuery) use ($userRole) {
+                    return $userQuery->whereExists(function ($subQuery) use ($userRole) {
+                        global $wpdb;
+                        return $subQuery->select(fluentCrmDb()->raw(1))
+                            ->from('usermeta')
+                            ->whereRaw("{$wpdb->prefix}usermeta.user_id = {$wpdb->prefix}users.ID")
+                            ->where('usermeta.meta_key', '=', 'wp_capabilities')
+                            ->where('usermeta.meta_value', 'LIKE', '%"'.$userRole.'"%');
+                    });
+                });
             } else {
                 $operator = $filter['operator'];
                 $method = ($operator == 'in' || $operator == 'contains') ? 'whereIn' : 'whereNotIn';
@@ -1845,7 +1862,6 @@ class Subscriber extends Model
      */
     public function buildCustomFieldsFilterQuery($query, $filters)
     {
-
         $filters = array_reduce($filters, function ($carry, $filter) {
             $operator = $filter['operator'];
 
@@ -2112,6 +2128,11 @@ class Subscriber extends Model
         }
 
         return false;
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'ID');
     }
 
     public function getWpUser()

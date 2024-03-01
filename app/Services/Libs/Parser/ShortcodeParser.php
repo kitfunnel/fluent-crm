@@ -96,7 +96,7 @@ class ShortcodeParser
         $dataKey = trim(array_shift($matched));
 
         $valueKey = trim(implode('.', $matched));
-        
+
         if (!$valueKey) {
             return apply_filters('fluentcrm_smartcode_fallback', $matches[0], $subscriber);
         }
@@ -250,13 +250,13 @@ class ShortcodeParser
                 if (!$defaultValue) {
                     $defaultValue = __('Confirm Subscription', 'fluent-crm');
                 }
-                $data = $subscriber->toArray();
                 $url = add_query_arg(array_filter([
                     'fluentcrm'   => 1,
                     'route'       => 'confirmation',
-                    's_id'        => $data['id'],
-                    'secure_hash' => fluentCrmGetContactSecureHash($subscriber->id)
+                    'hash' => $subscriber->hash,
+                    'secure_hash' => $subscriber->getSecureHash()
                 ]), site_url('/'));
+
                 return '<a style="color: #ffffff; background-color: #454545; font-size: 16px; border-radius: 5px; text-decoration: none; font-weight: normal; font-style: normal; padding: 0.8rem 1rem; border-color: #0072ff;" href="' . $url . '">' . $defaultValue . '</a>';
             case "business_name":
                 $business = fluentcrmGetGlobalSettings('business_settings', []);

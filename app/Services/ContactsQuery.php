@@ -54,13 +54,14 @@ class ContactsQuery
 
         if ($this->args['filter_type'] == 'advanced') {
             $filtersGroups = $this->args['filters_groups'];
-            $subscribersQuery->where(function ($subscribersQueryGroup) use ($filtersGroups) {
 
+            $subscribersQuery->where(function ($subscribersQueryGroup) use ($filtersGroups) {
                 foreach ($filtersGroups as $groupIndex => $group) {
                     $method = 'orWhere';
                     if ($groupIndex == 0) {
                         $method = 'where';
                     }
+
                     $subscribersQueryGroup->{$method}(function ($q) use ($group) {
                         foreach ($group as $providerName => $items) {
                             do_action_ref_array('fluentcrm_contacts_filter_' . $providerName, [&$q, $items]);

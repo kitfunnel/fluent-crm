@@ -19,7 +19,7 @@ class CompanyController extends Controller
     public function index(Request $request)
     {
         $order = [
-            'by' => $request->getSafe('sort_by', 'id', 'sanitize_sql_orderby'),
+            'by'    => $request->getSafe('sort_by', 'id', 'sanitize_sql_orderby'),
             'order' => $request->getSafe('sort_order', 'DESC', 'sanitize_sql_orderby')
         ];
 
@@ -118,12 +118,12 @@ class CompanyController extends Controller
 
         $result = FluentCrmApi('companies')->attachContactsByIds($subscriberIds, $companyIds);
 
-        if(!$result) {
+        if (!$result) {
             return $this->sendError('Invalid data', 422);
         }
 
         return [
-            'message' => __('Selected Companies has been attached successfully', 'fluent-crm'),
+            'message'   => __('Selected Companies has been attached successfully', 'fluent-crm'),
             'companies' => $result['companies']
         ];
     }
@@ -135,10 +135,10 @@ class CompanyController extends Controller
 
         $result = FluentCrmApi('companies')->detachContactsByIds($subscriberIds, $companyIds);
 
-        if(!$result) {
+        if (!$result) {
             return $this->sendError('Invalid data', 422);
         }
-        $result['message'] =  __('Company has been successfully detached', 'fluent-crm');
+        $result['message'] = __('Company has been successfully detached', 'fluent-crm');
 
         return $result;
     }
@@ -201,7 +201,7 @@ class CompanyController extends Controller
 
         if ($contactId = $request->get('intended_contact_id')) {
             $contact = Subscriber::find($contactId);
-            if($contact) {
+            if ($contact) {
                 $contact->attachCompanies([$company->id]);
                 if (!$contact->company_id) {
                     $contact->company_id = $company->id;
@@ -257,12 +257,12 @@ class CompanyController extends Controller
         $statuses = Helper::companyTypes();
 
         $this->validate([
-            'column' => $column,
-            'value' => $value,
+            'column'      => $column,
+            'value'       => $value,
             'company_ids' => $companyIds
         ], [
-            'column' => 'required',
-            'value' => 'required',
+            'column'      => 'required',
+            'value'       => 'required',
             'company_ids' => 'required'
         ]);
 
@@ -286,13 +286,13 @@ class CompanyController extends Controller
 
         foreach ($companies as $company) {
 
-            if($column == 'refetch_logo') {
+            if ($column == 'refetch_logo') {
                 $newLogo = $this->getLogoWebsiteUrl($company->website);
-                if($newLogo) {
+                if ($newLogo) {
                     $company->logo = $newLogo;
                     $company->save();
                     return [
-                        'message' => 'Logo has been updated successfully',
+                        'message'      => 'Logo has been updated successfully',
                         'updated_logo' => $newLogo
                     ];
                 }
@@ -458,8 +458,9 @@ class CompanyController extends Controller
         return Arr::only($data, array_keys($allData));
     }
 
-    private function makeHttpUrl($url) {
-        if(!$url) {
+    private function makeHttpUrl($url)
+    {
+        if (!$url) {
             return $url;
         }
         $parsed_url = parse_url($url);
@@ -472,14 +473,15 @@ class CompanyController extends Controller
 
     private function getLogoWebsiteUrl($url)
     {
-        if(!$url) {
+        if (!$url) {
             return NULL;
         }
 
         $url = $this->makeHttpUrl($url);
 
         $response = wp_remote_get($url, [
-            'timeout' => 10, // Set a timeout of 10 seconds
+            'sslverify'  => false, // Disable SSL verification to avoid 403 Forbidden error
+            'timeout'    => 10, // Set a timeout of 10 seconds
             'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3' // Set a User-Agent header to avoid 403 Forbidden error
         ]);
 
@@ -492,7 +494,6 @@ class CompanyController extends Controller
         $html = wp_remote_retrieve_body($response);
 
         preg_match('/<link rel="apple-touch-icon"(?:.*?)href="([^"]+)"/i', $html, $matches);
-
         // Use regular expressions to find the logo image URL
         if (!isset($matches[1])) {
             preg_match('/<link rel="(?:shortcut|icon)"(?:.*?)href="([^"]+)"/i', $html, $matches);
@@ -501,27 +502,55 @@ class CompanyController extends Controller
         // If a logo URL is found, download the image to the uploads directory
         if (isset($matches[1])) {
             $logoUrl = $matches[1];
+
+            $extension = strtolower(substr($logoUrl, strrpos($logoUrl, '.') + 1));
+            if (!in_array($extension, ['png', 'jpg', 'jpeg', 'gif', 'ico'])) {
+                return NULL;
+            }
+
+
             $uploadDir = wp_upload_dir(); // Get the uploads directory
 
             $filename = md5($url . time()) . '-' . basename($logoUrl); // Get the filename from the URL
             $filepath = $uploadDir['basedir'] . '/fluentcrm/' . $filename; // Combine the uploads directory path with the filename
 
             // Download the image using wp_remote_get() and save it to the uploads directory
-            $image = wp_remote_get($logoUrl);
+            $image = wp_remote_get($logoUrl, [
+                'timeout'   => 10, // Set a timeout of 10 seconds
+                'sslverify' => false // Disable SSL verification to avoid 403 Forbidden error
+            ]);
+
             if (!is_wp_error($image)) {
                 // Check if the downloaded file is actually an image
                 $headers = wp_remote_retrieve_headers($image);
-                $content_type = wp_remote_retrieve_header($headers, 'content-type');
+                $imageBody = wp_remote_retrieve_body($image);
+                if (defined('FILEINFO_MIME_TYPE') && class_exists('\finfo')) {
+                    $finfo = new \finfo(FILEINFO_MIME_TYPE);
+                    $content_type = $finfo->buffer($imageBody);
+                } else {
+                    $content_type = wp_remote_retrieve_header($headers, 'content-type');
+                    if (!$content_type) {
+                        $content_type = Arr::get($headers, 'content-type');
+                    }
 
-                if (!$content_type) {
-                    $content_type = $headers['content-type'];
+                    if (strpos($content_type, 'image/') !== 0) {
+                        return null;
+                    }
+
+                    // Temporary file to validate the image
+                    $tmpFilePath = tempnam(sys_get_temp_dir(), 'tmpimg');
+                    file_put_contents($tmpFilePath, $imageBody);
+                    $imgSize = getimagesize($tmpFilePath);
+                    @unlink($tmpFilePath);
+                    if (!$imgSize) {
+                        return null;
+                    }
                 }
 
                 if (strpos($content_type, 'image/') === 0) {
                     global $wp_filesystem;
-
-                    if(!$wp_filesystem) {
-                        require_once ( ABSPATH . '/wp-admin/includes/file.php' );
+                    if (!$wp_filesystem) {
+                        require_once(ABSPATH . '/wp-admin/includes/file.php');
                         WP_Filesystem();
                     }
 
@@ -530,9 +559,9 @@ class CompanyController extends Controller
                         'basedir' => $uploadDir['basedir'],
                     ]);
 
-                    $wp_filesystem->put_contents($filepath, wp_remote_retrieve_body($image));
+                    $wp_filesystem->put_contents($filepath, $imageBody);
                     // Return the URL of the saved image
-                    return $uploadDir['baseurl'] .FLUENTCRM_UPLOAD_DIR.'/' . $filename;
+                    return $uploadDir['baseurl'] . FLUENTCRM_UPLOAD_DIR . '/' . $filename;
                 } else {
                     // If the downloaded file is not an image, delete the file and return null
                     @unlink($filepath);
@@ -565,8 +594,8 @@ class CompanyController extends Controller
         $fields['fields'] = Helper::getNoteSyncFields();
 
         return $this->sendSuccess([
-            'notes'       => $notes,
-            'fields'      => $fields
+            'notes'  => $notes,
+            'fields' => $fields
         ]);
     }
 

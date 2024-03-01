@@ -157,6 +157,8 @@ $app->addAction('comment_post', 'AutoSubscribeHandler@handleCommentPost', 99, 3)
 $app->addAction('profile_update', 'AutoSubscribeHandler@syncUserUpdate', 10, 3);
 $app->addAction('delete_user', 'AutoSubscribeHandler@maybeDeleteContact', 10, 3);
 
+$app->addAction('woocommerce_customer_save_address', 'AutoSubscribeHandler@syncWooAddressUpdate', 10, 2);
+
 add_shortcode('fluentcrm_pref', function ($atts, $content) {
     return (new \FluentCrm\App\Hooks\Handlers\PrefFormHandler())->handleShortCode($atts, $content);
 });

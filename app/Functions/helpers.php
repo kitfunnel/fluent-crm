@@ -995,8 +995,8 @@ function fluentcrm_get_crm_profile_html($userIdOrEmail, $checkPermission = true,
 
     $lifeTimeValue = apply_filters('fluent_crm/contact_lifetime_value', 0, $profile);
 
-    if($lifeTimeValue) {
-        $lifeTimeValue = apply_filters('fluentcrm_currency_sign', '').' '.number_format_i18n($lifeTimeValue, 2);
+    if ($lifeTimeValue) {
+        $lifeTimeValue = apply_filters('fluentcrm_currency_sign', '') . ' ' . number_format_i18n($lifeTimeValue, 2);
     }
 
     ob_start();
@@ -1017,9 +1017,10 @@ function fluentcrm_get_crm_profile_html($userIdOrEmail, $checkPermission = true,
                     </a>
                 </h3>
                 <p><?php echo esc_html($profile->status); ?></p>
-                <?php if($lifeTimeValue): ?>
+                <?php if ($lifeTimeValue): ?>
                     <div style="margin-bottom: 10px;" class="fc_stats">
-                        <span style="color: #56960b; border-color: #d9e7c9; border-radius: 3px;"><?php _e('Lifetime Value', 'fluent-crm'); ?>: <?php echo esc_html($lifeTimeValue); ?></span>
+                        <span
+                            style="color: #56960b; border-color: #d9e7c9; border-radius: 3px;"><?php _e('Lifetime Value', 'fluent-crm'); ?>: <?php echo esc_html($lifeTimeValue); ?></span>
                     </div>
                 <?php endif; ?>
             </div>
@@ -1250,21 +1251,27 @@ function fluentCrmGetMemoryLimit()
     }
 
     if (function_exists('wp_convert_hr_to_bytes')) {
-        return wp_convert_hr_to_bytes($memory_limit);
+        $limit = wp_convert_hr_to_bytes($memory_limit);
+    } else {
+        $value = strtolower(trim($memory_limit));
+        $bytes = (int)$value;
+
+        if (false !== strpos($value, 'g')) {
+            $bytes *= GB_IN_BYTES;
+        } elseif (false !== strpos($value, 'm')) {
+            $bytes *= MB_IN_BYTES;
+        } elseif (false !== strpos($value, 'k')) {
+            $bytes *= KB_IN_BYTES;
+        }
+
+        $limit = min($bytes, PHP_INT_MAX);
     }
 
-    $value = strtolower(trim($memory_limit));
-    $bytes = (int)$value;
-
-    if (false !== strpos($value, 'g')) {
-        $bytes *= GB_IN_BYTES;
-    } elseif (false !== strpos($value, 'm')) {
-        $bytes *= MB_IN_BYTES;
-    } elseif (false !== strpos($value, 'k')) {
-        $bytes *= KB_IN_BYTES;
+    if ($limit < 104857600) {
+        return 104857600;
     }
 
-    return min($bytes, PHP_INT_MAX);
+    return $limit;
 }
 
 function fluentCrmWillAnonymizeIp()

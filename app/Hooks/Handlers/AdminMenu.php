@@ -665,7 +665,11 @@ class AdminMenu
             'contact_sample_csv'                  => fluentCrmMix('sample.csv'),
             'global_email_footer'                 => Helper::getEmailFooterContent(),
             'experimentals'                       => Helper::getExperimentalSettings(),
-            'publicPostTypes'                     => $formattedPostTypes
+            'publicPostTypes'                     => $formattedPostTypes,
+            'debugs'                              => [
+                '_fc_last_automation_processor' => get_option('_fc_last_funnel_processor_ran'),
+                '_fcrm_last_scheduler'          => fluentCrmGetOptionCache('_fcrm_last_scheduler')
+            ]
         );
 
         if (Arr::get($activatedFeatures, 'company_module')) {
